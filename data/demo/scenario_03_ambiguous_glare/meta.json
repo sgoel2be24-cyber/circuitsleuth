@@ -1,0 +1,12 @@
+{
+  "id": "scenario_03_ambiguous_glare",
+  "synthetic": true,
+  "title": "Ambiguous evidence under glare",
+  "description": "A small pinhole defect captured under a strong specular glare. Initial evidence is confounded; the agent should test the illumination hypothesis and consult the independent view.",
+  "expected": [
+    "initial candidate uncertain or confound-flagged",
+    "agent runs adaptive-threshold / independent-view analysis",
+    "verdict changes or uncertainty explicitly documented"
+  ],
+  "has_secondary_view": true
+}

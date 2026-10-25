@@ -1,0 +1,14 @@
+{
+  "id": "scenario_01_clear_defects",
+  "synthetic": true,
+  "title": "Clearly defective board",
+  "description": "Three gross defects (open circuit, short circuit, spur) under good imaging conditions with a second capture available.",
+  "expected": [
+    "registration good",
+    "anomalies detected",
+    "agent verifies top regions",
+    "defects confirmed with evidence",
+    "report produced"
+  ],
+  "has_secondary_view": true
+}

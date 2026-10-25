@@ -1,0 +1,12 @@
+{
+  "id": "scenario_02_clean_board",
+  "synthetic": true,
+  "title": "Clean board",
+  "description": "Defect-free board with mild illumination shift between captures. The system must not manufacture defects.",
+  "expected": [
+    "registration good",
+    "no defect confirmed",
+    "report reflects clean result"
+  ],
+  "has_secondary_view": true
+}

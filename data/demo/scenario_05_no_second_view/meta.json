@@ -1,0 +1,12 @@
+{
+  "id": "scenario_05_no_second_view",
+  "synthetic": true,
+  "title": "Ambiguous region, no second view",
+  "description": "A moderate spur under glare with no secondary capture available. The agent must request additional visual evidence, receive 'capture required', and create a human review task instead of guessing.",
+  "expected": [
+    "agent requests additional view",
+    "additional-capture-required status returned",
+    "human review requested"
+  ],
+  "has_secondary_view": false
+}

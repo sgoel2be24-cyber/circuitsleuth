@@ -1,0 +1,13 @@
+{
+  "id": "scenario_06_multiple_regions",
+  "synthetic": true,
+  "title": "Multiple suspicious regions (budget-limited)",
+  "description": "Five defects of mixed severity. The agent prioritizes by evidence quality and respects its tool-call budget, maintaining independent per-region states.",
+  "expected": [
+    "regions prioritized",
+    "budget respected",
+    "independent region states",
+    "explained decisions"
+  ],
+  "has_secondary_view": true
+}

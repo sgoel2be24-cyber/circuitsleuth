@@ -1,0 +1,15 @@
+services:
+  circuitsleuth:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - CIRCUITSLEUTH_DATA_DIR=/app/data
+    volumes:
+      - circuitsleuth-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  circuitsleuth-data:

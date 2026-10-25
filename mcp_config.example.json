@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "circuitsleuth": {
+      "command": ".venv/Scripts/python.exe",
+      "args": ["backend/app/tools/mcp_server.py"],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "type": "open_circuit",
+    "bbox": [
+      118,
+      521,
+      23,
+      14
+    ],
+    "synthetic": true
+  },
+  {
+    "type": "mousebite",
+    "bbox": [
+      727,
+      100,
+      13,
+      17
+    ],
+    "synthetic": true
+  },
+  {
+    "type": "spur",
+    "bbox": [
+      266,
+      370,
+      8,
+      25
+    ],
+    "synthetic": true
+  },
+  {
+    "type": "spurious_copper",
+    "bbox": [
+      547,
+      168,
+      25,
+      23
+    ],
+    "synthetic": true
+  },
+  {
+    "type": "pinhole",
+    "bbox": [
+      720,
+      206,
+      10,
+      10
+    ],
+    "synthetic": true
+  }
+]

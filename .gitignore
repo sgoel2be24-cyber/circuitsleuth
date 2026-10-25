@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Runtime data (regenerable); keep demo metadata for provenance
+data/runs/
+data/circuitsleuth.db*
+data/*.log
+data/debug_*
+
+# Environment
+.env

@@ -1,0 +1,32 @@
+[
+  {
+    "type": "open_circuit",
+    "bbox": [
+      138,
+      263,
+      23,
+      14
+    ],
+    "synthetic": true
+  },
+  {
+    "type": "short_circuit",
+    "bbox": [
+      518,
+      146,
+      12,
+      68
+    ],
+    "synthetic": true
+  },
+  {
+    "type": "spur",
+    "bbox": [
+      729,
+      525,
+      21,
+      8
+    ],
+    "synthetic": true
+  }
+]

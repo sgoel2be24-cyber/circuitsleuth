@@ -1,0 +1,264 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { api, streamEvents } from '../api'
+import type { Inspection, InspectionEvent, Verdict } from '../types'
+import { BoardViewer } from '../components/BoardViewer'
+import { AgentFeed } from '../components/AgentFeed'
+import { RegionDetail } from '../components/RegionDetail'
+import { StatusDot, VerdictChip } from '../components/ui'
+import { ReportView } from './Report'
+
+export function Workspace() {
+  const { id = '' } = useParams()
+  const nav = useNavigate()
+  const [ins, setIns] = useState<Inspection | null>(null)
+  const [events, setEvents] = useState<InspectionEvent[]>([])
+  const [selected, setSelected] = useState<string | null>(null)
+  const [tab, setTab] = useState<'activity' | 'region' | 'report'>('activity')
+  const [error, setError] = useState<string | null>(null)
+  const [rerunning, setRerunning] = useState(false)
+  const startedRef = useRef(false)
+
+  const refresh = useCallback(() => {
+    api.getInspection(id).then(setIns).catch((e) => setError(e.message))
+  }, [id])
+
+  useEffect(() => {
+    api.getInspection(id).then((d) => {
+      setIns(d)
+      if (d.status === 'created' && !startedRef.current) {
+        startedRef.current = true
+        api.start(id).catch((e) => setError(e.message))
+      }
+    }).catch((e) => setError(e.message))
+  }, [id])
+
+  useEffect(() => {
+    const es = streamEvents(
+      id,
+      (ev) => {
+        setEvents((prev) => (prev.some((p) => p.seq === ev.seq) ? prev : [...prev, ev]))
+        if (['detection_completed', 'candidate_verified', 'tool_executed', 'report_ready',
+             'inspection_completed', 'inspection_failed', 'inspection_aborted',
+             'registration_completed', 'registration_failed'].includes(ev.type)) {
+          refresh()
+        }
+      },
+      () => refresh(),
+    )
+    return () => es.close()
+  }, [id, refresh])
+
+  if (error) {
+    return (
+      <div className="mx-auto max-w-3xl px-6 py-10">
+        <div className="panel border-red-400/30 p-4 text-sm text-red-300">{error}</div>
+      </div>
+    )
+  }
+  if (!ins) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <p className="mono text-xs text-slate-600">loading run<span className="caret">▍</span></p>
+      </div>
+    )
+  }
+
+  const running = ins.status === 'running' || ins.status === 'created'
+  const selectedCandidate = selected ? ins.candidates[selected] : null
+  const heatUrl = ins.detection?.artifacts?.diff_heatmap
+    ? api.artifactUrl(id, ins.detection.artifacts.diff_heatmap)
+    : null
+  const counts = countVerdicts(ins)
+
+  const submitReview = async (regionId: string, decision: 'confirmed' | 'rejected', note: string) => {
+    await api.submitReview(id, regionId, decision, note)
+    refresh()
+  }
+
+  const addViewAndRerun = async (file: File) => {
+    setRerunning(true)
+    try {
+      await api.addView(id, file)
+      const r = await api.rerun(id)
+      nav(`/inspections/${r.inspection_id}`)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e))
+      setRerunning(false)
+    }
+  }
+
+  return (
+    <div className="mx-auto flex h-[calc(100vh-3.5rem)] max-w-[1600px] flex-col px-4 py-3.5">
+      {/* ------------------------------------------------------- header strip */}
+      <div className="ticked panel mb-3 flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-2.5">
+        <div className="flex items-center gap-2.5">
+          <StatusDot status={ins.status} />
+          <span className="mono text-[13px] text-slate-100">{id}</span>
+          {ins.summary?.scenario_id && (
+            <span className="mono rounded bg-white/5 px-1.5 py-0.5 text-[9px] text-slate-400">
+              {ins.summary.scenario_id}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-wrap items-center gap-1.5">
+          {Object.entries(counts).map(([k, n]) =>
+            n > 0 ? <VerdictChip key={k} status={k as Verdict} small /> : null,
+          )}
+          {Object.keys(ins.candidates).length === 0 && ins.status === 'completed' && (
+            <span className="mono rounded bg-emerald-400/10 px-2 py-0.5 text-[10px] text-emerald-300 ring-1 ring-emerald-400/40">
+              board clean — no anomalies
+            </span>
+          )}
+        </div>
+        <div className="mono ml-auto flex flex-wrap items-center gap-x-4 gap-y-1 text-[10.5px] text-slate-400">
+          {ins.registration && (
+            <span>
+              align{' '}
+              <span className={
+                ins.registration.quality === 'good' ? 'text-emerald-300'
+                  : ins.registration.quality === 'marginal' ? 'text-amber-300' : 'text-red-300'
+              }>
+                {ins.registration.quality}
+              </span>
+              {ins.registration.inliers != null && (
+                <span className="text-slate-600"> · {ins.registration.inliers} inl · {ins.registration.mean_residual_px}px</span>
+              )}
+            </span>
+          )}
+          <span>
+            tools <span className="text-cyan-300">{ins.tool_calls_used}</span>
+            <span className="text-slate-600">/{ins.config.max_tool_calls}</span>
+          </span>
+          <span>iter <span className="text-slate-200">{ins.iterations}</span></span>
+          {ins.summary?.duration_s != null && ins.summary.duration_s > 0 && (
+            <span className="text-slate-200">{ins.summary.duration_s.toFixed(2)}s</span>
+          )}
+          {ins.stop_reason && (
+            <span className="rounded bg-white/5 px-1.5 py-0.5 text-slate-400">{ins.stop_reason}</span>
+          )}
+        </div>
+      </div>
+
+      {/* missing-view operator loop */}
+      {!ins.images.view2 && ins.status === 'completed' && (
+        <div className="ticked panel mb-3 flex flex-wrap items-center gap-3 border-violet-400/25 px-4 py-2.5">
+          <span className="label-eyebrow text-violet-300/90">operator loop open</span>
+          <span className="text-[12px] text-slate-400">
+            This run had no secondary capture, so ambiguous regions could only be escalated.
+            Add a new capture of the same board and the agent re-inspects with real optical evidence.
+          </span>
+          <ViewUpload onFile={addViewAndRerun} busy={rerunning} />
+        </div>
+      )}
+
+      {/* ------------------------------------------------------- main grid */}
+      <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[1fr_430px]">
+        <div className="grid min-h-0 grid-rows-[1fr_auto] gap-3">
+          <BoardViewer
+            inspectionId={id}
+            images={ins.images}
+            candidates={ins.candidates}
+            selectedId={selected}
+            onSelect={(rid) => { setSelected(rid); if (rid) setTab('region') }}
+            diffHeatmapUrl={heatUrl}
+          />
+          <div className="ticked panel flex items-center gap-2 overflow-x-auto px-3 py-2">
+            {Object.keys(ins.candidates).length === 0 ? (
+              <span className="text-xs text-slate-500">
+                {running ? 'detection pending…' : 'no candidate regions'}
+              </span>
+            ) : (
+              Object.values(ins.candidates).map((c) => (
+                <button
+                  key={c.region_id}
+                  onClick={() => { setSelected(c.region_id); setTab('region') }}
+                  className={`flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 text-[11px] ring-1 transition ${
+                    selected === c.region_id
+                      ? 'bg-[#16233a] ring-cyan-400/60'
+                      : 'ring-[#1d2a3d] hover:bg-[#121c2a]'
+                  }`}
+                >
+                  <span className="mono text-slate-300">{c.region_id}</span>
+                  <VerdictChip status={c.status} small />
+                </button>
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className="ticked panel flex min-h-0 flex-col">
+          <div className="flex border-b border-[#1d2a3d]">
+            {([['activity', 'Agent'], ['region', 'Region'], ['report', 'Report']] as const).map(
+              ([k, label]) => (
+                <button
+                  key={k}
+                  onClick={() => setTab(k)}
+                  className={`relative px-4 py-2.5 text-xs font-medium transition-colors ${
+                    tab === k ? 'text-cyan-200' : 'text-slate-500 hover:text-slate-200'
+                  }`}
+                >
+                  {label}
+                  {k === 'region' && selectedCandidate && (
+                    <span className="mono ml-1 text-[9px] text-slate-500">{selectedCandidate.region_id}</span>
+                  )}
+                  {tab === k && (
+                    <span className="absolute inset-x-3 bottom-0 h-0.5 rounded-t bg-cyan-400" />
+                  )}
+                </button>
+              ),
+            )}
+          </div>
+          <div className="min-h-0 flex-1">
+            {tab === 'activity' && (
+              <AgentFeed events={events} running={running} artifactUrl={(n) => api.artifactUrl(id, n)} />
+            )}
+            {tab === 'region' && (selectedCandidate ? (
+              <RegionDetail
+                candidate={selectedCandidate}
+                onSubmitReview={submitReview}
+                artifactUrl={(n) => api.artifactUrl(id, n)}
+              />
+            ) : (
+              <p className="p-6 text-center text-xs text-slate-500">
+                Select a region on the board or from the strip below.
+              </p>
+            ))}
+            {tab === 'report' && <ReportView inspectionId={id} ins={ins} />}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ViewUpload({ onFile, busy }: { onFile: (f: File) => void; busy: boolean }) {
+  const ref = useRef<HTMLInputElement>(null)
+  return (
+    <>
+      <input
+        ref={ref}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const f = e.target.files?.[0]
+          if (f) onFile(f)
+        }}
+      />
+      <button
+        disabled={busy}
+        onClick={() => ref.current?.click()}
+        className="mono shrink-0 rounded-md bg-violet-400/15 px-3 py-1.5 text-[11px] font-medium text-violet-200 ring-1 ring-violet-400/40 transition hover:bg-violet-400/25 disabled:opacity-50"
+      >
+        {busy ? 're-running…' : 'add capture & re-run →'}
+      </button>
+    </>
+  )
+}
+
+function countVerdicts(ins: Inspection): Record<string, number> {
+  const out: Record<string, number> = {}
+  for (const c of Object.values(ins.candidates)) out[c.status] = (out[c.status] ?? 0) + 1
+  return out
+}

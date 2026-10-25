@@ -1,0 +1,12 @@
+{
+  "id": "scenario_04_registration_failure",
+  "synthetic": true,
+  "title": "Registration failure (mismatched capture)",
+  "description": "The operator loaded a test image of a different board revision. Feature registration cannot align it; the system must refuse to report defects and mark the inspection NOT_EVALUABLE after attempting recovery.",
+  "expected": [
+    "registration poor/failed",
+    "recovery attempted",
+    "NOT_EVALUABLE \u2014 no fabricated defects"
+  ],
+  "has_secondary_view": false
+}

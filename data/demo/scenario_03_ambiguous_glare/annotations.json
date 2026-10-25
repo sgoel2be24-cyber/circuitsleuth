@@ -1,0 +1,12 @@
+[
+  {
+    "type": "pinhole",
+    "bbox": [
+      800,
+      41,
+      10,
+      10
+    ],
+    "synthetic": true
+  }
+]
