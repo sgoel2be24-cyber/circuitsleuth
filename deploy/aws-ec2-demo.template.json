@@ -1,0 +1,204 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "CircuitSleuth supervised demo: one EC2 Docker host, no inbound access, SSM tunnel, encrypted EBS, CloudWatch. Unexecuted until account authorization.",
+  "Parameters": {
+    "VpcId": {
+      "Type": "AWS::EC2::VPC::Id"
+    },
+    "SubnetId": {
+      "Type": "AWS::EC2::Subnet::Id",
+      "Description": "Same VPC; public subnet with internet gateway route for package/image downloads and SSM."
+    },
+    "SourceBucket": {
+      "Type": "String",
+      "AllowedPattern": "[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]",
+      "Description": "Existing private S3 bucket in this region."
+    },
+    "SourceKey": {
+      "Type": "String",
+      "AllowedPattern": "[A-Za-z0-9/_.,-]+",
+      "Description": "Immutable runtime ZIP object key produced by package_submission.py --runtime."
+    },
+    "SourceSHA256": {
+      "Type": "String",
+      "AllowedPattern": "[a-f0-9]{64}"
+    },
+    "LatestAmiId": {
+      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+      "Default": "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
+    }
+  },
+  "Resources": {
+    "DemoLogs": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "RetentionInDays": 7
+      }
+    },
+    "DemoRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyName": "CircuitSleuthDemoArtifacts",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "s3:GetObject",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${SourceBucket}/${SourceKey}"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "s3:PutObject",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${SourceBucket}/evidence/${AWS::StackName}/*"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "DemoLogs",
+                      "Arn"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "DemoProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "DemoRole"
+          }
+        ]
+      }
+    },
+    "DemoSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "No inbound rules; authenticated SSM sessions only.",
+        "VpcId": {
+          "Ref": "VpcId"
+        },
+        "SecurityGroupIngress": [],
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "-1",
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Outbound build downloads, AWS APIs and SSM."
+          }
+        ]
+      }
+    },
+    "DemoInstance": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "ImageId": {
+          "Ref": "LatestAmiId"
+        },
+        "InstanceType": "t3.small",
+        "CreditSpecification": {
+          "CPUCredits": "standard"
+        },
+        "IamInstanceProfile": {
+          "Ref": "DemoProfile"
+        },
+        "MetadataOptions": {
+          "HttpTokens": "required",
+          "HttpPutResponseHopLimit": 1
+        },
+        "NetworkInterfaces": [
+          {
+            "DeviceIndex": "0",
+            "SubnetId": {
+              "Ref": "SubnetId"
+            },
+            "AssociatePublicIpAddress": true,
+            "GroupSet": [
+              {
+                "Ref": "DemoSecurityGroup"
+              }
+            ]
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/xvda",
+            "Ebs": {
+              "VolumeSize": 30,
+              "VolumeType": "gp3",
+              "Encrypted": true,
+              "DeleteOnTermination": true
+            }
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "CircuitSleuth-Team-Update"
+          },
+          {
+            "Key": "Purpose",
+            "Value": "Supervised-hackathon-demo"
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Sub": "#!/bin/bash\nset -euxo pipefail\nexec > >(tee /var/log/circuitsleuth-bootstrap.log) 2>&1\n# A supervised, bounded demo; the instance stops after six hours.\nshutdown -h +360\n# Standard credits prevent surplus CPU-credit charges on T3.\ndnf install -y docker unzip python3\ncommand -v aws || dnf install -y awscli2\nsystemctl enable --now docker amazon-ssm-agent\nmkdir -p /opt/circuitsleuth /var/lib/circuitsleuth\naws s3 cp 's3://${SourceBucket}/${SourceKey}' /opt/source.zip --region '${AWS::Region}'\nprintf '%s  %s\\n' '${SourceSHA256}' /opt/source.zip | sha256sum -c -\nunzip -q /opt/source.zip -d /opt/circuitsleuth\ncd /opt/circuitsleuth\ncat SOURCE_MANIFEST.json\n# Extra build headroom on the 2 GiB instance; encrypted root volume.\nfallocate -l 2G /swapfile\nchmod 600 /swapfile\nmkswap /swapfile\nswapon /swapfile\ndocker build -f deploy/Dockerfile -t circuitsleuth:demo .\ndocker run -d --name circuitsleuth --restart unless-stopped \\\n  -p 127.0.0.1:8080:8080 -v /var/lib/circuitsleuth:/app/data \\\n  --log-driver awslogs --log-opt awslogs-region='${AWS::Region}' \\\n  --log-opt awslogs-group='${DemoLogs}' --log-opt awslogs-stream=application \\\n  circuitsleuth:demo\n# This creates one inspection and verifies actual OpenCV, reports and PNGs.\ndocker exec circuitsleuth python tools/http_smoke_test.py\n"
+          }
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "InstanceId": {
+      "Value": {
+        "Ref": "DemoInstance"
+      }
+    },
+    "CloudWatchLogGroup": {
+      "Value": {
+        "Ref": "DemoLogs"
+      }
+    },
+    "EvidencePrefix": {
+      "Value": {
+        "Fn::Sub": "s3://${SourceBucket}/evidence/${AWS::StackName}/"
+      }
+    },
+    "Access": {
+      "Value": "No public web endpoint. Use SSM port forwarding or arrange a live screen-share."
+    }
+  }
+}

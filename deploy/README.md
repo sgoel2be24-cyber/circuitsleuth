@@ -1,105 +1,156 @@
 # Deployment
 
-## Verified status, 2026-10-25
+## Verified status — 26 October 2026
 
-| Component | Evidence and limits |
-|---|---|
-| Local environment | Python 3.13.1, OpenCV 5.0.0; `pip check` reports no broken requirements. See the project verification report for current test and UI results. |
-| Backend dependency lock | `backend/requirements.lock.txt` pins runtime and test dependencies from the installed environment. Windows-only dependencies have platform markers. A fresh Linux installation is not yet verified. |
-| Container | Dockerfile updated and reviewed; build and execution remain **unverified** because Docker is unavailable here. |
-| AWS | **Unverified**. No AWS workload was created or billed during this work. |
-| Durable cloud storage | **Not implemented**. SQLite and artifacts are local to the process filesystem. |
+The Linux GitHub Actions workflow successfully installed the dependency locks,
+built `deploy/Dockerfile` and completed an actual HTTP inspection with report,
+events and PNG evidence. This verifies the container, not an AWS deployment.
+The local Docker daemon is unavailable. AWS execution is still pending.
 
-AWS execution is a competition requirement. A locally working application alone does
-not satisfy it. Record a real cloud inspection and its logs before claiming compliance.
-
-## Reproduce locally
-
-Use Python 3.13 and Node 24. The frontend lock file is installed with `npm ci`.
-
-```powershell
-python -m venv .venv
-.venv\Scripts\python.exe -m pip install -r backend/requirements.lock.txt
-.venv\Scripts\python.exe tools/generate_dataset.py
-cd frontend
-npm ci
-cd ..
-powershell -ExecutionPolicy Bypass -File scripts/verify_local.ps1
-```
-
-Add `-IncludeMcp` to run the independent MCP stdio smoke test; no API server
-is needed. On macOS/Linux, use `.venv/bin/python scripts/verify_local.py
---include-mcp` (on one line). The verifier does not create cloud resources.
-
-## Run the container locally
+## Local container
 
 ```bash
 docker compose -f deploy/docker-compose.yml up --build
-# http://localhost:8080 — API and UI from one process
+python3 tools/http_smoke_test.py --base-url http://127.0.0.1:8080
+python3 -m tools.export_demo_evidence --out /tmp/circuitsleuth-demo-evidence
 ```
 
-The build uses Node 24, Python 3.13, the frontend lock file and the exact backend
-lock. Base-image tags are release families, not immutable digests. Resolve and
-record their digests before a reproducible production release. Uvicorn explicitly
-uses the portable h11 transport without optional WebSocket dependencies; the
-application streams events using SSE.
+The evidence exporter creates six synthetic inspections. Use disposable storage.
+It writes full reports, audit events, planning references, PNG crops and hashes.
+Partial/failed exports remain on disk for diagnosis; reruns need a new directory.
 
-Startup generates the deterministic demo set in the configured data directory.
-A generation failure prevents the API from starting. `exec` forwards container
-termination signals to Uvicorn. Compose persists SQLite and artifacts in a named
-volume.
+## AWS: supervised EC2 demo
 
-After a successful build, verify:
+`aws-ec2-demo.template.json` supplies a concrete alternative for new AWS accounts.
+[App Runner stopped accepting new customers on 30 April 2026](https://docs.aws.amazon.com/apprunner/latest/dg/apprunner-availability-change.html).
+The old App Runner example is retained only for existing customers.
 
-1. `GET /api/health` returns `status: ok` and `opencv_version: 5.*`.
-2. Open `/new`, complete a demo, download its report and reload its workspace URL.
-3. Confirm API inspection status, candidate artifacts and actual event logs.
-4. Restart the container and confirm completed inspection history survives.
+The template creates one x86 EC2 `t3.small`, a 30 GiB encrypted gp3 root volume,
+an instance role, a security group with **no inbound rules**, and seven-day
+CloudWatch logs. Docker publishes only `127.0.0.1:8080`. AWS Systems Manager
+provides authenticated shell/port forwarding. The existing application needs no
+cloud-specific pipeline changes. A host-mounted data directory survives
+container restart and EC2 stop/start; stack deletion deletes that root volume.
+This is a single-instance demonstration, without high availability or backups.
 
-## AWS deployment template — requires authorization and actual execution
+The instance builds the existing Dockerfile from a SHA-256-checked private S3
+source ZIP. Its role can read only that source object, write only the stack's
+evidence prefix and send logs to its log group, plus the standard SSM managed
+node permissions. IMDSv2 is required. No SSH key or public application endpoint
+is created. The public IPv4 address provides outbound internet in an existing
+public subnet; it is billable even though ingress is closed.
 
-The following commands create billable resources. They are provided for an
-authorized deployment; they have **not** been executed or validated here.
-Use one region consistently and replace every placeholder.
+### Account and cost gate
+
+Complete AWS sign-in/MFA yourself. Then inspect Billing → Credits and Bills:
+credit remaining amount, expiration, eligible services, and existing charges.
+The user's requested ceiling is **half of the usable remaining credits**.
+Check the EC2, EBS, public IPv4, S3 and CloudWatch rates for `ap-south-1` (Mumbai)
+before execution, including already-running account resources. No balance or
+free-tier eligibility is assumed. Credits are not a prepaid cash wallet.
+
+The template uses standard T3 credits and schedules an automatic stop six hours
+from first boot. **That is not a hard spending cap**: EBS, public IPv4, S3 and
+logs can keep billing, and a later manual restart needs a new shutdown timer.
+Delete the stack and source/evidence objects after preserving needed results.
+AWS Budgets alerts can lag and do not impose a universal spending limit.
+
+### Prepare source locally (no cloud resources)
+
+Commit changes first. Python standard library and Git are sufficient:
 
 ```bash
-aws ecr create-repository --region <REGION> --repository-name circuitsleuth
-docker build -f deploy/Dockerfile -t circuitsleuth:<IMAGE_TAG> .
-aws ecr get-login-password --region <REGION> | docker login --username AWS --password-stdin <ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com
-docker tag circuitsleuth:<IMAGE_TAG> <ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/circuitsleuth:<IMAGE_TAG>
-docker push <ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/circuitsleuth:<IMAGE_TAG>
+python3 tools/package_submission.py --runtime --out /tmp/circuitsleuth-runtime.zip
 ```
 
-Create an IAM ECR access role trusted by `build.apprunner.amazonaws.com` with the
-managed App Runner ECR read policy. This is the **access role**, not a runtime
-instance role. Copy `apprunner-service.example.json` to a local configuration,
-fill in account, region, image tag and access-role ARN, then:
+The ZIP has a source commit and per-file hashes. It excludes dependencies,
+inspection data, environment files and research captures. Keep the printed SHA.
+Upload it to a private S3 bucket in the chosen region using the AWS console or
+AWS CLI after the budget is checked. Use an immutable source object key.
+Do not upload the original working directory or credentials.
+
+### Deploy after account and budget checks
+
+Use an authenticated AWS CLI, including CloudShell if preferred. Set the region
+explicitly. Supply a VPC and public subnet in the same VPC, with an internet
+route; the template does not create a VPC, NAT gateway or load balancer.
+Fill the template parameters with the private source bucket, object key and
+printed SHA256. The launch creates billable resources and an instance IAM role.
 
 ```bash
-aws apprunner create-service --region <REGION> --cli-input-json file://deploy/apprunner-service.local.json
+aws cloudformation validate-template --region ap-south-1 \
+  --template-body file://deploy/aws-ec2-demo.template.json
+aws cloudformation deploy --region ap-south-1 \
+  --stack-name circuitsleuth-demo \
+  --template-file deploy/aws-ec2-demo.template.json \
+  --capabilities CAPABILITY_IAM \
+  --parameter-overrides VpcId=VPC_ID SubnetId=SUBNET_ID \
+    SourceBucket=BUCKET SourceKey=SOURCE_KEY SourceSHA256=ZIP_SHA256
+aws cloudformation describe-stacks --region ap-south-1 --stack-name circuitsleuth-demo
 ```
 
-The template follows AWS's documented
-[source configuration](https://docs.aws.amazon.com/apprunner/latest/api/API_SourceConfiguration.html),
-[ECR access-role configuration](https://docs.aws.amazon.com/apprunner/latest/api/API_AuthenticationConfiguration.html)
-and [image environment variables](https://docs.aws.amazon.com/apprunner/latest/api/API_ImageConfiguration.html).
+CloudFormation completion alone does **not** mean Docker finished building.
+In EC2 → Connect → Session Manager, check:
 
-The example uses port 8080, HTTP health check `/api/health`, 1 vCPU and 2 GB RAM.
-These are starting settings; validate latency and memory with the real workload.
-App Runner exposes container stdout through CloudWatch; preserve logs tied to the
-inspection ID together with report, service URL, region, image digest and timestamp.
-Cloud-provider service metadata alone does not prove an inspection ran there.
+```bash
+sudo tail -100 /var/log/circuitsleuth-bootstrap.log
+sudo docker ps
+sudo docker exec circuitsleuth python tools/http_smoke_test.py
+```
 
-App Runner storage is ephemeral. The example uses `/tmp/circuitsleuth`; history and
-artifacts can disappear on replacement and are not shared between instances.
-Keep a supervised single-instance demo or implement external storage before using
-multiple instances or claiming durable cloud history. S3 and shared database
-integration remain future work. Do not expose an unauthenticated upload API as a
-general production service; the current target is a bounded competition demo.
+Failure logs remain on the host. AMI resolution, quotas, IAM/SCP permissions,
+network access, image registries and dependency availability must be verified
+by the real deployment. This template has been statically checked, not launched.
 
-## Configuration
+### Inspect and preserve proof
 
-Settings use the `CIRCUITSLEUTH_` prefix (`backend/app/config.py`): data directory,
-budgets, thresholds, CORS origins and input limits. Configure
-`CIRCUITSLEUTH_DATA_DIR` consistently for generation and runtime. Do not place AWS
-credentials, `.env` files, inspection history or personal uploads in an image.
+On the instance, run from a Session Manager session (replace BUCKET):
+
+```bash
+sudo docker exec circuitsleuth python -m tools.export_demo_evidence \
+  --out /app/data/aws-evidence
+sudo aws sts get-caller-identity --region ap-south-1
+sudo aws s3 cp /var/lib/circuitsleuth/aws-evidence/ \
+  s3://BUCKET/evidence/circuitsleuth-demo/ --recursive --sse AES256 --region ap-south-1
+```
+
+Record the EC2 instance ID, region, resolved AMI, source ZIP SHA and commit,
+Docker image ID, command output, inspection IDs, timestamps and CloudWatch log
+links in a separate cloud-run record. Download the evidence with an authorized
+operator account. Redact account identifiers from public pitch material.
+The exporter deliberately keeps `aws_execution_verified: false`: a local API
+cannot certify its own hosting. Tie its artifacts to AWS-side evidence before
+claiming completion of the competition's cloud requirement.
+
+For a browser demonstration, install the official AWS CLI Session Manager plugin
+on the operator's machine and use [AWS's port-forwarding procedure](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html):
+
+```bash
+aws ssm start-session --region ap-south-1 --target INSTANCE_ID \
+  --document-name AWS-StartPortForwardingSession \
+  --parameters '{"portNumber":["8080"],"localPortNumber":["8080"]}'
+```
+
+Open `http://127.0.0.1:8080`. Judge delivery uses an **arranged live screen-share**
+with this private route; that arrangement is still pending. A public link would
+require application authentication and a separately reviewed exposure plan.
+
+### Cleanup
+
+Preserve the reports first: deletion destroys the root disk and its history.
+Then delete the demo stack, wait for deletion, and remove only the source/evidence
+objects created for this demo. The pre-existing S3 bucket is outside the stack.
+
+```bash
+aws cloudformation delete-stack --region ap-south-1 --stack-name circuitsleuth-demo
+aws cloudformation wait stack-delete-complete --region ap-south-1 --stack-name circuitsleuth-demo
+```
+
+## Configuration and reproducibility
+
+Python 3.13 / Node 24, `backend/requirements.lock.txt` and frontend `npm ci` are
+used in CI and Docker. Base-image tags are release families, not immutable
+image digests; preserve the actual image ID/digest with the cloud record.
+`CIRCUITSLEUTH_DATA_DIR` controls persisted data. Never place secrets, personal
+uploads or local inspection history in the image. The demo does not implement
+multi-instance storage, S3 runtime artifact storage or production authentication.

@@ -40,6 +40,7 @@ jobs:
         run: |
           docker run -d --name circuitsleuth-check -p 127.0.0.1:8080:8080 circuitsleuth:ci
           python tools/http_smoke_test.py --base-url http://127.0.0.1:8080
+          python -m tools.export_demo_evidence --out /tmp/circuitsleuth-demo-evidence
       - name: Container logs and cleanup
         if: always()
         run: |

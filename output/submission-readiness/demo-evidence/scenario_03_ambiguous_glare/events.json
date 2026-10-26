@@ -1,0 +1,644 @@
+[
+  {
+    "seq": 1,
+    "ts": 1793003947.199479,
+    "phase": "OBSERVE",
+    "type": "inspection_started",
+    "message": "Observation acquired: reference and test images loaded, one secondary view available.",
+    "evidence": {
+      "has_secondary_view": true,
+      "scenario_id": "scenario_03_ambiguous_glare"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 2,
+    "ts": 1793003947.3569121,
+    "phase": "ALIGN",
+    "type": "registration_completed",
+    "message": "Aligned test to reference with SIFT (209 inliers, residual 0.15px, quality good).",
+    "evidence": {
+      "detector": "SIFT",
+      "keypoints_reference": 708,
+      "keypoints_test": 701,
+      "attempts": [
+        "SIFT",
+        "ECC-refine"
+      ],
+      "good_matches": 251,
+      "inliers": 209,
+      "inlier_ratio": 0.8327,
+      "mean_residual_px": 0.15,
+      "coverage_score": 0.75,
+      "photometric_score": 0.8438,
+      "quality": "good",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.8266,
+      "warp_matrix": [
+        [
+          1.0000063180923462,
+          -8.49315692903474e-05,
+          -1.699076710792724e-05
+        ],
+        [
+          -1.2458972378226463e-05,
+          0.9999968409538269,
+          0.0016547952545806766
+        ]
+      ]
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 3,
+    "ts": 1793003947.505209,
+    "phase": "DETECT",
+    "type": "detection_completed",
+    "message": "Detected 4 suspicious region(s).",
+    "evidence": {
+      "candidate_count": 4,
+      "params": {
+        "min_mean_diff": 10.0,
+        "min_structural_mismatch": 0.25,
+        "diff_percentile": 97.0,
+        "morph_open_ksize": 3,
+        "morph_close_ksize": 5,
+        "morph_bridge_ksize": 17,
+        "ncc_window": 15,
+        "diff_threshold": 39.25,
+        "otsu_threshold": 20.0
+      }
+    },
+    "region_id": null,
+    "artifacts": [
+      "diff_heatmap",
+      "candidate_overlay"
+    ]
+  },
+  {
+    "seq": 4,
+    "ts": 1793003947.505645,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R01 at (331, 326, 8, 8): difference 0.45, mismatch 0.42",
+    "evidence": {
+      "bbox": [
+        331,
+        326,
+        8,
+        8
+      ],
+      "difference_score": 0.4472,
+      "structural_mismatch_score": 0.4222,
+      "illumination_suspect": false
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 5,
+    "ts": 1793003947.506024,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R02 at (165, 340, 85, 12): difference 0.24, mismatch 0.56",
+    "evidence": {
+      "bbox": [
+        165,
+        340,
+        85,
+        12
+      ],
+      "difference_score": 0.239,
+      "structural_mismatch_score": 0.5614,
+      "illumination_suspect": false
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 6,
+    "ts": 1793003947.5078132,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R03 at (171, 247, 72, 13): difference 0.20, mismatch 0.64",
+    "evidence": {
+      "bbox": [
+        171,
+        247,
+        72,
+        13
+      ],
+      "difference_score": 0.1983,
+      "structural_mismatch_score": 0.6368,
+      "illumination_suspect": false
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 7,
+    "ts": 1793003947.508348,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R04 at (147, 280, 117, 42): difference 0.30, mismatch 0.26",
+    "evidence": {
+      "bbox": [
+        147,
+        280,
+        117,
+        42
+      ],
+      "difference_score": 0.3027,
+      "structural_mismatch_score": 0.258,
+      "illumination_suspect": false
+    },
+    "region_id": "R04",
+    "artifacts": []
+  },
+  {
+    "seq": 8,
+    "ts": 1793003947.509779,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned adaptive_threshold for R04 (priority 4.62; 4 open region(s), budget 0/12 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 4.624,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.605,
+        "evidence_quality": 0.131,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 4
+    },
+    "region_id": "R04",
+    "artifacts": []
+  },
+  {
+    "seq": 9,
+    "ts": 1793003947.814858,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "adaptive_threshold on R04: Adaptive-threshold changed-pixel fraction=0.0%, local mismatch=0.96 \u2014 consistent with pure illumination confound.",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "supports_defect": false,
+      "honesty": "reprocess",
+      "metrics": {
+        "changed_frac": 0.0,
+        "mean_mismatch": 0.957,
+        "illumination_confound_likely": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R04",
+    "artifacts": [
+      "r04_adaptive_binary_ref_test"
+    ]
+  },
+  {
+    "seq": 10,
+    "ts": 1793003947.815664,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R04 (priority 4.94; 4 open region(s), budget 1/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.944,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.605,
+        "evidence_quality": 0.131,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 4
+    },
+    "region_id": "R04",
+    "artifacts": []
+  },
+  {
+    "seq": 11,
+    "ts": 1793003947.815783,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R04 -> CLEARED; basis: illumination confound",
+    "evidence": {
+      "verdict": "CLEARED",
+      "label": null,
+      "basis": "illumination confound",
+      "notes": [
+        "Difference is high but structural mismatch is low and adaptive-threshold analysis found no geometry change \u2014 consistent with glare/shadow."
+      ],
+      "evidence_count": 1
+    },
+    "region_id": "R04",
+    "artifacts": []
+  },
+  {
+    "seq": 12,
+    "ts": 1793003947.816521,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned adaptive_threshold for R01 (priority 4.55; 3 open region(s), budget 1/12 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 4.554,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.894,
+        "evidence_quality": 0.76,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 3
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 13,
+    "ts": 1793003947.822259,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "adaptive_threshold on R01: Adaptive-threshold changed-pixel fraction=40.3%, local mismatch=0.81.",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "supports_defect": true,
+      "honesty": "reprocess",
+      "metrics": {
+        "changed_frac": 0.4028,
+        "mean_mismatch": 0.8082,
+        "illumination_confound_likely": false
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R01",
+    "artifacts": [
+      "r01_adaptive_binary_ref_test"
+    ]
+  },
+  {
+    "seq": 14,
+    "ts": 1793003947.8232698,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned alternate_view for R02 (priority 4.35; 3 open region(s), budget 2/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.346,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.478,
+        "evidence_quality": 0.088,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 3
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 15,
+    "ts": 1793003947.830066,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "alternate_view on R02: Independent view does not show the anomaly (mean_diff=8.85, mismatch=1.3056).",
+    "evidence": {
+      "tool": "alternate_view",
+      "supports_defect": false,
+      "honesty": "alternate_view",
+      "metrics": {
+        "mean_diff": 8.85,
+        "max_diff": 21.0,
+        "mean_mismatch": 1.3056,
+        "changed_frac": 0.0042,
+        "secondary_view_available": true,
+        "comparison_reliable": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R02",
+    "artifacts": [
+      "r02_independent_view_ref_test_diff"
+    ]
+  },
+  {
+    "seq": 16,
+    "ts": 1793003947.830938,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R02 (priority 4.79; 3 open region(s), budget 3/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.786,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.478,
+        "evidence_quality": 0.088,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 3
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 17,
+    "ts": 1793003947.831009,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R02 -> NEEDS_REVIEW (short_or_spurious_copper_suspected); basis: added copper per detection: added copper on featureless background",
+    "evidence": {
+      "verdict": "NEEDS_REVIEW",
+      "label": "short_or_spurious_copper_suspected",
+      "basis": "added copper per detection: added copper on featureless background",
+      "notes": [
+        "Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view."
+      ],
+      "evidence_count": 1
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 18,
+    "ts": 1793003947.831072,
+    "phase": "DECIDE",
+    "type": "human_review_requested",
+    "message": "Human review requested for R02: Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view.",
+    "evidence": {
+      "region_id": "R02",
+      "reason": "Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view.",
+      "requested_action": "operator confirmation",
+      "created_at": "2026-10-26T14:09:07",
+      "bbox": [
+        165,
+        340,
+        85,
+        12
+      ]
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 19,
+    "ts": 1793003947.832372,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned alternate_view for R03 (priority 4.23; 2 open region(s), budget 3/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.231,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.397,
+        "evidence_quality": 0.08,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 2
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 20,
+    "ts": 1793003947.837923,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "alternate_view on R03: Independent view does not show the anomaly (mean_diff=1.8, mismatch=0.6878).",
+    "evidence": {
+      "tool": "alternate_view",
+      "supports_defect": false,
+      "honesty": "alternate_view",
+      "metrics": {
+        "mean_diff": 1.8,
+        "max_diff": 7.0,
+        "mean_mismatch": 0.6878,
+        "changed_frac": 0.0,
+        "secondary_view_available": true,
+        "comparison_reliable": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R03",
+    "artifacts": [
+      "r03_independent_view_ref_test_diff"
+    ]
+  },
+  {
+    "seq": 21,
+    "ts": 1793003947.838901,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R03 (priority 4.67; 2 open region(s), budget 4/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.671,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.397,
+        "evidence_quality": 0.08,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 2
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 22,
+    "ts": 1793003947.838969,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R03 -> NEEDS_REVIEW (short_or_spurious_copper_suspected); basis: added copper per detection: added copper on featureless background",
+    "evidence": {
+      "verdict": "NEEDS_REVIEW",
+      "label": "short_or_spurious_copper_suspected",
+      "basis": "added copper per detection: added copper on featureless background",
+      "notes": [
+        "Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view."
+      ],
+      "evidence_count": 1
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 23,
+    "ts": 1793003947.839044,
+    "phase": "DECIDE",
+    "type": "human_review_requested",
+    "message": "Human review requested for R03: Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view.",
+    "evidence": {
+      "region_id": "R03",
+      "reason": "Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view.",
+      "requested_action": "operator confirmation",
+      "created_at": "2026-10-26T14:09:07",
+      "bbox": [
+        171,
+        247,
+        72,
+        13
+      ]
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 24,
+    "ts": 1793003947.840563,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned alternate_view for R01 (priority 3.63; 1 open region(s), budget 4/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 3.634,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.894,
+        "evidence_quality": 0.76,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 1
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 25,
+    "ts": 1793003947.846862,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "alternate_view on R01: Independent view shows the anomaly (mean_diff=43.93, mismatch=0.8197).",
+    "evidence": {
+      "tool": "alternate_view",
+      "supports_defect": true,
+      "honesty": "alternate_view",
+      "metrics": {
+        "mean_diff": 43.93,
+        "max_diff": 100.0,
+        "mean_mismatch": 0.8197,
+        "changed_frac": 0.5833,
+        "secondary_view_available": true,
+        "comparison_reliable": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R01",
+    "artifacts": [
+      "r01_independent_view_ref_test_diff"
+    ]
+  },
+  {
+    "seq": 26,
+    "ts": 1793003947.8482509,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R01 (priority 4.07; 1 open region(s), budget 5/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.074,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.894,
+        "evidence_quality": 0.76,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 1.6,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 1
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 27,
+    "ts": 1793003947.848331,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R01 -> CONFIRMED_DEFECT (spur_or_spurious_copper_suspected); basis: small added copper per detection: new edges present in test",
+    "evidence": {
+      "verdict": "CONFIRMED_DEFECT",
+      "label": "spur_or_spurious_copper_suspected",
+      "basis": "small added copper per detection: new edges present in test",
+      "notes": [],
+      "evidence_count": 2
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 28,
+    "ts": 1793003947.849272,
+    "phase": "DECIDE",
+    "type": "inspection_completed",
+    "message": "Inspection finished (all_regions_decided): cleared=1, confirmed defect=1, needs review=2",
+    "evidence": {
+      "stop_reason": "all_regions_decided",
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 1
+      }
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 29,
+    "ts": 1793003947.849431,
+    "phase": "DECIDE",
+    "type": "report_generated",
+    "message": "Inspection report generated: 4 regions assessed.",
+    "evidence": {
+      "verdict_counts": {
+        "CONFIRMED_DEFECT": 1,
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 1
+      }
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 30,
+    "ts": 1793003947.851556,
+    "phase": "DECIDE",
+    "type": "report_ready",
+    "message": "Report ready in 0.651s using 5 tool call(s).",
+    "evidence": {
+      "duration_s": 0.651,
+      "tool_calls": 5
+    },
+    "region_id": null,
+    "artifacts": []
+  }
+]

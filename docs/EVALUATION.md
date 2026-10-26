@@ -19,7 +19,17 @@ Reproducible benchmark: `evaluation/benchmark.py`.
   CONFIRMED/LIKELY count as positives — cleared confounds are not alarms.
   Raw detection-level metrics are also recorded in `results.json`.
 
-## Results (5 variants × 6 templates, OpenCV 5.0.0)
+## Current results after alignment/evidence fixes
+
+The current 30-case run is in
+`output/ecc-verification-fix/benchmark/results.json`: fixed/adaptive macro
+precision 0.5208/0.8627, recall 0.8933/0.7822, F1 0.5751/0.7155, false positives
+50/10, false negatives 6/8, candidate review rate 0%/27.27%. Macro averages
+include the benchmark's empty/refusal-case conventions; F1 is not accuracy.
+Lower reported false positives come with lower recall and human-review work.
+See `docs/ALIGNMENT_FIXES.md` for additional controlled and research checks.
+
+## Preserved original results (5 variants × 6 templates, OpenCV 5.0.0)
 
 See `evaluation/results.md` / `results.json` for the generated tables. Summary:
 

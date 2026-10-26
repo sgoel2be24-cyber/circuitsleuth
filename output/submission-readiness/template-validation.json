@@ -1,0 +1,7 @@
+{
+  "template": "deploy/aws-ec2-demo.template.json",
+  "cfn_lint_version": "1.58.0",
+  "cfn_lint_exit_code": 0,
+  "user_data_bash_syntax": "passed",
+  "aws_execution": "not performed"
+}

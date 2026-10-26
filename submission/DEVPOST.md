@@ -1,86 +1,100 @@
 # Devpost submission draft — CircuitSleuth
 
+**Team Update — Shikhar Goel and Ishpreet Singh**
+
 ## Tagline
 
 See deeper. Inspect smarter. Verify before deciding.
 
-## The problem
+## Inspiration and problem
 
-Automated optical inspection pipelines run a fixed set of operations on a
-fixed image. When a potential defect is ambiguous — glare, drift, small size,
-noise, imperfect alignment — a fixed pipeline either floods operators with
-false positives or quietly misses defects. It cannot *change its mind*, ask
-for more evidence, or refuse to answer.
+A suspicious mark on a PCB can be a defect, glare or alignment error. Inspection
+operators need an evidence trail and a useful next step when the first image is
+inconclusive. CircuitSleuth investigates candidate changes with OpenCV 5,
+selects follow-up tools from the measurements, and escalates unresolved cases.
 
-## Our solution
+## What it does
 
-CircuitSleuth is an **active-perception inspection agent**. It aligns the test
-board to a reference with OpenCV 5, detects candidate anomalies, measures its
-own uncertainty, and then — per region — selects the cheapest tool that can
-resolve that uncertainty: local re-registration (is it an alignment
-artifact?), adaptive-threshold comparison (is it a glare confound?), an
-independent captured view (does it reproduce?), edge topology or magnified
-reprocessing (what geometry is it?). Findings are verified against accumulated
-evidence; anything unresolved is escalated to human review with the full
-evidence trail instead of guessed.
+The operator supplies a reference and test board. OpenCV 5 performs alignment,
+change detection, local registration, illumination-confound analysis and
+independent-view comparison. A deterministic planning policy ranks open regions
+using uncertainty, severity, evidence quality, information gain and tool cost.
+Measurements and existing evidence change the next tool selection.
 
-Everything the UI shows is real: the plan events, tool calls, artifact
-thumbnails and metrics stream from the actual orchestrator via SSE.
+The UI streams actual PLAN/ACT/VERIFY events, image artifacts and final verdicts.
+Operators can review a region, record a decision, supply another capture and
+start a fresh run while preserving the original audit trail. Missing views
+produce capture requests; failed alignment can produce a refusal to evaluate.
+The same eight tools are accessible through MCP.
 
-## Why it's agentic (and provably so)
+## How we built and checked it
 
-- The plan is never scripted per scenario: a documented priority score
-  re-ranks (region, tool) pairs after every result (`backend/app/agent/policy.py`).
-- Budget-bounded: when the tool budget runs out, unfinished regions are
-  escalated — never invented.
-- The same eight tools are exposed over a real MCP server (official SDK) so
-  external clients can drive the same inspection; the orchestrator "merely"
-  being a client of its own toolbelt is the point.
+Python 3.13, FastAPI, OpenCV 5.0.0, NumPy 2, MCP SDK, SQLite, React 19,
+TypeScript, Vite, Tailwind 4 and a single Docker container. Dependency locks,
+a portable verifier and Linux CI cover backend, frontend, MCP and an actual
+container HTTP inspection. The evidence exporter exercises all six demo cases
+and saves reports, raw events, planning references, PNGs and file hashes.
 
-## Verification highlights
+Correctness work repaired ECC warp direction, validated local alignment evidence
+and sent conflicting views to human review. This avoids clearing a real defect
+just because unconstrained re-alignment makes the image difference look smaller.
 
-- Registration hardening: mutual matching + multiple RANSAC hypotheses
-  verified photometrically + validated ECC refinement. This prevented a real,
-  documented failure mode (periodic trace rows trapping RANSAC into a
-  self-consistent 60 px-shifted warp).
-- Honest refusal: on a mismatched board the system attempts recovery, then
-  reports NOT_EVALUABLE with zero fabricated defects.
-- Human review: when no second view exists, the agent formally requests a
-  capture ("additional_capture_required") and escalates.
+## Results
 
-## Evaluation
+Current code, 30 seeded synthetic inspections (6 templates × 5 variants), fixed
+single-pass versus adaptive verification using the same current OpenCV core:
 
-30 seeded synthetic inspections (6 templates × 5 variants), fixed-pipeline
-baseline vs adaptive agent on the same OpenCV core:
+| Metric | Fixed | Adaptive |
+|---|---:|---:|
+| Macro reported precision | 0.5208 | 0.8627 |
+| Macro reported recall | 0.8933 | 0.7822 |
+| Macro reported F1 | 0.5751 | 0.7155 |
+| Reported false positives | 50 | 10 |
+| Candidate verdicts requiring review | 0% | 27.27% |
 
-- Reported-F1: **0.571 → 0.716**
-- Reported false positives: **52 → 10**
-- Mean tool calls: 4.6 per inspection; mean latency ~1.4 s
+The 80% reduction in reported false positives has a recall/review trade-off.
+These metrics describe seeded synthetic images at IoU 0.15, not production
+accuracy. The limited external research check showed a substantial domain gap;
+wrong-board identity checks and small-defect sensitivity remain open work.
 
-Plus automated regression tests, including end-to-end behavior assertions for all six
-demo scenarios.
+## AWS status — replace only after an actual evidenced run
 
-## Tech
+The EC2/SSM/CloudWatch deployment template is prepared. It runs the same Docker
+container with encrypted local EBS storage, no inbound application access and
+an authenticated Session Manager demonstration. AWS execution is **pending**
+service checks and the actual deployment. Container
+CI is not AWS proof. The older App Runner template is for existing customers
+only; App Runner is closed to new customers.
 
-Python 3.13 · FastAPI · OpenCV 5.0.0 (opencv-python-headless 5.0.0.93) ·
-NumPy 2 · MCP SDK · SQLite · React 19 + TypeScript + Vite + Tailwind v4 ·
-Docker-ready single container.
+## Intended award consideration
 
-## AWS status (honest)
+Agentic Vision: OpenCV measurements change subsequent tool calls, verification
+and human-review actions. See the workflow in `docs/TECHNICAL_REPORT.md` and the
+raw evidence in `output/submission-readiness/demo-evidence/`. No COOL award
+claim: COOL on AWS Graviton has not been implemented or evaluated.
 
-Local execution verified end-to-end. A single-container deployment
-(Dockerfile + compose + App Runner instructions) is provided but the AWS run
-itself is **unverified** — no AWS account was used for this submission.
+## Responsible use and next steps
 
-## What's next
+Use as a supervised demonstration. Scores are heuristics, not probabilities;
+there is no production PCB validation or automatic capture rig. The private
+AWS route avoids exposing the unauthenticated upload/review API. Planned future
+work includes real manufacturing data, stronger board identity and durable
+multi-instance storage.
 
-- S3-backed artifact storage + CloudWatch dashboards (deployment-day work).
-- Optional LLM planner proposing tool arguments (schema-validated) alongside
-  the deterministic baseline policy.
-- Real multi-capture rig integration for genuine re-inspection loops.
+## Repository and testing instructions
 
-## Technical report and reproducibility
+Repository: https://github.com/sgoel2be24-cyber/circuitsleuth (private; judge
+access must be arranged, or provide the source ZIP).
 
-See `docs/TECHNICAL_REPORT.md` for the implementation and proposed AWS diagram,
-`docs/POLISH_REVIEW.md` for current verification and remaining submission gaps,
-and `scripts/verify_local.py --include-mcp` for portable local checks.
+Python 3.13, Node 24; install `backend/requirements.lock.txt` and run frontend
+`npm ci`. Follow `README.md`; run `scripts/verify_local.py --include-mcp` with
+the virtual-environment Python. For Docker, follow `deploy/README.md`, then
+`tools/http_smoke_test.py`. Six synthetic demos cover defects, clean boards,
+glare, alignment failure, missing views and a constrained tool budget.
+
+## Submission status
+
+Pitch prepared in `submission/PITCH.md`. Video production deferred by the team;
+a judge-accessible video of at most five minutes remains required. AWS proof,
+judge access/live demonstration arrangement, final eligibility/rights review
+and actual Devpost submission remain pending. This file is a draft.

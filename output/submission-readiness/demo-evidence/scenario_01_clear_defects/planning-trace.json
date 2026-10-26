@@ -1,0 +1,198 @@
+[
+  {
+    "event_index": 6,
+    "region_id": "R03",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "message": "Planned adaptive_threshold for R03 (priority 4.65; 3 open region(s), budget 0/12 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 4.652,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.755,
+        "evidence_quality": 0.376,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 3
+    }
+  },
+  {
+    "event_index": 8,
+    "region_id": "R02",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      7
+    ],
+    "message": "Planned alternate_view for R02 (priority 4.37; 3 open region(s), budget 1/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.369,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.765,
+        "evidence_quality": 0.599,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 3
+    }
+  },
+  {
+    "event_index": 10,
+    "region_id": "R02",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      9
+    ],
+    "message": "Planned verify for R02 (priority 4.81; 3 open region(s), budget 2/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.809,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.765,
+        "evidence_quality": 0.599,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 3
+    }
+  },
+  {
+    "event_index": 12,
+    "region_id": "R01",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      9,
+      11
+    ],
+    "message": "Planned alternate_view for R01 (priority 4.27; 2 open region(s), budget 2/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.267,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.847,
+        "evidence_quality": 0.879,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 2
+    }
+  },
+  {
+    "event_index": 14,
+    "region_id": "R01",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "message": "Planned verify for R01 (priority 4.71; 2 open region(s), budget 3/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.707,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.847,
+        "evidence_quality": 0.879,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 2
+    }
+  },
+  {
+    "event_index": 16,
+    "region_id": "R03",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "message": "Planned alternate_view for R03 (priority 3.73; 1 open region(s), budget 3/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 3.732,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.755,
+        "evidence_quality": 0.376,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 1
+    }
+  },
+  {
+    "event_index": 18,
+    "region_id": "R03",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17
+    ],
+    "message": "Planned verify for R03 (priority 4.17; 1 open region(s), budget 4/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.172,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.755,
+        "evidence_quality": 0.376,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 1.6,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 1
+    }
+  }
+]

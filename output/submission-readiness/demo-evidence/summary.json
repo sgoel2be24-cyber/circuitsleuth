@@ -1,0 +1,74 @@
+{
+  "captured_at_utc": "2026-10-26T08:39:06.201299+00:00",
+  "synthetic": true,
+  "aws_execution_verified": false,
+  "cloud_proof": "Requires separately collected AWS identity, instance and command logs tied to these inspection IDs.",
+  "cases": [
+    {
+      "scenario": "scenario_01_clear_defects",
+      "inspection_id": "ins_c1ced564e308",
+      "stop_reason": "all_regions_decided",
+      "tool_calls": 4,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "plan_events": 7,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_02_clean_board",
+      "inspection_id": "ins_0537f0322e34",
+      "stop_reason": "no_candidates",
+      "tool_calls": 0,
+      "verdicts": {},
+      "plan_events": 0,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_03_ambiguous_glare",
+      "inspection_id": "ins_22c077f3159e",
+      "stop_reason": "all_regions_decided",
+      "tool_calls": 5,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 1
+      },
+      "plan_events": 9,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_04_registration_failure",
+      "inspection_id": "ins_cda9a1e43445",
+      "stop_reason": "registration_failed",
+      "tool_calls": 0,
+      "verdicts": {},
+      "plan_events": 0,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_05_no_second_view",
+      "inspection_id": "ins_c7ec2ceb7438",
+      "stop_reason": "all_regions_decided",
+      "tool_calls": 5,
+      "verdicts": {
+        "NEEDS_REVIEW": 5
+      },
+      "plan_events": 5,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_06_multiple_regions",
+      "inspection_id": "ins_e518536809ff",
+      "stop_reason": "all_regions_decided",
+      "tool_calls": 6,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 4,
+        "CLEARED": 1
+      },
+      "plan_events": 11,
+      "behavior_check": "passed"
+    }
+  ]
+}

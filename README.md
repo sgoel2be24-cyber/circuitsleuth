@@ -12,15 +12,17 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/opencv-5.0.0-22d3ee" alt="OpenCV 5.0.0" />
-  <img src="https://img.shields.io/badge/python-3.11%2B-3776ab" alt="Python" />
+  <img src="https://img.shields.io/badge/python-3.13-3776ab" alt="Python" />
   <img src="https://img.shields.io/badge/MCP-server-8a2be2" alt="MCP" />
-  <img src="https://img.shields.io/badge/tests-37%20passing-34d399" alt="tests" />
+  <img src="https://img.shields.io/badge/tests-CI%20verified-34d399" alt="tests" />
   <img src="https://img.shields.io/badge/data-synthetic%20%26%20seeded-fbbf24" alt="synthetic data" />
 </p>
 
 ---
 
-**CircuitSleuth** is an entry for the [OpenCV AI Competition 2026](https://opencv26.devpost.com/) (Agentic Vision Award track).
+**Team Update — Shikhar Goel and Ishpreet Singh.**
+
+**CircuitSleuth** is being prepared for the [OpenCV AI Competition 2026](https://opencv26.devpost.com/) (Agentic Vision Award track).
 Conventional AOI pipelines run a fixed sequence on a fixed image — they cannot change their mind, ask for
 more evidence, or refuse to answer. CircuitSleuth is an **agent**: it aligns the test board to a reference,
 detects anomalies, measures its own uncertainty, then selects follow-up tools per region (illumination
@@ -70,18 +72,21 @@ OpenCV **5.0.0** (verified at runtime via `/api/health`; never silently downgrad
 
 Reproducible benchmark (`evaluation/benchmark.py`): 30 seeded synthetic inspections (6 templates × 5
 variants), **fixed single-pass baseline vs the adaptive agent on the same OpenCV core** — so the delta is
-purely verification behavior:
+the effect of adaptive verification on this synthetic benchmark:
 
 | Metric | Baseline (fixed) | CircuitSleuth (adaptive) |
 |---|---|---|
-| Reported-F1 | 0.571 | **0.716** |
-| Reported false positives | 52 | **10** |
-| Escalation rate | 0% (guesses) | 26% (honest) |
-| Mean latency | ~0.9 s | ~1.4 s |
+| Macro reported F1 | 0.575 | **0.716** |
+| Macro reported precision | 0.521 | **0.863** |
+| Macro reported recall | 0.893 | 0.782 |
+| Reported false positives | 50 | **10** |
+| Candidate escalation rate | 0% | 27.27% |
 
 > All benchmark data is **synthetic and seeded**; numbers describe that dataset, not production PCBs.
 > Full methodology and per-template tables: [`docs/EVALUATION.md`](docs/EVALUATION.md) and
-> [`evaluation/results.md`](evaluation/results.md).
+> the [current results](output/ecc-verification-fix/benchmark/results.json).
+> The original `evaluation/results.json` is preserved as an historical snapshot.
+> Fewer reported false positives come with lower reported recall and human-review work.
 
 Repository cross-checks and CI: [`docs/REPOSITORY_VERIFICATION.md`](docs/REPOSITORY_VERIFICATION.md).
 
@@ -127,7 +132,7 @@ Latest alignment/evidence implementation and validation:
 [`docs/ALIGNMENT_FIXES.md`](docs/ALIGNMENT_FIXES.md).
 
 Current polish verification and remaining submission gaps:
-[`docs/POLISH_REVIEW.md`](docs/POLISH_REVIEW.md).
+[`submission/READINESS.md`](submission/READINESS.md).
 
 ## Demo scenarios
 
@@ -156,7 +161,7 @@ evaluation/               benchmark + generated results
 frontend/                 React 19 + TypeScript + Vite + Tailwind 4 UI
 deploy/                   Dockerfile, compose, AWS notes (see status below)
 docs/                     ARCHITECTURE · EVALUATION · MCP · DEMOS
-submission/               Devpost draft + 3-minute video script
+submission/               Team Update pitch, Devpost draft and readiness checklist
 ```
 
 ## Deployment status — stated plainly
@@ -164,10 +169,12 @@ submission/               Devpost draft + 3-minute video script
 | Environment | Status |
 |---|---|
 | Local execution (OpenCV 5.0.0, this machine) | ✅ verified — tests, benchmark, UI journeys |
-| Container (`deploy/Dockerfile`) | ⚠️ provided, build **unverified** (no Docker available) |
-| AWS App Runner / ECR | ❌ **unverified** — no AWS account was used for this submission |
+| Container (`deploy/Dockerfile`) | ✅ Linux CI build and real HTTP inspection verified |
+| AWS EC2 / SSM / CloudWatch | ⚠️ template prepared; execution pending service checks and launch |
 
-`deploy/README.md` documents the full ECR → App Runner path. No paid services were created.
+[Deployment instructions](deploy/README.md) include an authenticated private demo route.
+[Pitch](submission/PITCH.md) and [competition readiness](submission/READINESS.md)
+track remaining requirements. No paid resources have been created by this work.
 
 ## Known limitations
 
@@ -179,5 +186,7 @@ submission/               Devpost draft + 3-minute video script
 
 ## License
 
-MIT — see [LICENSE](LICENSE). All bundled imagery is generated from recorded seeds; no third-party
-dataset was required for the core demonstrations.
+MIT for project code — see [LICENSE](LICENSE). Core demo imagery is generated from
+recorded seeds. Separate research includes third-party DeepPCB captures with their
+own provenance and restrictions; those captures are excluded from judge/source
+packages by `tools/package_submission.py`. The project MIT license does not relicense them.

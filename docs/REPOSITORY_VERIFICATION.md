@@ -6,7 +6,7 @@ capture fixtures, documentation and recorded verification evidence.
 ## Local checks before publication
 
 - Locked dependency consistency and OpenCV 5 runtime passed.
-- Backend: 88 passed, two Windows-only filesystem tests skipped on macOS.
+- Backend: 100 passed, two Windows-only filesystem tests skipped on macOS.
 - Frontend: lint and production build passed.
 - MCP: all eight tools executed over actual stdio; audit sequences preserved.
 - Controlled alignment and evidence probes passed.
@@ -56,3 +56,16 @@ Historical research ablations use the frozen modules under
 `research/pipeline-improvements/baseline/`. Their captures/results are included
 for reproducibility; regeneration commands and third-party dataset provenance
 are recorded in the research report.
+
+## Competition-readiness additions — 26 October
+
+Team Update credits and a pitch were prepared; video production was deferred
+by the user. Submission claims now use the corrected 30-case benchmark rather
+than mixing historical baseline counts. The official requirements snapshot and
+readiness matrix expose the remaining AWS/video/judge-delivery requirements.
+
+The six-scenario HTTP exporter saves actual reports, complete events, PNGs and
+hashes. The source packager excludes secrets/runtime files and third-party
+DeepPCB captures, with twelve regressions protecting those boundaries. The AWS
+EC2/SSM template is statically checked with cfn-lint; no AWS run is claimed.
+The container CI now exercises the six-case evidence exporter as well.
