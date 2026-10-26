@@ -1,0 +1,86 @@
+{
+  "environment": "AWS EC2 via authenticated SSM",
+  "region": "eu-north-1",
+  "source_commit": "6281c2be7d3832b26b3522202a5f5fea59af1825",
+  "runtime_sha256": "8667f22d7e719bbeec26e3ee5d0e26c427cfd8f8e57826cf62e4cd0a650f7291",
+  "docker_image_id": "sha256:d175223d53daa0fd7d6d0909d679a5b0b6d35d51f0850ba6c9855b747f00aa8e",
+  "captured_at_utc": "2026-10-26T19:06:35Z",
+  "http_smoke": {
+    "http_smoke": "passed",
+    "opencv_version": "5.0.0",
+    "inspection_id": "ins_b257a2ee7b7d",
+    "regions": 3,
+    "events": 23
+  },
+  "cases": [
+    {
+      "scenario": "scenario_01_clear_defects",
+      "inspection_id": "ins_917b6348c143",
+      "stop_reason": "all_regions_decided",
+      "tool_calls": 4,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "plan_events": 7,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_02_clean_board",
+      "inspection_id": "ins_30dc6dd194ae",
+      "stop_reason": "no_candidates",
+      "tool_calls": 0,
+      "verdicts": {},
+      "plan_events": 0,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_03_ambiguous_glare",
+      "inspection_id": "ins_b1c27d123cc2",
+      "stop_reason": "all_regions_decided",
+      "tool_calls": 5,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 1
+      },
+      "plan_events": 9,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_04_registration_failure",
+      "inspection_id": "ins_daea5d14e55d",
+      "stop_reason": "registration_failed",
+      "tool_calls": 0,
+      "verdicts": {},
+      "plan_events": 0,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_05_no_second_view",
+      "inspection_id": "ins_ed05f0ce1b84",
+      "stop_reason": "all_regions_decided",
+      "tool_calls": 5,
+      "verdicts": {
+        "NEEDS_REVIEW": 5
+      },
+      "plan_events": 5,
+      "behavior_check": "passed"
+    },
+    {
+      "scenario": "scenario_06_multiple_regions",
+      "inspection_id": "ins_c6538beb7c87",
+      "stop_reason": "all_regions_decided",
+      "tool_calls": 6,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 4,
+        "CLEARED": 1
+      },
+      "plan_events": 11,
+      "behavior_check": "passed"
+    }
+  ],
+  "redaction_note": "Sanitized copy of host receipt; AWS resource/account/role identifiers and private storage locations omitted. Not an independent cloud attestation.",
+  "locally_verified_artifact_hashes": 72,
+  "private_original_archive_sha256": "47b1d21fe3e62cd4e3a2aa3cbc1c03f6dabf3f2b568881da89b7a7aad6676008"
+}

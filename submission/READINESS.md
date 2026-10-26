@@ -1,5 +1,7 @@
 # Competition readiness — 26 October 2026
 
+> **27 October 2026 update — Shikhar:** start with the [current submission handoff](SHIKHAR_HANDOFF.md). AWS execution is verified; five code findings and final judge/video/portal delivery remain open. Older AWS-pending or private-repository statements below are historical and superseded by that handoff.
+
 Team **Update** · **Shikhar Goel and Ishpreet Singh**
 
 Official source: [OpenCV AI Competition 2026](https://opencv26.devpost.com/).

@@ -1,0 +1,24 @@
+{
+  "rejected_review": {
+    "http_status": 200,
+    "verdict": "CLEARED",
+    "label": "unclassified_surface_anomaly",
+    "label_basis": "operator review (rejected)"
+  },
+  "completed_capture_mutation": {
+    "http_status": 200,
+    "original_status": "completed",
+    "before_view2": null,
+    "after_view2": "/api/inspections/ins_a5e465a7007d/images/view2",
+    "report_unchanged": true,
+    "events_unchanged": true
+  },
+  "mcp_terminal_mutation": {
+    "before_status": "completed",
+    "after_status": "completed",
+    "new_candidate_statuses": [
+      "SUSPECTED"
+    ],
+    "old_report_retained": true
+  }
+}

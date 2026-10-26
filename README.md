@@ -1,4 +1,7 @@
 <p align="center">
+
+> **27 October 2026 update — Shikhar:** start with the [current submission handoff](submission/SHIKHAR_HANDOFF.md). AWS execution is verified; five code findings and final judge/video/portal delivery remain open. Older AWS-pending or private-repository statements below are historical and superseded by that handoff.
+
   <img src="frontend/public/favicon.svg" width="56" alt="CircuitSleuth" />
 </p>
 
