@@ -1,0 +1,18 @@
+{
+  "status": "prepared values only; no submission performed",
+  "project_url": "https://devpost.com/software/circuitsleuth-team-update",
+  "fields": {
+    "28208": ["Agentic Vision Award"],
+    "28209": "https://github.com/sgoel2be24-cyber/circuitsleuth",
+    "28210": "Use Python 3.13 and Node 24. Install backend/requirements.lock.txt in a virtual environment and run npm --prefix frontend ci. Generate the synthetic data with tools/generate_dataset.py. Run scripts/verify_local.py --include-mcp with the virtual-environment Python for backend, frontend and eight MCP-tool checks. Follow README.md to start the app, or deploy/README.md for Docker. In the UI, run clear defects, clean board, glare, registration failure, missing second view and budget-limited regions. Download the report and inspect the event trail. With an API running, python -m tools.export_demo_evidence --out NEW_DIRECTORY exports all six actual demo traces. Current metrics and limitations are in docs/TECHNICAL_REPORT.md and docs/FINAL_AUDIT.md. Source repository is private: provide judges access or the prepared source ZIP. AWS execution and video remain pending."
+  },
+  "working_endpoint": null,
+  "video_url": null,
+  "source_zip": "CircuitSleuth-Team-Update-source.zip",
+  "before_submission": [
+    "Run a meaningful OpenCV inspection on AWS and preserve hosting/execution proof.",
+    "Provide a judge-accessible video of at most five minutes; deferred by the team for now.",
+    "Arrange judge source access and a working endpoint or live screen-share.",
+    "Review eligibility, rights and final declarations, then explicitly authorize submission."
+  ]
+}

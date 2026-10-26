@@ -80,3 +80,15 @@ Payment/identity verification and any paid-plan upgrade must be completed or
 explicitly decided by the account owner. No service plan was upgraded and no
 billable resource was created. The prepared deployment can continue after
 service access is available.
+
+## Final audit supersedes earlier progress snapshots
+
+See `docs/FINAL_AUDIT.md` for the renewed 101-test verification, exact 30-case
+metric reproduction, real upload/SSE/review/rerun checks and the final readiness
+decision. `PROJECT_STORY.md` and `FORM_ANSWERS.json` are prepared.
+
+The Devpost project page was published automatically by its update action when
+saving the prepared story: https://devpost.com/software/circuitsleuth-team-update .
+The competition entry remains unsubmitted and has no video URL. Judge source/demo
+access and meaningful AWS execution remain outstanding; the earlier deferred-video
+instruction is still in force.

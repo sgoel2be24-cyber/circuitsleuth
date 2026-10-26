@@ -1,0 +1,30 @@
+{
+  "desktop": {
+    "observed_width": 1280,
+    "horizontal_overflow": false,
+    "broken_images": 0
+  },
+  "mobile": {
+    "override_width": 390,
+    "override_height": 844,
+    "document_width_without_scrollbar": 380,
+    "horizontal_overflow": false,
+    "broken_images": 0,
+    "scenario_launch": "passed"
+  },
+  "operator_review": {
+    "inspection_id": "ins_847b336f5df8",
+    "region_id": "R01",
+    "downloaded_report_agrees": true
+  },
+  "rerun": {
+    "new_id": "ins_06b847a1c100",
+    "completed": true
+  },
+  "after_restart": {
+    "dashboard_latest_id": "ins_5771be7fe68c",
+    "ledger_records": 11,
+    "latest_card_agrees_with_first_row": true
+  },
+  "console_warnings_and_errors": []
+}

@@ -1,0 +1,13 @@
+{
+  "valid_upload_inspection": "ins_8eae7527521e",
+  "verdicts": 3,
+  "sse_replay": "passed",
+  "invalid_upload": 400,
+  "invalid_budget": 422,
+  "missing_routes": "404; SPA shell only for frontend routes",
+  "original_reviewed_run": "ins_847b336f5df8",
+  "new_rerun": "ins_5771be7fe68c",
+  "original_report_and_events_unchanged": true,
+  "duplicate_event_sequences": false,
+  "aws_execution_verified": false
+}

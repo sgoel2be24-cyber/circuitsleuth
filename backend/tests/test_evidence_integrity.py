@@ -12,6 +12,21 @@ from app.tools.registry import InspectionToolbelt
 from app import store
 
 
+def test_ledger_orders_same_second_runs_by_creation_and_keeps_limit(tmp_path, monkeypatch):
+    from app.config import Settings
+
+    monkeypatch.setattr(store, "settings", Settings(data_dir=tmp_path))
+    for iid, created in [("ins_old", "2026-10-26T12:00:00"),
+                         ("ins_zzz", "2026-10-26T12:00:01"),
+                         ("ins_aaa", "2026-10-26T12:00:01")]:
+        store.create_inspection(iid, source="demo", scenario_id=None, config={},
+                                summary={"id": iid, "created_at": created})
+    # Updating an earlier run must not make it the latest-created inspection.
+    store.update_inspection("ins_zzz", status="completed")
+    assert [row["id"] for row in store.list_inspections()] == ["ins_aaa", "ins_zzz", "ins_old"]
+    assert [row["id"] for row in store.list_inspections(limit=2)] == ["ins_aaa", "ins_zzz"]
+
+
 def _candidate():
     return {
         "region_id": "R01", "bbox": [10, 10, 20, 20], "area_px": 100,

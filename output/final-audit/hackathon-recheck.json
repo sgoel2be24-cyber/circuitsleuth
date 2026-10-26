@@ -1,0 +1,113 @@
+{
+  "key_dates": {
+    "hackathon": {
+      "id": 30984,
+      "slug": "opencv26",
+      "title": "OpenCV AI Competition 2026, powered by AWS"
+    },
+    "data": {
+      "time_zone": "Pacific Time (US & Canada)",
+      "dates": {
+        "submissions_start_at": "2026-08-26T07:00:00Z",
+        "submissions_end_at": "2026-10-27T06:45:00Z",
+        "judging_starts_at": "2026-10-27T07:00:00Z",
+        "judging_ends_at": "2026-11-10T07:45:00Z",
+        "public_voting_starts_at": "2026-10-26T07:00:00Z",
+        "public_voting_ends_at": "2026-11-10T07:45:00Z",
+        "winners_announced_at": "2026-11-10T17:00:00Z",
+        "published_at": "2026-08-13T15:33:12Z"
+      },
+      "current_phase": "submissions_open"
+    },
+    "data_completeness": "complete",
+    "fetched_at": "2026-10-26T12:47:24Z"
+  },
+  "submission_requirements": {
+    "hackathon": {
+      "id": 30984,
+      "slug": "opencv26",
+      "title": "OpenCV AI Competition 2026, powered by AWS"
+    },
+    "data": {
+      "description_text": "Suggested Project Areas\nProjects are not limited to these areas, but the organizers especially welcome:\n    • Active perception for autonomous inspection with agentic orchestration or MCP.\n    • Physics-informed video prediction for process control.\n    • Multi-agent visual SLAM with distributed context.\n    • Real-time spatial digital twins.\n    • COOL-based server, serverless, container, or hybrid x86/Arm vision pipelines.\n    • Developer agents that integrate COOL with tools such as Codex, Claude Code, Kiro, or MCP-compatible systems.\n    • Healthcare, safety, accessibility, agriculture, environmental monitoring, smart cities, education, retail, and sports analytics.\nFinal Submission Requirements\n    • A technical report describing the problem, users, architecture, OpenCV 5 implementation, AWS deployment, evaluation, limitations, and responsible-use considerations.\n    • A public or private judge-accessible code repository or archive. The code does not have to be open source.\n    • Pinned dependencies plus clear build, deployment, and test instructions.\n    • An architecture diagram showing the OpenCV 5 and AWS components and, where relevant, COOL or agent components.\n    • A working web endpoint or an arranged live screen-share demonstration.\n    • A public or unlisted judge-accessible video of no more than five minutes that shows the team, the application working, its architecture, and its principal results.\n    • Evaluation evidence appropriate to the project, including failure cases or limitations.\nFocus Paths (Special Prizes)\nCloud-Optimized Vision with COOL\nUse the Cloud-Optimized OpenCV Library (COOL), available through AWS Marketplace and optimized for AWS Graviton, to accelerate widely used vision operations and move from prototype to scalable cloud deployment. For Best Use of COOL Award eligibility, COOL must execute the claimed core workload on AWS Graviton or the Arm component of a documented hybrid architecture. Strong submissions will document a reproducible deployment and comparison against an appropriate baseline. Strong submissions will:\n    • Show that COOL executes the core image or video workload on the Arm path.\n    • Report reproducible measurements such as latency, throughput, utilization, cost, or developer productivity against an appropriate baseline.\n    • Explain any x86 and Arm coexistence, container, server, or serverless architecture.\nAgentic Vision with OpenCV 5\nBuild a workflow in which an agent uses OpenCV 5 tools within a multi-step perception-decision-action loop. To qualify, image or video results must influence a subsequent plan, tool call, action, or request for human approval. A chatbot that only explains a fixed vision result is not enough—the visual evidence must change what the system does next.\n    • Examples include autonomous inspection, visual troubleshooting, embodied assistants, active perception, safety monitoring, and human-in-the-loop operations.\n    • The agent may use any framework or model and may invoke OpenCV 5 and, where applicable, COOL through APIs, tools, or Model Context Protocol (MCP).\n    • A developer-agent workflow qualifies only when it iteratively invokes, evaluates, and adjusts an OpenCV 5 workload, with COOL where applicable—for example, by using visual test outputs or runtime measurements to change a later tool call, configuration, or deployment—and culminates in a running image or video workload.\n    • Using an AI coding assistant to write the entry does not qualify as an agentic workflow.\nAdditional Evidence for the Best Use of COOL Award\n    • The COOL version and AWS instance or deployment configuration.\n    • A reproducible evaluation method, inputs, baselines, and results.\n    • Evidence that COOL executes the claimed core workload.\nAdditional Evidence for the Agentic Vision Award\n    • An agent workflow diagram showing perception, decision or orchestration, and action.\n    • A trace or demonstration showing that OpenCV 5 output changes a later decision, tool call, or action.\n    • Evaluation of task success, failure handling, observability, and appropriate human control.",
+      "fields": [
+        {
+          "id": 28208,
+          "label": "Special Award Consideration",
+          "type": "dropdown",
+          "type_raw": "SubmissionFieldJudgingCategoryDropdown",
+          "required": false,
+          "description": "Make sure your project follows the additional requirements for these awards as states on the website.",
+          "position": 0,
+          "options": [
+            "Best Use of COOL Award",
+            "Agentic Vision Award"
+          ],
+          "multiple": true
+        },
+        {
+          "id": 28209,
+          "label": "Repository URL",
+          "type": "text",
+          "type_raw": "SubmissionFieldUrl",
+          "required": true,
+          "description": "",
+          "position": 1
+        },
+        {
+          "id": 28210,
+          "label": "Testing instructions",
+          "type": "textarea",
+          "type_raw": "SubmissionFieldTextArea",
+          "required": true,
+          "description": "",
+          "position": 2
+        },
+        {
+          "id": 28211,
+          "label": "Working web endpoint",
+          "type": "text",
+          "type_raw": "SubmissionFieldUrl",
+          "required": false,
+          "description": "",
+          "position": 3
+        }
+      ],
+      "deliverables": {
+        "submission_object": "submission",
+        "video_required": true,
+        "website_required": false,
+        "zip_file_required": true
+      }
+    },
+    "data_completeness": "complete",
+    "fetched_at": "2026-10-26T12:47:24Z"
+  },
+  "announcements": {
+    "hackathon": {
+      "id": 30984,
+      "slug": "opencv26",
+      "title": "OpenCV AI Competition 2026, powered by AWS"
+    },
+    "data": {
+      "announcements": [
+        {
+          "id": 45836,
+          "title": "Final call for submissions",
+          "body_text": "There are only 3 days left to complete your submission for OpenCV AI Competition 2026, powered by AWS.",
+          "sent_at": "2026-10-24T06:47:06Z"
+        },
+        {
+          "id": 46417,
+          "title": "AWS Compute Grant notifications have been sent",
+          "body_text": "We've finished reviewing this round of grant proposals, and notification emails have gone out to the teams selected to receive an AWS Compute Grant. Check your inbox — including your spam folder — for an email asking you to confirm your payment details from the OpenCV team.\nIf you weren't selected, you are still fully in the competition.\nDo not despair if you were not selected! You're still in the running for prizes. Teams without a grant:\n\nRemain eligible for every prize in the $12,000 pool — first, second, and third place, Best Use of COOL, and the Agentic Vision Award\nAre judged under exactly the same rubric, by the same independent panel\nHave exactly the same amount of time to build\n\nGrants were awarded on proposal strength, which is a different thing from project strength. Plenty of strong projects come from teams whose written proposal was still taking shape. What the judges see in November is the work itself.\nA few ways to keep your compute costs down:\nNew AWS customers can claim up to $200 in AWS free-tier credits. The Cloud-Optimized OpenCV Library (COOL) on AWS Graviton is built for exactly this — getting more throughput per dollar — and using it well also puts you in contention for the $1,000 Best Use of COOL award.\nKey dates from here\n\nOctober 26, 11:59 p.m. Pacific — final submissions due\nOctober 27 – November 9 — judging\nNovember 10 — winners announced on OpenCV Live!\n\nFull details are at https://opencv.org/opencv-ai-competition-2026/, and the #opencvcomp26 channel on the OpenCV Slack is where teams are comparing notes.\nKeep building.\n \n— The OpenCV AI Competition Team\nQuestions?\nIf you have any questions about the hackathon, please post on the discussion forum or in the Slack channel.",
+          "sent_at": "2026-09-14T18:55:36Z"
+        }
+      ],
+      "total_available": 2,
+      "limit_applied": 3
+    },
+    "data_completeness": "complete",
+    "fetched_at": "2026-10-26T12:47:23Z"
+  }
+}

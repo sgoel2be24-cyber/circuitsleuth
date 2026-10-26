@@ -87,7 +87,7 @@ retained for existing customers only. No COOL/Graviton workload is claimed.
 
 Use Python 3.13 and Node 24, install the backend lock and frontend `npm ci`.
 Run `scripts/verify_local.py --include-mcp` using the virtual-environment Python.
-Current local results: **100 tests passed; two Windows-specific tests skipped**,
+Current local results: **101 tests passed; two Windows-specific tests skipped**,
 frontend lint/build and all eight MCP tools passed. The earlier published
 Linux CI also verified a real Docker build and HTTP inspection. The current
 commit's Actions result is authoritative for its container checks.

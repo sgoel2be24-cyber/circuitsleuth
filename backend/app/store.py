@@ -114,7 +114,9 @@ def get_inspection_row(ins_id: str) -> sqlite3.Row | None:
 
 def list_inspections(limit: int = 100) -> list[dict[str, Any]]:
     rows = _db().execute(
-        "SELECT * FROM inspections ORDER BY created_at DESC LIMIT ?", (limit,)
+        # Timestamps have second precision. For ties, the last inserted run is
+        # the newest; random inspection IDs do not encode creation order.
+        "SELECT * FROM inspections ORDER BY created_at DESC, rowid DESC LIMIT ?", (limit,)
     ).fetchall()
     out = []
     for r in rows:

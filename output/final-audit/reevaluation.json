@@ -1,0 +1,58 @@
+{
+  "synthetic": true,
+  "non_timing_outputs_reproduced": true,
+  "matching": "greedy IoU >= 0.15, unchanged benchmark conventions",
+  "metrics": {
+    "baseline": {
+      "tp": 44,
+      "fp": 50,
+      "fn": 6,
+      "micro_precision": 0.46808510638297873,
+      "micro_recall": 0.88,
+      "micro_f1": 0.6111111111111112,
+      "macro": {
+        "precision": 0.5208,
+        "recall": 0.8933,
+        "f1": 0.5751,
+        "false_positives": 50,
+        "false_negatives": 6,
+        "mean_latency_s": 0.1772,
+        "mean_tool_calls": 0.0,
+        "escalation_rate": 0.0,
+        "verdicts": {
+          "CONFIRMED_DEFECT": 42,
+          "CLEARED": 16,
+          "LIKELY_DEFECT": 52
+        },
+        "registration_failures": 5
+      }
+    },
+    "adaptive": {
+      "tp": 42,
+      "fp": 10,
+      "fn": 8,
+      "micro_precision": 0.8076923076923077,
+      "micro_recall": 0.84,
+      "micro_f1": 0.8235294117647058,
+      "macro": {
+        "precision": 0.8627,
+        "recall": 0.7822,
+        "f1": 0.7155,
+        "false_positives": 10,
+        "false_negatives": 8,
+        "mean_latency_s": 0.3301,
+        "mean_tool_calls": 4.6,
+        "escalation_rate": 0.2727,
+        "verdicts": {
+          "CONFIRMED_DEFECT": 36,
+          "LIKELY_DEFECT": 16,
+          "NEEDS_REVIEW": 30,
+          "CLEARED": 28
+        },
+        "registration_failures": 5
+      }
+    }
+  },
+  "accuracy_percentage": "not defined; no true-negative population",
+  "production_validation": false
+}

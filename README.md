@@ -131,7 +131,9 @@ CIRCUITSLEUTH_DATA_DIR=/tmp/circuitsleuth-benchmark .venv/bin/python evaluation/
 Latest alignment/evidence implementation and validation:
 [`docs/ALIGNMENT_FIXES.md`](docs/ALIGNMENT_FIXES.md).
 
-Current polish verification and remaining submission gaps:
+Final testing and readiness verdict: [docs/FINAL_AUDIT.md](docs/FINAL_AUDIT.md).
+
+Remaining submission requirements:
 [`submission/READINESS.md`](submission/READINESS.md).
 
 ## Demo scenarios

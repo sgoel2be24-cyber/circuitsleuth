@@ -6,7 +6,7 @@ capture fixtures, documentation and recorded verification evidence.
 ## Local checks before publication
 
 - Locked dependency consistency and OpenCV 5 runtime passed.
-- Backend: 100 passed, two Windows-only filesystem tests skipped on macOS.
+- Backend: 101 passed, two Windows-only filesystem tests skipped on macOS.
 - Frontend: lint and production build passed.
 - MCP: all eight tools executed over actual stdio; audit sequences preserved.
 - Controlled alignment and evidence probes passed.
