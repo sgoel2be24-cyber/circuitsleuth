@@ -74,7 +74,7 @@ visible and reviewable. We are Team Update—Shikhar Goel and Ishpreet Singh.
 ## AWS sentence: use only the version supported at presentation time
 
 **Current, truthful version:** “The AWS deployment package is prepared. A real
-AWS inspection is still pending account access and budget verification.”
+AWS inspection is still pending account service access and deployment.”
 
 **After an evidenced cloud run:** Replace that sentence with the actual AWS
 service, region and inspection IDs from the saved evidence. Never describe the

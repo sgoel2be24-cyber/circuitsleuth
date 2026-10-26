@@ -18,7 +18,7 @@ The prose says 26 October 23:59 Pacific, fourteen minutes later. Work to the
 | Official requirement | Current evidence / next step |
 |---|---|
 | Substantive OpenCV 5 analysis | Implemented; health, locked dependencies, CV source, regression suite |
-| Meaningful AWS execution | **Pending**; account sign-in/balance checked; confirm service access, deploy and save cloud inspection proof |
+| Meaningful AWS execution | **Pending**; account sign-in/balance checked; EC2/CloudFormation redirect to account-setup page; deployment blocked |
 | Technical report | `docs/TECHNICAL_REPORT.md` with limitations and current results |
 | OpenCV/AWS/agent architecture | Mermaid diagrams in technical report; AWS explicitly marked planned |
 | Judge-accessible source | Private GitHub repo exists; judge invitation/access or required source ZIP delivery still pending |
@@ -69,3 +69,14 @@ credit balance were checked locally; the numeric deployment ceiling was
 computed without bundling account billing details in the source package.
 Service eligibility and real resource costs still need checking. No paid
 resources have been launched.
+
+## Account-access finding
+
+Billing and Free Tier were readable, but EC2 and CloudFormation in Mumbai
+redirected to AWS's “Complete your account setup” page. CloudShell also failed
+to create an environment. AWS lists incomplete registration/activation or
+free-plan limitations as possible causes; the exact cause is not established.
+Payment/identity verification and any paid-plan upgrade must be completed or
+explicitly decided by the account owner. No service plan was upgraded and no
+billable resource was created. The prepared deployment can continue after
+service access is available.
