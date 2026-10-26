@@ -22,6 +22,9 @@
 
 **Team Update — Shikhar Goel and Ishpreet Singh.**
 
+**Ishpreet: start with [HANDOFF.md](HANDOFF.md)** for the complete project context,
+verified results, strict credits-only budget, AWS activation status and next steps.
+
 **CircuitSleuth** is being prepared for the [OpenCV AI Competition 2026](https://opencv26.devpost.com/) (Agentic Vision Award track).
 Conventional AOI pipelines run a fixed sequence on a fixed image — they cannot change their mind, ask for
 more evidence, or refuse to answer. CircuitSleuth is an **agent**: it aligns the test board to a reference,

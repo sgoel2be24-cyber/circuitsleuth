@@ -1,0 +1,34 @@
+{
+  "source_commit": "0957ce394c5477b2ecd35a238e0d5a6e59c58721",
+  "application_status": "ready for supervised synthetic demonstration",
+  "competition_status": "not ready",
+  "tests": {
+    "passed": 101,
+    "skipped_windows_specific": 2,
+    "frontend_lint": "passed",
+    "frontend_build": "passed",
+    "mcp_eight_tools": "passed",
+    "fresh_source_zip_install_and_verifier": "passed",
+    "benchmark_30_non_timing_outputs": "identical",
+    "six_api_scenarios": "passed",
+    "real_upload_sse_review_download_rerun_restart": "passed"
+  },
+  "ci_url": "https://github.com/sgoel2be24-cyber/circuitsleuth/actions/runs/40332338219",
+  "ci_conclusion": "success",
+  "blockers": [
+    "AWS service access and actual cloud inspection proof",
+    "Required <=5-minute team/demo video (deferred by user)",
+    "Judge source access and endpoint or arranged live screen-share"
+  ],
+  "devpost": {
+    "project_page_url": "https://devpost.com/software/circuitsleuth-team-update",
+    "project_page": "published automatically by Devpost update action",
+    "hackathon_entry": "unsubmitted",
+    "video_url": null
+  },
+  "deadline_ist": "2026-10-27 12:15:00 Asia/Kolkata",
+  "report": "OPENCV HACKATHON/docs/FINAL_AUDIT.md",
+  "record_type": "verification of application baseline before docs-only handoff",
+  "source_commit_is_application_baseline": true,
+  "latest_user_constraint": "zero cash out of pocket; AWS Free Plan credits only; no paid upgrades/support/card-billed usage"
+}

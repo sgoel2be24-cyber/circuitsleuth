@@ -61,7 +61,14 @@ to judges. The archive intentionally omits the external research images;
 research code, provenance and recorded findings remain, and core synthetic
 fixtures and generation instructions are included.
 
-## Budget instruction
+## Latest user instruction: zero cash spending
+
+**₹0 out of pocket. AWS Free Plan credits only.** No paid-plan upgrade, paid
+support, card-billed deployment or paid-only service is authorized. The prior
+half-of-remaining-credits limit remains a credit-consumption limit. See
+[the team handoff](../HANDOFF.md) for the full latest context.
+
+## Earlier budget instruction (subject to the zero-cash rule above)
 
 User requested at most **50% of usable remaining AWS credits** and a nearby
 region for low latency. Provisional region: Mumbai `ap-south-1`. Account access and the free-plan
@@ -92,3 +99,12 @@ saving the prepared story: https://devpost.com/software/circuitsleuth-team-updat
 The competition entry remains unsubmitted and has no video URL. Judge source/demo
 access and meaningful AWS execution remain outstanding; the earlier deferred-video
 instruction is still in force.
+
+## Later activation observation
+
+Following “Complete your AWS registration” displayed the AWS confirmation page
+“We are activating your account,” with an activation email to follow. EC2 was
+still blocked on the immediate retry in Stockholm. No payment or plan-upgrade
+action was performed. This is pending activation evidence, not cloud execution.
+AWS's new sign-up experience can restrict a project to an assigned region; check
+AWS Settings before assuming Mumbai is available.

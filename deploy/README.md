@@ -40,6 +40,16 @@ node permissions. IMDSv2 is required. No SSH key or public application endpoint
 is created. The public IPv4 address provides outbound internet in an existing
 public subnet; it is billable even though ingress is closed.
 
+### Strict spending rule
+
+**₹0 out of pocket: Free Plan credits only.** No paid-plan upgrade, paid
+support, paid-only service or card-billed usage is authorized. The half-credit
+ceiling below is not a cash budget. Stop if the account requires a paid upgrade.
+Check the assigned project region in AWS Settings before using the example
+Mumbai commands; newer sign-up accounts may have a fixed region. The latest
+registration page said activation is in progress, and EC2 remained blocked.
+See [HANDOFF.md](../HANDOFF.md) for current account status and team instructions.
+
 ### Account and cost gate
 
 Complete AWS sign-in/MFA yourself. Then inspect Billing → Credits and Bills:
