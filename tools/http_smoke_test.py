@@ -14,6 +14,25 @@ import urllib.parse
 import urllib.request
 
 
+def wait_for_health(api, *, timeout_s: float = 120) -> dict:
+    """Wait for startup transport failures; reject an incompatible healthy API.
+
+    Docker may publish the port before the application starts listening and
+    reset the connection instead of refusing it. Retry only this read-only
+    readiness request; inspection creation/start must not be retried blindly.
+    """
+    deadline = time.monotonic() + timeout_s
+    while True:
+        try:
+            health = api("/api/health")
+            assert health["status"] == "ok" and health["opencv_version"].startswith("5."), health
+            return health
+        except (urllib.error.URLError, ConnectionError, TimeoutError):
+            if time.monotonic() >= deadline:
+                raise RuntimeError(f"API did not become healthy within {timeout_s:g} seconds") from None
+            time.sleep(1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-url", default="http://127.0.0.1:8080")
@@ -29,16 +48,7 @@ def main() -> None:
     def api(path: str, form: dict | None = None, *, post: bool = False):
         return json.loads(request(path, form, post=post))
 
-    deadline = time.monotonic() + 120
-    while True:
-        try:
-            health = api("/api/health")
-            assert health["status"] == "ok" and health["opencv_version"].startswith("5."), health
-            break
-        except (urllib.error.URLError, TimeoutError):
-            if time.monotonic() >= deadline:
-                raise RuntimeError("API did not become healthy within 120 seconds") from None
-            time.sleep(1)
+    health = wait_for_health(api)
 
     assert b'id="root"' in request("/new"), "SPA deep link did not return the frontend shell"
     scenarios = api("/api/demo/scenarios")

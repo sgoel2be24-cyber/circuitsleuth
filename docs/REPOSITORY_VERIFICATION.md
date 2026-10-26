@@ -6,7 +6,7 @@ capture fixtures, documentation and recorded verification evidence.
 ## Local checks before publication
 
 - Locked dependency consistency and OpenCV 5 runtime passed.
-- Backend: 82 passed, two Windows-only filesystem tests skipped on macOS.
+- Backend: 88 passed, two Windows-only filesystem tests skipped on macOS.
 - Frontend: lint and production build passed.
 - MCP: all eight tools executed over actual stdio; audit sequences preserved.
 - Controlled alignment and evidence probes passed.
@@ -28,7 +28,10 @@ preserved. Runtime files and local source archives remain available locally.
 `.github/workflows/verify.yml` pins official checkout/setup actions to exact
 commits and installs the existing Python/frontend lock files on Linux. It runs
 `scripts/verify_local.py --include-mcp`, builds `deploy/Dockerfile`, starts the
-image and exercises `tools/http_smoke_test.py` against it. The HTTP check covers
+image and exercises `tools/http_smoke_test.py` against it. The HTTP readiness check tolerates transient connection resets while Docker
+starts the application, with a bounded wait and no retries of mutation calls.
+Six regressions cover startup transport failures, timeout and incompatible
+OpenCV versions. The HTTP check covers
 OpenCV 5 health, the frontend deep link, six demo scenarios, real adaptive
 inspection, its report/events and all three candidate crop endpoints.
 
