@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Candidate, Evidence } from '../types'
 import { ScoreBar, VerdictChip } from './ui'
+import { CandidateCrops } from './CandidateCrops'
 
 const KIND_LABEL: Record<string, string> = {
   difference_severity: 'Difference severity',
@@ -11,19 +12,25 @@ const KIND_LABEL: Record<string, string> = {
   illumination_confound: 'Illumination confound',
 }
 
-export function RegionDetail({ candidate, onSubmitReview, artifactUrl }: {
+export function RegionDetail({ candidate, onSubmitReview, artifactUrl, reviewDisabled = false, inspectionId }: {
   candidate: Candidate
   onSubmitReview: (regionId: string, decision: 'confirmed' | 'rejected', note: string) => Promise<void>
   artifactUrl: (name: string) => string
+  reviewDisabled?: boolean
+  inspectionId: string
 }) {
   const [note, setNote] = useState('')
   const [busy, setBusy] = useState(false)
-  const [openEvidence, setOpenEvidence] = useState<string | null>(candidate.evidence[0]?.source_tool ?? null)
+  const [reviewError, setReviewError] = useState<string | null>(null)
+  const [openEvidence, setOpenEvidence] = useState<string | null>(candidate.evidence[0] ? candidate.evidence[0].source_tool + '0' : null)
 
   const review = async (decision: 'confirmed' | 'rejected') => {
     setBusy(true)
+    setReviewError(null)
     try {
       await onSubmitReview(candidate.region_id, decision, note)
+    } catch (e) {
+      setReviewError(e instanceof Error ? e.message : String(e))
     } finally {
       setBusy(false)
     }
@@ -31,7 +38,7 @@ export function RegionDetail({ candidate, onSubmitReview, artifactUrl }: {
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-y-auto p-3 text-sm">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <span className="font-mono text-lg font-semibold text-cyan-300">{candidate.region_id}</span>
         <VerdictChip status={candidate.status} />
         {candidate.label && (
@@ -43,6 +50,7 @@ export function RegionDetail({ candidate, onSubmitReview, artifactUrl }: {
       {candidate.label_basis && (
         <p className="mt-1 text-xs text-slate-400">Basis: {candidate.label_basis}</p>
       )}
+      <CandidateCrops inspectionId={inspectionId} candidate={candidate}/>
 
       <div className="mt-3 space-y-1.5">
         <ScoreBar label="Difference score" value={candidate.difference_score} tone="bg-cyan-400" />
@@ -96,7 +104,9 @@ export function RegionDetail({ candidate, onSubmitReview, artifactUrl }: {
       {(candidate.status === 'NEEDS_REVIEW' || candidate.status === 'LIKELY_DEFECT') && (
         <div className="mt-4 rounded-lg border border-violet-400/30 bg-violet-400/5 p-3">
           <h4 className="text-xs font-semibold text-violet-300">Operator decision</h4>
+          <label htmlFor={`review-note-${candidate.region_id}`} className="mt-2 block text-[10px] text-slate-400">Operator note (optional)</label>
           <input
+            id={`review-note-${candidate.region_id}`}
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="optional note…"
@@ -104,20 +114,22 @@ export function RegionDetail({ candidate, onSubmitReview, artifactUrl }: {
           />
           <div className="mt-2 flex gap-2">
             <button
-              disabled={busy}
+              disabled={busy || reviewDisabled}
               onClick={() => review('confirmed')}
               className="rounded-md bg-red-400/15 px-3 py-1.5 text-xs font-medium text-red-300 ring-1 ring-red-400/40 hover:bg-red-400/25 disabled:opacity-50"
             >
               Confirm defect
             </button>
             <button
-              disabled={busy}
+              disabled={busy || reviewDisabled}
               onClick={() => review('rejected')}
               className="rounded-md bg-emerald-400/10 px-3 py-1.5 text-xs font-medium text-emerald-300 ring-1 ring-emerald-400/40 hover:bg-emerald-400/20 disabled:opacity-50"
             >
               Clear region
             </button>
           </div>
+          {reviewDisabled && <p className="mt-2 text-[11px] text-slate-400">Operator decisions are available after an inspection completes. Re-run a failed inspection to finish verification.</p>}
+          {reviewError && <p role="alert" className="mt-2 text-xs text-red-200">{reviewError}</p>}
         </div>
       )}
     </div>

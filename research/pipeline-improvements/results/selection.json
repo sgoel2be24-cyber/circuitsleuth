@@ -1,0 +1,15 @@
+{
+  "selected": "multiplicative",
+  "eligible": [
+    "no_median",
+    "bilateral",
+    "multiplicative",
+    "erode_valid"
+  ],
+  "criterion": "tuning candidate micro F1 .15; no clean-FP or recall regression",
+  "locked_before_test": true,
+  "test_seed_range": [
+    300001,
+    300008
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "operator_review_updates_report": true,
+  "json_download": true,
+  "rerun_uses_fresh_id": true,
+  "rerun_preserves_original_report": true,
+  "ledger_9_to_12_rows": true,
+  "search_resets_to_9": true,
+  "mobile_390px_dashboard_and_workspace_fit": true,
+  "console_errors": 0,
+  "console_warnings": 0
+}

@@ -1,0 +1,10 @@
+/Users/Shikhar/Documents/ChatGPT/OpenCV hackathon/OPENCV HACKATHON/backend/app/cv/detection.py:116: RuntimeWarning: invalid value encountered in sqrt
+  structureless = (np.sqrt(var_r) < 5.0) | (np.sqrt(var_r) > 60.0)
+/Users/Shikhar/Documents/ChatGPT/OpenCV hackathon/OPENCV HACKATHON/research/pipeline-improvements/research_detection_erode.py:116: RuntimeWarning: invalid value encountered in sqrt
+  structureless = (np.sqrt(var_r) < 5.0) | (np.sqrt(var_r) > 60.0)
+group00041 rail 0.984 GT 5 candidate counts [('legacy', 4), ('symmetric_ecc', 4), ('erode_valid', 0)] prealigned_raw 4 xor 4
+group13000 rail 0.996 GT 4 candidate counts [('legacy', 11), ('symmetric_ecc', 8), ('erode_valid', 0)] prealigned_raw 10 xor 3
+group20085 rail 0.956 GT 9 candidate counts [('legacy', 3), ('symmetric_ecc', 3), ('erode_valid', 0)] prealigned_raw 3 xor 5
+group50600 rail 0.959 GT 5 candidate counts [('legacy', 5), ('symmetric_ecc', 5), ('erode_valid', 0)] prealigned_raw 1 xor 4
+group77000 rail 0.976 GT 4 candidate counts [('legacy', 2), ('symmetric_ecc', 2), ('erode_valid', 0)] prealigned_raw 2 xor 4
+group92000 rail 0.98 GT 3 candidate counts [('legacy', 4), ('symmetric_ecc', 4), ('erode_valid', 0)] prealigned_raw 3 xor 2

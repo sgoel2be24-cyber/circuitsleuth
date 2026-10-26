@@ -1,0 +1,33 @@
+{
+  "candidate": {
+    "difference_score": 0.3,
+    "structural_mismatch_score": 0.7,
+    "evidence_quality_score": 0.9,
+    "area_px": 100
+  },
+  "evidence": [
+    {
+      "evidence_kind": "local_realignment",
+      "source_tool": "local_realignment",
+      "supports_defect": false,
+      "metrics": {
+        "reduction_ratio": 0.9
+      }
+    },
+    {
+      "evidence_kind": "independent_view",
+      "source_tool": "alternate_view",
+      "supports_defect": true,
+      "metrics": {}
+    }
+  ],
+  "verdict": [
+    "CLEARED",
+    null,
+    "registration artifact",
+    [
+      "Local ECC realignment removed 0.9 of the local difference; the anomaly was misalignment."
+    ]
+  ],
+  "finding": "Local-realigmnent refutation takes precedence over independently supporting capture."
+}

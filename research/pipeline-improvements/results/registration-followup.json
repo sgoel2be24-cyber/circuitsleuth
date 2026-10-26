@@ -1,0 +1,853 @@
+{
+  "registration": [
+    {
+      "board": 200001,
+      "control": "wrong_board",
+      "treatment": "legacy",
+      "accepted": true,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 715,
+        "keypoints_test": 709,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 186,
+        "inliers": 107,
+        "inlier_ratio": 0.5753,
+        "mean_residual_px": 0.13,
+        "coverage_score": 0.5,
+        "photometric_score": 0.7567,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.7421
+      }
+    },
+    {
+      "board": 200001,
+      "control": "wrong_board",
+      "treatment": "ecc_direction_only",
+      "accepted": true,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 715,
+        "keypoints_test": 709,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 186,
+        "inliers": 107,
+        "inlier_ratio": 0.5753,
+        "mean_residual_px": 0.13,
+        "coverage_score": 0.5,
+        "photometric_score": 0.7567,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.7421
+      }
+    },
+    {
+      "board": 200001,
+      "control": "wrong_board",
+      "treatment": "orb_ladder_only",
+      "accepted": true,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 715,
+        "keypoints_test": 709,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 186,
+        "inliers": 107,
+        "inlier_ratio": 0.5753,
+        "mean_residual_px": 0.13,
+        "coverage_score": 0.5,
+        "photometric_score": 0.7567,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.7421
+      }
+    },
+    {
+      "board": 200001,
+      "control": "wrong_board",
+      "treatment": "ecc_plus_orb",
+      "accepted": true,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 715,
+        "keypoints_test": 709,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 186,
+        "inliers": 107,
+        "inlier_ratio": 0.5753,
+        "mean_residual_px": 0.13,
+        "coverage_score": 0.5,
+        "photometric_score": 0.7567,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.7421
+      }
+    },
+    {
+      "board": 200002,
+      "control": "wrong_board",
+      "treatment": "legacy",
+      "accepted": true,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 913,
+        "keypoints_test": 750,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 187,
+        "inliers": 108,
+        "inlier_ratio": 0.5775,
+        "mean_residual_px": 0.102,
+        "coverage_score": 0.375,
+        "photometric_score": 0.5951,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.5817
+      }
+    },
+    {
+      "board": 200002,
+      "control": "wrong_board",
+      "treatment": "ecc_direction_only",
+      "accepted": true,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 913,
+        "keypoints_test": 750,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 187,
+        "inliers": 108,
+        "inlier_ratio": 0.5775,
+        "mean_residual_px": 0.102,
+        "coverage_score": 0.375,
+        "photometric_score": 0.5954,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.5817
+      }
+    },
+    {
+      "board": 200002,
+      "control": "wrong_board",
+      "treatment": "orb_ladder_only",
+      "accepted": true,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 913,
+        "keypoints_test": 750,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 187,
+        "inliers": 108,
+        "inlier_ratio": 0.5775,
+        "mean_residual_px": 0.102,
+        "coverage_score": 0.375,
+        "photometric_score": 0.5951,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.5817
+      }
+    },
+    {
+      "board": 200002,
+      "control": "wrong_board",
+      "treatment": "ecc_plus_orb",
+      "accepted": true,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 913,
+        "keypoints_test": 750,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 187,
+        "inliers": 108,
+        "inlier_ratio": 0.5775,
+        "mean_residual_px": 0.102,
+        "coverage_score": 0.375,
+        "photometric_score": 0.5954,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.5817
+      }
+    },
+    {
+      "board": 300001,
+      "control": "wrong_board",
+      "treatment": "legacy",
+      "accepted": false,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 808,
+        "keypoints_test": 651,
+        "attempts": [
+          "SIFT",
+          "ECC",
+          "ECC"
+        ],
+        "good_matches": 181,
+        "inliers": 106,
+        "inlier_ratio": 0.5856,
+        "mean_residual_px": 0.109,
+        "coverage_score": 0.312,
+        "photometric_score": 0.5928,
+        "quality": "poor",
+        "failure_reason": "quality gates failed (inliers=106 ratio=0.59 residual=0.11 coverage=0.31)"
+      }
+    },
+    {
+      "board": 300001,
+      "control": "wrong_board",
+      "treatment": "ecc_direction_only",
+      "accepted": false,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 808,
+        "keypoints_test": 651,
+        "attempts": [
+          "SIFT",
+          "ECC",
+          "ECC"
+        ],
+        "good_matches": 181,
+        "inliers": 106,
+        "inlier_ratio": 0.5856,
+        "mean_residual_px": 0.109,
+        "coverage_score": 0.312,
+        "photometric_score": 0.5928,
+        "quality": "poor",
+        "failure_reason": "quality gates failed (inliers=106 ratio=0.59 residual=0.11 coverage=0.31)"
+      }
+    },
+    {
+      "board": 300001,
+      "control": "wrong_board",
+      "treatment": "orb_ladder_only",
+      "accepted": true,
+      "metrics": {
+        "detector": "ORB",
+        "keypoints_reference": 1799,
+        "keypoints_test": 1612,
+        "attempts": [
+          "SIFT",
+          "ORB",
+          "ECC-refine"
+        ],
+        "good_matches": 250,
+        "inliers": 119,
+        "inlier_ratio": 0.476,
+        "mean_residual_px": 0.044,
+        "coverage_score": 0.375,
+        "photometric_score": 0.5925,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.5794
+      }
+    },
+    {
+      "board": 300001,
+      "control": "wrong_board",
+      "treatment": "ecc_plus_orb",
+      "accepted": true,
+      "metrics": {
+        "detector": "ORB",
+        "keypoints_reference": 1799,
+        "keypoints_test": 1612,
+        "attempts": [
+          "SIFT",
+          "ORB",
+          "ECC-refine"
+        ],
+        "good_matches": 250,
+        "inliers": 119,
+        "inlier_ratio": 0.476,
+        "mean_residual_px": 0.044,
+        "coverage_score": 0.375,
+        "photometric_score": 0.593,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.5794
+      }
+    },
+    {
+      "board": 300002,
+      "control": "wrong_board",
+      "treatment": "legacy",
+      "accepted": false,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 726,
+        "keypoints_test": 784,
+        "attempts": [
+          "SIFT",
+          "ECC",
+          "ECC"
+        ],
+        "good_matches": 187,
+        "inliers": 97,
+        "inlier_ratio": 0.5187,
+        "mean_residual_px": 0.189,
+        "coverage_score": 0.312,
+        "photometric_score": 0.6367,
+        "quality": "poor",
+        "failure_reason": "quality gates failed (inliers=97 ratio=0.52 residual=0.19 coverage=0.31)"
+      }
+    },
+    {
+      "board": 300002,
+      "control": "wrong_board",
+      "treatment": "ecc_direction_only",
+      "accepted": false,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 726,
+        "keypoints_test": 784,
+        "attempts": [
+          "SIFT",
+          "ECC",
+          "ECC"
+        ],
+        "good_matches": 187,
+        "inliers": 97,
+        "inlier_ratio": 0.5187,
+        "mean_residual_px": 0.189,
+        "coverage_score": 0.312,
+        "photometric_score": 0.6367,
+        "quality": "poor",
+        "failure_reason": "quality gates failed (inliers=97 ratio=0.52 residual=0.19 coverage=0.31)"
+      }
+    },
+    {
+      "board": 300002,
+      "control": "wrong_board",
+      "treatment": "orb_ladder_only",
+      "accepted": true,
+      "metrics": {
+        "detector": "ORB",
+        "keypoints_reference": 1651,
+        "keypoints_test": 1750,
+        "attempts": [
+          "SIFT",
+          "ORB",
+          "ECC-refine"
+        ],
+        "good_matches": 263,
+        "inliers": 133,
+        "inlier_ratio": 0.5057,
+        "mean_residual_px": 0.072,
+        "coverage_score": 0.375,
+        "photometric_score": 0.6396,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.6284
+      }
+    },
+    {
+      "board": 300002,
+      "control": "wrong_board",
+      "treatment": "ecc_plus_orb",
+      "accepted": true,
+      "metrics": {
+        "detector": "ORB",
+        "keypoints_reference": 1651,
+        "keypoints_test": 1750,
+        "attempts": [
+          "SIFT",
+          "ORB",
+          "ECC-refine"
+        ],
+        "good_matches": 263,
+        "inliers": 133,
+        "inlier_ratio": 0.5057,
+        "mean_residual_px": 0.072,
+        "coverage_score": 0.375,
+        "photometric_score": 0.6397,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.6284
+      }
+    },
+    {
+      "board": 500001,
+      "control": "new_board_pose",
+      "treatment": "legacy",
+      "accepted": true,
+      "pose_error_px": 0.09002719819545746,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 723,
+        "keypoints_test": 712,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 123,
+        "inliers": 86,
+        "inlier_ratio": 0.6992,
+        "mean_residual_px": 0.242,
+        "coverage_score": 0.438,
+        "photometric_score": 0.8809,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_rejected": true
+      }
+    },
+    {
+      "board": 500001,
+      "control": "new_board_pose",
+      "treatment": "ecc_direction_only",
+      "accepted": true,
+      "pose_error_px": 0.037167128175497055,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 723,
+        "keypoints_test": 712,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 123,
+        "inliers": 86,
+        "inlier_ratio": 0.6992,
+        "mean_residual_px": 0.242,
+        "coverage_score": 0.438,
+        "photometric_score": 0.8812,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.8845
+      }
+    },
+    {
+      "board": 500001,
+      "control": "new_board_pose",
+      "treatment": "orb_ladder_only",
+      "accepted": true,
+      "pose_error_px": 0.09002719819545746,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 723,
+        "keypoints_test": 712,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 123,
+        "inliers": 86,
+        "inlier_ratio": 0.6992,
+        "mean_residual_px": 0.242,
+        "coverage_score": 0.438,
+        "photometric_score": 0.8809,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_rejected": true
+      }
+    },
+    {
+      "board": 500001,
+      "control": "new_board_pose",
+      "treatment": "ecc_plus_orb",
+      "accepted": true,
+      "pose_error_px": 0.037167128175497055,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 723,
+        "keypoints_test": 712,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 123,
+        "inliers": 86,
+        "inlier_ratio": 0.6992,
+        "mean_residual_px": 0.242,
+        "coverage_score": 0.438,
+        "photometric_score": 0.8812,
+        "quality": "marginal",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.8845
+      }
+    },
+    {
+      "board": 500002,
+      "control": "new_board_pose",
+      "treatment": "legacy",
+      "accepted": true,
+      "pose_error_px": 0.08165372908115387,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 750,
+        "keypoints_test": 734,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 125,
+        "inliers": 95,
+        "inlier_ratio": 0.76,
+        "mean_residual_px": 0.247,
+        "coverage_score": 0.625,
+        "photometric_score": 0.8722,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_rejected": true
+      }
+    },
+    {
+      "board": 500002,
+      "control": "new_board_pose",
+      "treatment": "ecc_direction_only",
+      "accepted": true,
+      "pose_error_px": 0.03726102039217949,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 750,
+        "keypoints_test": 734,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 125,
+        "inliers": 95,
+        "inlier_ratio": 0.76,
+        "mean_residual_px": 0.247,
+        "coverage_score": 0.625,
+        "photometric_score": 0.8724,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.8729
+      }
+    },
+    {
+      "board": 500002,
+      "control": "new_board_pose",
+      "treatment": "orb_ladder_only",
+      "accepted": true,
+      "pose_error_px": 0.08165372908115387,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 750,
+        "keypoints_test": 734,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 125,
+        "inliers": 95,
+        "inlier_ratio": 0.76,
+        "mean_residual_px": 0.247,
+        "coverage_score": 0.625,
+        "photometric_score": 0.8722,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_rejected": true
+      }
+    },
+    {
+      "board": 500002,
+      "control": "new_board_pose",
+      "treatment": "ecc_plus_orb",
+      "accepted": true,
+      "pose_error_px": 0.03726102039217949,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 750,
+        "keypoints_test": 734,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 125,
+        "inliers": 95,
+        "inlier_ratio": 0.76,
+        "mean_residual_px": 0.247,
+        "coverage_score": 0.625,
+        "photometric_score": 0.8724,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.8729
+      }
+    },
+    {
+      "board": 500003,
+      "control": "new_board_pose",
+      "treatment": "legacy",
+      "accepted": true,
+      "pose_error_px": 0.05193617194890976,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 795,
+        "keypoints_test": 735,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 104,
+        "inliers": 85,
+        "inlier_ratio": 0.8173,
+        "mean_residual_px": 0.223,
+        "coverage_score": 0.625,
+        "photometric_score": 0.8926,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_rejected": true
+      }
+    },
+    {
+      "board": 500003,
+      "control": "new_board_pose",
+      "treatment": "ecc_direction_only",
+      "accepted": true,
+      "pose_error_px": 0.025766033679246902,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 795,
+        "keypoints_test": 735,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 104,
+        "inliers": 85,
+        "inlier_ratio": 0.8173,
+        "mean_residual_px": 0.223,
+        "coverage_score": 0.625,
+        "photometric_score": 0.8927,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.8959
+      }
+    },
+    {
+      "board": 500003,
+      "control": "new_board_pose",
+      "treatment": "orb_ladder_only",
+      "accepted": true,
+      "pose_error_px": 0.05193617194890976,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 795,
+        "keypoints_test": 735,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 104,
+        "inliers": 85,
+        "inlier_ratio": 0.8173,
+        "mean_residual_px": 0.223,
+        "coverage_score": 0.625,
+        "photometric_score": 0.8926,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_rejected": true
+      }
+    },
+    {
+      "board": 500003,
+      "control": "new_board_pose",
+      "treatment": "ecc_plus_orb",
+      "accepted": true,
+      "pose_error_px": 0.025766033679246902,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 795,
+        "keypoints_test": 735,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 104,
+        "inliers": 85,
+        "inlier_ratio": 0.8173,
+        "mean_residual_px": 0.223,
+        "coverage_score": 0.625,
+        "photometric_score": 0.8927,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.8959
+      }
+    },
+    {
+      "board": 500004,
+      "control": "new_board_pose",
+      "treatment": "legacy",
+      "accepted": true,
+      "pose_error_px": 0.05127077177166939,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 705,
+        "keypoints_test": 678,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 127,
+        "inliers": 90,
+        "inlier_ratio": 0.7087,
+        "mean_residual_px": 0.233,
+        "coverage_score": 0.688,
+        "photometric_score": 0.8615,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_rejected": true
+      }
+    },
+    {
+      "board": 500004,
+      "control": "new_board_pose",
+      "treatment": "ecc_direction_only",
+      "accepted": true,
+      "pose_error_px": 0.030936744064092636,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 705,
+        "keypoints_test": 678,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 127,
+        "inliers": 90,
+        "inlier_ratio": 0.7087,
+        "mean_residual_px": 0.233,
+        "coverage_score": 0.688,
+        "photometric_score": 0.8616,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.8644
+      }
+    },
+    {
+      "board": 500004,
+      "control": "new_board_pose",
+      "treatment": "orb_ladder_only",
+      "accepted": true,
+      "pose_error_px": 0.05127077177166939,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 705,
+        "keypoints_test": 678,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 127,
+        "inliers": 90,
+        "inlier_ratio": 0.7087,
+        "mean_residual_px": 0.233,
+        "coverage_score": 0.688,
+        "photometric_score": 0.8615,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_rejected": true
+      }
+    },
+    {
+      "board": 500004,
+      "control": "new_board_pose",
+      "treatment": "ecc_plus_orb",
+      "accepted": true,
+      "pose_error_px": 0.030936744064092636,
+      "metrics": {
+        "detector": "SIFT",
+        "keypoints_reference": 705,
+        "keypoints_test": 678,
+        "attempts": [
+          "SIFT",
+          "ECC-refine"
+        ],
+        "good_matches": 127,
+        "inliers": 90,
+        "inlier_ratio": 0.7087,
+        "mean_residual_px": 0.233,
+        "coverage_score": 0.688,
+        "photometric_score": 0.8616,
+        "quality": "good",
+        "failure_reason": null,
+        "ecc_refine_correlation": 0.8644
+      }
+    }
+  ],
+  "local_verifier": [
+    {
+      "control": "injected_defect",
+      "treatment": "legacy",
+      "metrics": {
+        "mean_diff_before": 8.47,
+        "mean_diff_after": 0.07,
+        "reduction_ratio": 0.9916,
+        "ecc_correlation": 0.5491
+      },
+      "supports_defect": false
+    },
+    {
+      "control": "injected_defect",
+      "treatment": "units_direction_reliability_fix",
+      "metrics": {
+        "mean_diff_before": 8.47,
+        "mean_diff_after": 20.15,
+        "reduction_ratio": -1.0,
+        "ecc_correlation": 0.5491
+      },
+      "supports_defect": null
+    },
+    {
+      "control": "translation_only",
+      "treatment": "legacy",
+      "metrics": {
+        "mean_diff_before": 12.17,
+        "mean_diff_after": 0.1,
+        "reduction_ratio": 0.9916,
+        "ecc_correlation": 0.9732
+      },
+      "supports_defect": false
+    },
+    {
+      "control": "translation_only",
+      "treatment": "units_direction_reliability_fix",
+      "metrics": {
+        "mean_diff_before": 12.17,
+        "mean_diff_after": 6.68,
+        "reduction_ratio": 0.451,
+        "ecc_correlation": 0.9732
+      },
+      "supports_defect": null
+    }
+  ],
+  "usac_capability": {
+    "estimateAffinePartial2D": {
+      "supported": false,
+      "error": "OpenCV(5.0.0) /Users/xperience/GHA-OpenCV-Python/_work/opencv-python/opencv-python/opencv/modules/geometry/src/ptsetreg.cpp:1155: error: (-5:Bad argument) Unknown or unsupported robust estimation method in function 'estimateAffinePartial2D'\n"
+    },
+    "estimateAffine2D": {
+      "supported": true,
+      "inliers": 60
+    },
+    "findHomography": {
+      "supported": true,
+      "inliers": 60
+    }
+  },
+  "caveat": "Post-study failure isolation; not a second untouched test set for detector selection."
+}

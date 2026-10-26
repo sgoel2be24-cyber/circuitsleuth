@@ -132,14 +132,10 @@ async def run_inspection(
         # ----------------------------------------------- budget exhausted
         for rid, cand in state["candidates"].items():
             if cand["status"] not in policy.TERMINAL_STATUSES:
-                cand["status"] = "NEEDS_REVIEW"
                 cand["notes"].append("Inspection budget exhausted before verification completed.")
-                await tb._emit(
-                    "human_review_requested",
-                    f"{rid} left unverified when the inspection budget ran out; escalated to human review.",
-                    phase="DECIDE",
-                    region_id=rid,
-                    evidence={"reason": "budget_exhausted"},
+                await tb.request_human_review(
+                    rid, "Inspection budget exhausted before verification completed.",
+                    requested_action="review the evidence or rerun with a larger inspection budget",
                 )
 
         await tb._emit(
@@ -151,12 +147,23 @@ async def run_inspection(
         )
         return await _finalize(tb, state, t0)
 
+    except asyncio.CancelledError:
+        state["status"] = "failed"
+        state["stop_reason"] = "operator_requested_termination"
+        state["duration_s"] = round(time.perf_counter() - t0, 3)
+        for rid, cand in state.get("candidates", {}).items():
+            if cand["status"] not in policy.TERMINAL_STATUSES:
+                await tb.request_human_review(rid, "Operator stopped inspection before verification completed.")
+        await tb._emit("inspection_aborted", "Inspection stopped by the operator.", phase="DECIDE")
+        store.save_state(state["id"], state)
+        store.update_inspection(state["id"], status="failed", summary=_public_summary(state))
+        return state
     except ToolError as exc:
         state["status"] = "failed"
         state["stop_reason"] = f"tool_error: {exc}"
         await tb._emit("inspection_failed", f"Tool error: {exc}", phase="DECIDE")
         store.save_state(state["id"], state)
-        store.update_inspection(state["id"], status="failed")
+        store.update_inspection(state["id"], status="failed", summary=_public_summary(state))
         return state
     except Exception as exc:  # unrecoverable — surface honestly
         state["status"] = "failed"
@@ -168,7 +175,7 @@ async def run_inspection(
             evidence={"traceback": traceback.format_exc(limit=6)},
         )
         store.save_state(state["id"], state)
-        store.update_inspection(state["id"], status="failed")
+        store.update_inspection(state["id"], status="failed", summary=_public_summary(state))
         return state
 
 
@@ -187,6 +194,7 @@ async def _finalize(tb: InspectionToolbelt, state: dict[str, Any], t0: float) ->
         phase="DECIDE",
         evidence={"duration_s": state["duration_s"], "tool_calls": state["tool_calls_used"]},
     )
+    store.save_state(state["id"], state)
     return state
 
 

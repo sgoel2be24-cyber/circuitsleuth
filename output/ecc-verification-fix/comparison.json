@@ -1,0 +1,7945 @@
+{
+  "summary": {
+    "before": {
+      "reported": {
+        "tp": 87,
+        "fp": 22,
+        "fn": 33,
+        "micro_precision": 0.7981651376146789,
+        "micro_recall": 0.725,
+        "micro_f1": 0.759825327510917
+      },
+      "candidates": {
+        "tp": 109,
+        "fp": 78,
+        "fn": 11,
+        "micro_precision": 0.5828877005347594,
+        "micro_recall": 0.9083333333333333,
+        "micro_f1": 0.7100977198697068
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 70,
+        "LIKELY_DEFECT": 39,
+        "NEEDS_REVIEW": 45,
+        "CLEARED": 31,
+        "NOT_EVALUABLE": 2
+      },
+      "mean_tool_calls": 5.25,
+      "clean_false_positives": 5
+    },
+    "after": {
+      "reported": {
+        "tp": 87,
+        "fp": 22,
+        "fn": 33,
+        "micro_precision": 0.7981651376146789,
+        "micro_recall": 0.725,
+        "micro_f1": 0.759825327510917
+      },
+      "candidates": {
+        "tp": 109,
+        "fp": 78,
+        "fn": 11,
+        "micro_precision": 0.5828877005347594,
+        "micro_recall": 0.9083333333333333,
+        "micro_f1": 0.7100977198697068
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 70,
+        "LIKELY_DEFECT": 39,
+        "NEEDS_REVIEW": 44,
+        "CLEARED": 32,
+        "NOT_EVALUABLE": 2
+      },
+      "mean_tool_calls": 5.270833333333333,
+      "clean_false_positives": 5
+    }
+  },
+  "controls": [
+    {
+      "board": 200001,
+      "treatment": "before",
+      "control": "wrong_board",
+      "accepted": true,
+      "quality": "good"
+    },
+    {
+      "board": 200001,
+      "treatment": "after",
+      "control": "wrong_board",
+      "accepted": true,
+      "quality": "good"
+    },
+    {
+      "board": 200002,
+      "treatment": "before",
+      "control": "wrong_board",
+      "accepted": true,
+      "quality": "marginal"
+    },
+    {
+      "board": 200002,
+      "treatment": "after",
+      "control": "wrong_board",
+      "accepted": true,
+      "quality": "marginal"
+    },
+    {
+      "board": 300001,
+      "treatment": "before",
+      "control": "wrong_board",
+      "accepted": false,
+      "quality": "poor"
+    },
+    {
+      "board": 300001,
+      "treatment": "after",
+      "control": "wrong_board",
+      "accepted": false,
+      "quality": "poor"
+    },
+    {
+      "board": 300002,
+      "treatment": "before",
+      "control": "wrong_board",
+      "accepted": false,
+      "quality": "poor"
+    },
+    {
+      "board": 300002,
+      "treatment": "after",
+      "control": "wrong_board",
+      "accepted": false,
+      "quality": "poor"
+    },
+    {
+      "board": 700001,
+      "treatment": "before",
+      "control": "fresh_pose",
+      "accepted": true,
+      "mean_anchor_error_px": 0.08428084850311279
+    },
+    {
+      "board": 700001,
+      "treatment": "after",
+      "control": "fresh_pose",
+      "accepted": true,
+      "mean_anchor_error_px": 0.025999780744314194
+    },
+    {
+      "board": 700002,
+      "treatment": "before",
+      "control": "fresh_pose",
+      "accepted": true,
+      "mean_anchor_error_px": 0.04871179535984993
+    },
+    {
+      "board": 700002,
+      "treatment": "after",
+      "control": "fresh_pose",
+      "accepted": true,
+      "mean_anchor_error_px": 0.042949385941028595
+    },
+    {
+      "board": 700003,
+      "treatment": "before",
+      "control": "fresh_pose",
+      "accepted": true,
+      "mean_anchor_error_px": 0.048927418887615204
+    },
+    {
+      "board": 700003,
+      "treatment": "after",
+      "control": "fresh_pose",
+      "accepted": true,
+      "mean_anchor_error_px": 0.03993663936853409
+    },
+    {
+      "board": 700004,
+      "treatment": "before",
+      "control": "fresh_pose",
+      "accepted": true,
+      "mean_anchor_error_px": 0.02285059355199337
+    },
+    {
+      "board": 700004,
+      "treatment": "after",
+      "control": "fresh_pose",
+      "accepted": true,
+      "mean_anchor_error_px": 0.05393267795443535
+    }
+  ],
+  "rows": [
+    {
+      "treatment": "before",
+      "board": 300001,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 1,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            246,
+            15,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            317,
+            94,
+            6,
+            52
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            593,
+            550,
+            89,
+            25
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300001,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 2,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            601,
+            550,
+            75,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300001,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.4,
+        "recall": 0.6667,
+        "f1": 0.5
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 3,
+        "CLEARED": 2
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            247,
+            15,
+            5
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            316,
+            94,
+            8,
+            53
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            592,
+            551,
+            91,
+            23
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            337,
+            567,
+            7,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            123,
+            447,
+            41,
+            7
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300001,
+      "profile": "glare",
+      "score": {
+        "tp": 1,
+        "fp": 2,
+        "fn": 2,
+        "precision": 0.3333,
+        "recall": 0.3333,
+        "f1": 0.3333
+      },
+      "candidate_score": {
+        "tp": 1,
+        "fp": 6,
+        "fn": 2,
+        "precision": 0.1429,
+        "recall": 0.3333,
+        "f1": 0.2
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 2,
+        "CLEARED": 3,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 9,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            246,
+            48,
+            14
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            333,
+            341,
+            11,
+            10
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            317,
+            94,
+            6,
+            53
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            267,
+            340,
+            46,
+            19
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            332,
+            281,
+            29,
+            40
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            246,
+            280,
+            68,
+            42
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            601,
+            551,
+            75,
+            23
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300001,
+      "profile": "mild",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 1,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            246,
+            15,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            316,
+            94,
+            8,
+            53
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            601,
+            550,
+            75,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300001,
+      "profile": "pose",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 1,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            247,
+            15,
+            5
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            317,
+            94,
+            7,
+            53
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            600,
+            551,
+            76,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300002,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            22,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            15,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300002,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {},
+      "tool_calls": 0,
+      "stop_reason": "no_candidates",
+      "candidates": []
+    },
+    {
+      "treatment": "before",
+      "board": 300002,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 3,
+        "CLEARED": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            22,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            16,
+            9
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            225,
+            25,
+            37,
+            9
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300002,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.4286,
+        "recall": 1.0,
+        "f1": 0.6
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "NEEDS_REVIEW": 1,
+        "CLEARED": 3,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 8,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            22,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            16,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            264,
+            340,
+            75,
+            18
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            264,
+            250,
+            74,
+            11
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            243,
+            278,
+            117,
+            43
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            393,
+            240,
+            18,
+            19
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300002,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            23,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            16,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300002,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            23,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            16,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300003,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            719,
+            477,
+            15,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            201,
+            154,
+            8,
+            53
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300003,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "CLEARED": 1
+      },
+      "tool_calls": 1,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            237,
+            546,
+            17,
+            13
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300003,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            718,
+            476,
+            16,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            201,
+            154,
+            8,
+            53
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            285,
+            446,
+            85,
+            8
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300003,
+      "profile": "glare",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 5,
+        "fn": 1,
+        "precision": 0.2857,
+        "recall": 0.6667,
+        "f1": 0.4
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 2,
+        "CONFIRMED_DEFECT": 2,
+        "CLEARED": 3
+      },
+      "tool_calls": 9,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            357,
+            297,
+            14,
+            23
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            273,
+            240,
+            63,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            719,
+            477,
+            14,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            202,
+            154,
+            6,
+            53
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            245,
+            296,
+            92,
+            41
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            240,
+            181,
+            28,
+            19
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            290,
+            357,
+            38,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300003,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1,
+        "CLEARED": 1
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            719,
+            476,
+            15,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            201,
+            154,
+            8,
+            53
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            125,
+            90,
+            5,
+            4
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            237,
+            546,
+            17,
+            13
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300003,
+      "profile": "pose",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "NOT_EVALUABLE": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            719,
+            476,
+            15,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            201,
+            154,
+            8,
+            53
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            721,
+            10,
+            8,
+            3
+          ],
+          "status": "NOT_EVALUABLE",
+          "tools": [
+            "local_realignment"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300004,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      },
+      "tool_calls": 3,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            19
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            185,
+            170,
+            23,
+            18
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            492,
+            386,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300004,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {},
+      "tool_calls": 0,
+      "stop_reason": "no_candidates",
+      "candidates": []
+    },
+    {
+      "treatment": "before",
+      "board": 300004,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 4,
+        "CLEARED": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            19
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            185,
+            172,
+            23,
+            16
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            492,
+            386,
+            12,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            27,
+            27,
+            18,
+            18
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            130,
+            327,
+            7,
+            8
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300004,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 6,
+        "fn": 0,
+        "precision": 0.3333,
+        "recall": 1.0,
+        "f1": 0.5
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "LIKELY_DEFECT": 2,
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 2
+      },
+      "tool_calls": 10,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            19
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            492,
+            386,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            185,
+            172,
+            23,
+            16
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            272,
+            340,
+            32,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            324,
+            341,
+            20,
+            11
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            322,
+            239,
+            34,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            275,
+            241,
+            30,
+            21
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R08",
+          "bbox": [
+            251,
+            276,
+            119,
+            45
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R09",
+          "bbox": [
+            205,
+            227,
+            23,
+            23
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300004,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      },
+      "tool_calls": 3,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            20
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            492,
+            386,
+            13,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            185,
+            172,
+            23,
+            16
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300004,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      },
+      "tool_calls": 3,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            19
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            492,
+            386,
+            13,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            185,
+            172,
+            23,
+            16
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300005,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            9,
+            104
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            633,
+            386,
+            13,
+            5
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            210,
+            325,
+            56,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300005,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 1,
+        "CLEARED": 1
+      },
+      "tool_calls": 3,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            209,
+            324,
+            61,
+            21
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            349,
+            341,
+            25,
+            19
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300005,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.4286,
+        "recall": 1.0,
+        "f1": 0.6
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 5,
+        "CLEARED": 2
+      },
+      "tool_calls": 10,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            8,
+            104
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            635,
+            386,
+            8,
+            4
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            199,
+            325,
+            77,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            221,
+            29,
+            22,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            629,
+            130,
+            36,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            362,
+            350,
+            4,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300005,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 5,
+        "fn": 0,
+        "precision": 0.375,
+        "recall": 1.0,
+        "f1": 0.5455
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NEEDS_REVIEW": 3,
+        "CLEARED": 2
+      },
+      "tool_calls": 10,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            8,
+            104
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            282,
+            245,
+            33,
+            16
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            635,
+            386,
+            11,
+            4
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            335,
+            251,
+            10,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            218,
+            278,
+            143,
+            78
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            372,
+            312,
+            49,
+            68
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R08",
+          "bbox": [
+            418,
+            303,
+            4,
+            5
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300005,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NEEDS_REVIEW": 1,
+        "CLEARED": 1
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            12,
+            104
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            632,
+            386,
+            14,
+            5
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            209,
+            324,
+            61,
+            21
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            349,
+            341,
+            25,
+            17
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300005,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            9,
+            104
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            632,
+            386,
+            14,
+            5
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            211,
+            325,
+            53,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300006,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            124,
+            8,
+            15
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            347,
+            87,
+            25,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            18,
+            20
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300006,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 1,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            755,
+            221,
+            9,
+            5
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300006,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 3
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            124,
+            8,
+            15
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            342,
+            87,
+            29,
+            7
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            19,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300006,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "LIKELY_DEFECT": 1,
+        "CLEARED": 2
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            124,
+            8,
+            15
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            342,
+            87,
+            29,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            18,
+            20
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            243,
+            281,
+            7,
+            39
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            263,
+            242,
+            70,
+            18
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            266,
+            295,
+            106,
+            68
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300006,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            123,
+            8,
+            17
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            342,
+            87,
+            29,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            19,
+            21
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            755,
+            221,
+            9,
+            5
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300006,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NOT_EVALUABLE": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            124,
+            8,
+            16
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            342,
+            87,
+            26,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            19,
+            21
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            723,
+            10,
+            8,
+            3
+          ],
+          "status": "NOT_EVALUABLE",
+          "tools": [
+            "local_realignment"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300007,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 2
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            501,
+            94,
+            13,
+            114
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            184,
+            387,
+            6,
+            7
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300007,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {},
+      "tool_calls": 0,
+      "stop_reason": "no_candidates",
+      "candidates": []
+    },
+    {
+      "treatment": "before",
+      "board": 300007,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 3,
+        "CLEARED": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            500,
+            94,
+            14,
+            114
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            183,
+            386,
+            7,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            438,
+            147,
+            50,
+            7
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300007,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 5,
+        "fn": 0,
+        "precision": 0.375,
+        "recall": 1.0,
+        "f1": 0.5455
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "LIKELY_DEFECT": 2,
+        "CLEARED": 3
+      },
+      "tool_calls": 11,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            339,
+            255,
+            20,
+            22
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            259,
+            243,
+            61,
+            40
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            183,
+            386,
+            7,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            501,
+            94,
+            11,
+            113
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            338,
+            296,
+            32,
+            56
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            247,
+            289,
+            74,
+            72
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R08",
+          "bbox": [
+            403,
+            244,
+            13,
+            27
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300007,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            183,
+            386,
+            7,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            501,
+            94,
+            13,
+            114
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300007,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 2
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            765,
+            154,
+            7,
+            12
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            501,
+            94,
+            13,
+            114
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            183,
+            386,
+            7,
+            8
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300008,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "CLEARED": 1,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            278,
+            266,
+            19,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            137,
+            224,
+            7,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            743,
+            328,
+            9,
+            7
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            635,
+            143,
+            25,
+            14
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300008,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "LIKELY_DEFECT": 4
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            363,
+            461,
+            6,
+            7
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            328,
+            420,
+            14,
+            20
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            331,
+            461,
+            11,
+            8
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            363,
+            424,
+            15,
+            16
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300008,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 4
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            277,
+            266,
+            20,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            137,
+            223,
+            7,
+            11
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            734,
+            321,
+            25,
+            42
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            635,
+            144,
+            25,
+            13
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300008,
+      "profile": "glare",
+      "score": {
+        "tp": 2,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.4,
+        "recall": 0.6667,
+        "f1": 0.5
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.4,
+        "recall": 0.6667,
+        "f1": 0.5
+      },
+      "verdicts": {
+        "LIKELY_DEFECT": 4,
+        "CONFIRMED_DEFECT": 1
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            332,
+            418,
+            10,
+            22
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            137,
+            223,
+            7,
+            11
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            363,
+            427,
+            10,
+            9
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            253,
+            262,
+            117,
+            95
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            635,
+            144,
+            25,
+            13
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300008,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.4286,
+        "recall": 1.0,
+        "f1": 0.6
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.4286,
+        "recall": 1.0,
+        "f1": 0.6
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 5
+      },
+      "tool_calls": 8,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            277,
+            266,
+            20,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            136,
+            223,
+            8,
+            11
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            363,
+            461,
+            5,
+            7
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            333,
+            423,
+            9,
+            17
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            333,
+            461,
+            9,
+            8
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            363,
+            424,
+            15,
+            16
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            635,
+            144,
+            25,
+            13
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "before",
+      "board": 300008,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 3,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 8,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            277,
+            266,
+            20,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            136,
+            223,
+            8,
+            11
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            333,
+            433,
+            9,
+            7
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            363,
+            429,
+            12,
+            11
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            742,
+            326,
+            11,
+            12
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            635,
+            144,
+            25,
+            13
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300001,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 1,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            246,
+            15,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            317,
+            94,
+            6,
+            52
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            593,
+            550,
+            89,
+            25
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300001,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 2,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            601,
+            551,
+            75,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300001,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.4,
+        "recall": 0.6667,
+        "f1": 0.5
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 3,
+        "CLEARED": 2
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            247,
+            15,
+            5
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            316,
+            94,
+            8,
+            53
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            592,
+            551,
+            91,
+            23
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            337,
+            567,
+            7,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            123,
+            447,
+            42,
+            7
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300001,
+      "profile": "glare",
+      "score": {
+        "tp": 1,
+        "fp": 2,
+        "fn": 2,
+        "precision": 0.3333,
+        "recall": 0.3333,
+        "f1": 0.3333
+      },
+      "candidate_score": {
+        "tp": 1,
+        "fp": 6,
+        "fn": 2,
+        "precision": 0.1429,
+        "recall": 0.3333,
+        "f1": 0.2
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 2,
+        "CLEARED": 3,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 9,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            246,
+            48,
+            14
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            333,
+            341,
+            11,
+            10
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            317,
+            94,
+            6,
+            53
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            267,
+            340,
+            46,
+            19
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            332,
+            281,
+            29,
+            40
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            246,
+            280,
+            68,
+            42
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            601,
+            551,
+            75,
+            23
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300001,
+      "profile": "mild",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 1,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            246,
+            15,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            316,
+            94,
+            8,
+            53
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            601,
+            551,
+            75,
+            23
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300001,
+      "profile": "pose",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 1,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            264,
+            246,
+            15,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            317,
+            94,
+            7,
+            53
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            599,
+            551,
+            77,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300002,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            22,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            15,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300002,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {},
+      "tool_calls": 0,
+      "stop_reason": "no_candidates",
+      "candidates": []
+    },
+    {
+      "treatment": "after",
+      "board": 300002,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 3,
+        "CLEARED": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            22,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            16,
+            9
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            225,
+            25,
+            36,
+            9
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300002,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.4286,
+        "recall": 1.0,
+        "f1": 0.6
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "NEEDS_REVIEW": 1,
+        "CLEARED": 3,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 8,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            23,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            16,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            264,
+            340,
+            75,
+            18
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            264,
+            250,
+            74,
+            11
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            243,
+            278,
+            117,
+            43
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            393,
+            239,
+            18,
+            20
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300002,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            23,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            16,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300002,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            91,
+            266,
+            23,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            341,
+            26,
+            16,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            165,
+            113,
+            14,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300003,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            719,
+            477,
+            15,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            201,
+            154,
+            9,
+            53
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300003,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "CLEARED": 1
+      },
+      "tool_calls": 1,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            237,
+            546,
+            17,
+            13
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300003,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            718,
+            476,
+            16,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            201,
+            154,
+            8,
+            53
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            285,
+            446,
+            85,
+            8
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300003,
+      "profile": "glare",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 5,
+        "fn": 1,
+        "precision": 0.2857,
+        "recall": 0.6667,
+        "f1": 0.4
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 2,
+        "CONFIRMED_DEFECT": 2,
+        "CLEARED": 3
+      },
+      "tool_calls": 9,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            357,
+            297,
+            14,
+            23
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            719,
+            477,
+            14,
+            6
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            273,
+            240,
+            63,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            201,
+            154,
+            7,
+            53
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            245,
+            296,
+            92,
+            41
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            240,
+            181,
+            28,
+            19
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            290,
+            357,
+            38,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300003,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1,
+        "CLEARED": 1
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            719,
+            476,
+            15,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            201,
+            154,
+            8,
+            53
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            125,
+            90,
+            5,
+            4
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            237,
+            546,
+            17,
+            13
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300003,
+      "profile": "pose",
+      "score": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "NOT_EVALUABLE": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            719,
+            476,
+            15,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            724,
+            10,
+            6,
+            3
+          ],
+          "status": "NOT_EVALUABLE",
+          "tools": [
+            "local_realignment",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            201,
+            154,
+            8,
+            53
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300004,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      },
+      "tool_calls": 3,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            19
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            185,
+            170,
+            23,
+            18
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            492,
+            386,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300004,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {},
+      "tool_calls": 0,
+      "stop_reason": "no_candidates",
+      "candidates": []
+    },
+    {
+      "treatment": "after",
+      "board": 300004,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 4,
+        "CLEARED": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            19
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            185,
+            172,
+            23,
+            16
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            492,
+            386,
+            12,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            27,
+            27,
+            18,
+            18
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            130,
+            327,
+            7,
+            8
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300004,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 6,
+        "fn": 0,
+        "precision": 0.3333,
+        "recall": 1.0,
+        "f1": 0.5
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "LIKELY_DEFECT": 2,
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 2
+      },
+      "tool_calls": 10,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            19
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            492,
+            386,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            185,
+            172,
+            23,
+            16
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            272,
+            340,
+            32,
+            15
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            324,
+            341,
+            20,
+            11
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            322,
+            239,
+            34,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            275,
+            240,
+            30,
+            22
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R08",
+          "bbox": [
+            251,
+            276,
+            119,
+            45
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R09",
+          "bbox": [
+            205,
+            227,
+            23,
+            23
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300004,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      },
+      "tool_calls": 3,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            20
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            492,
+            386,
+            13,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            185,
+            172,
+            23,
+            16
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300004,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      },
+      "tool_calls": 3,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            496,
+            58,
+            8,
+            19
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            185,
+            172,
+            23,
+            16
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            492,
+            386,
+            13,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300005,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            9,
+            104
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            633,
+            386,
+            13,
+            5
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            210,
+            325,
+            56,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300005,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 1,
+        "CLEARED": 1
+      },
+      "tool_calls": 3,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            209,
+            324,
+            61,
+            21
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            349,
+            341,
+            25,
+            19
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300005,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.4286,
+        "recall": 1.0,
+        "f1": 0.6
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 4,
+        "CLEARED": 3
+      },
+      "tool_calls": 9,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            8,
+            104
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            635,
+            386,
+            8,
+            4
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            199,
+            326,
+            77,
+            19
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            221,
+            29,
+            22,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            629,
+            130,
+            36,
+            24
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            362,
+            350,
+            4,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300005,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 5,
+        "fn": 0,
+        "precision": 0.375,
+        "recall": 1.0,
+        "f1": 0.5455
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NEEDS_REVIEW": 3,
+        "CLEARED": 2
+      },
+      "tool_calls": 10,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            8,
+            104
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            282,
+            245,
+            33,
+            16
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            635,
+            386,
+            11,
+            4
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            335,
+            251,
+            10,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            219,
+            278,
+            142,
+            78
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            372,
+            310,
+            49,
+            70
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R08",
+          "bbox": [
+            418,
+            303,
+            4,
+            6
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300005,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NEEDS_REVIEW": 1,
+        "CLEARED": 1
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            12,
+            104
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            632,
+            386,
+            14,
+            5
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            209,
+            324,
+            61,
+            21
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            349,
+            341,
+            25,
+            17
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300005,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            310,
+            103,
+            12,
+            104
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            542,
+            240,
+            12,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            632,
+            386,
+            14,
+            5
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            211,
+            325,
+            53,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300006,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            124,
+            8,
+            15
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            347,
+            87,
+            20,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            18,
+            20
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300006,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 1,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            755,
+            221,
+            9,
+            5
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300006,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 3
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            124,
+            8,
+            15
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            342,
+            87,
+            29,
+            7
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            19,
+            20
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300006,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "LIKELY_DEFECT": 1,
+        "CLEARED": 2
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            124,
+            8,
+            15
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            342,
+            87,
+            29,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            18,
+            20
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            243,
+            281,
+            7,
+            39
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            263,
+            242,
+            70,
+            18
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            266,
+            295,
+            106,
+            68
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300006,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            123,
+            8,
+            17
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            342,
+            87,
+            29,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            19,
+            21
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            755,
+            221,
+            9,
+            5
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300006,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3,
+        "NOT_EVALUABLE": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            767,
+            124,
+            8,
+            16
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            342,
+            87,
+            26,
+            7
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            253,
+            110,
+            19,
+            21
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            721,
+            10,
+            9,
+            3
+          ],
+          "status": "NOT_EVALUABLE",
+          "tools": [
+            "local_realignment",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300007,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 2
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            501,
+            94,
+            13,
+            114
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            184,
+            387,
+            6,
+            7
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300007,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {},
+      "tool_calls": 0,
+      "stop_reason": "no_candidates",
+      "candidates": []
+    },
+    {
+      "treatment": "after",
+      "board": 300007,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 3,
+        "CLEARED": 1
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            183,
+            386,
+            7,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            500,
+            94,
+            14,
+            114
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            438,
+            147,
+            50,
+            7
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300007,
+      "profile": "glare",
+      "score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 5,
+        "fn": 0,
+        "precision": 0.375,
+        "recall": 1.0,
+        "f1": 0.5455
+      },
+      "verdicts": {
+        "LIKELY_DEFECT": 2,
+        "CONFIRMED_DEFECT": 3,
+        "CLEARED": 3
+      },
+      "tool_calls": 11,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            339,
+            255,
+            20,
+            22
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            259,
+            243,
+            61,
+            40
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            183,
+            386,
+            7,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            501,
+            94,
+            12,
+            113
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            338,
+            296,
+            32,
+            56
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            247,
+            289,
+            74,
+            72
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R08",
+          "bbox": [
+            403,
+            244,
+            13,
+            27
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300007,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            183,
+            386,
+            7,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            501,
+            94,
+            13,
+            114
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300007,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 1,
+        "LIKELY_DEFECT": 2
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            766,
+            154,
+            6,
+            12
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            501,
+            94,
+            13,
+            114
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            183,
+            386,
+            7,
+            8
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300008,
+      "profile": "blur_noise",
+      "score": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "CLEARED": 1,
+        "LIKELY_DEFECT": 1
+      },
+      "tool_calls": 5,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            278,
+            266,
+            19,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            137,
+            224,
+            7,
+            9
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            743,
+            328,
+            9,
+            7
+          ],
+          "status": "CLEARED",
+          "tools": [
+            "adaptive_threshold"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            635,
+            143,
+            25,
+            14
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300008,
+      "profile": "clean",
+      "score": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0
+      },
+      "verdicts": {
+        "LIKELY_DEFECT": 4
+      },
+      "tool_calls": 4,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            363,
+            461,
+            6,
+            7
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            328,
+            420,
+            14,
+            20
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            331,
+            461,
+            11,
+            8
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            363,
+            424,
+            15,
+            16
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300008,
+      "profile": "gain",
+      "score": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571
+      },
+      "verdicts": {
+        "NEEDS_REVIEW": 4
+      },
+      "tool_calls": 6,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            277,
+            266,
+            20,
+            8
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            137,
+            223,
+            7,
+            11
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            734,
+            321,
+            25,
+            42
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            635,
+            144,
+            25,
+            13
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "request_additional_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300008,
+      "profile": "glare",
+      "score": {
+        "tp": 2,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.4,
+        "recall": 0.6667,
+        "f1": 0.5
+      },
+      "candidate_score": {
+        "tp": 2,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.4,
+        "recall": 0.6667,
+        "f1": 0.5
+      },
+      "verdicts": {
+        "LIKELY_DEFECT": 4,
+        "CONFIRMED_DEFECT": 1
+      },
+      "tool_calls": 7,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            332,
+            418,
+            10,
+            22
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            137,
+            223,
+            7,
+            11
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            363,
+            427,
+            10,
+            9
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            253,
+            262,
+            117,
+            95
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            635,
+            144,
+            25,
+            13
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300008,
+      "profile": "mild",
+      "score": {
+        "tp": 3,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.4286,
+        "recall": 1.0,
+        "f1": 0.6
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.4286,
+        "recall": 1.0,
+        "f1": 0.6
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 5
+      },
+      "tool_calls": 8,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            277,
+            266,
+            20,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            136,
+            223,
+            8,
+            11
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            363,
+            461,
+            5,
+            7
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            333,
+            423,
+            9,
+            17
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            333,
+            461,
+            9,
+            8
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            363,
+            424,
+            15,
+            16
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R07",
+          "bbox": [
+            635,
+            144,
+            25,
+            13
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    },
+    {
+      "treatment": "after",
+      "board": 300008,
+      "profile": "pose",
+      "score": {
+        "tp": 3,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75
+      },
+      "candidate_score": {
+        "tp": 3,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 2,
+        "LIKELY_DEFECT": 3,
+        "NEEDS_REVIEW": 1
+      },
+      "tool_calls": 8,
+      "stop_reason": "all_regions_decided",
+      "candidates": [
+        {
+          "region_id": "R01",
+          "bbox": [
+            277,
+            266,
+            20,
+            8
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R02",
+          "bbox": [
+            136,
+            223,
+            8,
+            11
+          ],
+          "status": "CONFIRMED_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R03",
+          "bbox": [
+            334,
+            433,
+            8,
+            7
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R04",
+          "bbox": [
+            363,
+            429,
+            12,
+            10
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R05",
+          "bbox": [
+            742,
+            325,
+            11,
+            13
+          ],
+          "status": "NEEDS_REVIEW",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        },
+        {
+          "region_id": "R06",
+          "bbox": [
+            635,
+            144,
+            25,
+            13
+          ],
+          "status": "LIKELY_DEFECT",
+          "tools": [
+            "adaptive_threshold",
+            "alternate_view"
+          ]
+        }
+      ]
+    }
+  ],
+  "no_new_wrong_board_accepts": true,
+  "caveats": [
+    "48 repeated captures from eight synthetic board identities; diagnostic regression set, not a new untouched test set.",
+    "Scoring uses preserved legacy matcher at IoU 0.15 for before/after comparability.",
+    "Four fresh pose identities assess transform error; no thresholds tuned on these results."
+  ]
+}

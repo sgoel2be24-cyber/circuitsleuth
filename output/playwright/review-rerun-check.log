@@ -1,0 +1,35 @@
+### Ran Playwright code
+```js
+await (async (page) => {
+  const base = 'http://127.0.0.1:8100';
+  const originalId = new URL(page.url()).pathname.split('/').at(-1);
+  await page.getByRole('textbox', { name: 'Operator note (optional)' }).fill('Browser verification: operator cleared the synthetic region.');
+  await page.getByRole('button', { name: 'Clear region', exact: true }).click();
+  await page.getByRole('button', { name: 'R01 Cleared', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'Report', exact: true }).first().click();
+  const reviewed = await (await page.request.get(`${base}/api/inspections/${originalId}/report`)).json();
+  if (reviewed.verdicts.find(v => v.region_id === 'R01').status !== 'CLEARED') throw new Error('Report did not reflect operator decision');
+  const downloadReady = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download JSON', exact: true }).click();
+  const download = await downloadReady;
+  await download.saveAs('/Users/Shikhar/Documents/ChatGPT/OpenCV hackathon/OPENCV HACKATHON/output/playwright/operator-report.json');
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.screenshot({path:'/Users/Shikhar/Documents/ChatGPT/OpenCV hackathon/OPENCV HACKATHON/output/playwright/reviewed-report.png',fullPage:true});
+  await page.getByRole('button', { name: 'Re-run inspection', exact: true }).click();
+  await page.waitForURL(url => url.pathname !== `/inspections/${originalId}`);
+  await page.getByRole('button', { name: 'Re-run inspection', exact: true }).waitFor();
+  const freshId = new URL(page.url()).pathname.split('/').at(-1);
+  const oldReport = await (await page.request.get(`${base}/api/inspections/${originalId}/report`)).json();
+  if (JSON.stringify(oldReport) !== JSON.stringify(reviewed)) throw new Error('Rerun modified original report');
+  const fresh = await (await page.request.get(`${base}/api/inspections/${freshId}`)).json();
+  if (fresh.status !== 'completed' || freshId === originalId || fresh.candidates.R01.status !== 'NEEDS_REVIEW') throw new Error('Rerun did not start a fresh audit trail');
+  console.log(JSON.stringify({operatorReview:'passed',download:download.suggestedFilename(),rerun:'passed',originalId,freshId,originalReportPreserved:true}));
+}
+)(page);
+```
+### Page
+- Page URL: http://127.0.0.1:8100/inspections/ins_988f3f9cdecf
+- Page Title: CircuitSleuth — Active-Perception PCB Inspection
+### Events
+- Downloading file circuitsleuth-report-ins_461efdd263d4.json ...
+- Downloaded file circuitsleuth-report-ins_461efdd263d4.json to "../.playwright-cli/circuitsleuth-report-ins-461efdd263d4.json"

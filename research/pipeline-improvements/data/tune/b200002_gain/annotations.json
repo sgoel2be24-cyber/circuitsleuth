@@ -1,0 +1,49 @@
+{
+  "board": 200002,
+  "profile": "gain",
+  "gt": [
+    {
+      "type": "spurious_copper",
+      "bbox": [
+        527,
+        139,
+        28,
+        22
+      ],
+      "synthetic": true
+    },
+    {
+      "type": "open_circuit",
+      "bbox": [
+        567,
+        478,
+        25,
+        14
+      ],
+      "synthetic": true
+    },
+    {
+      "type": "mousebite",
+      "bbox": [
+        618,
+        100,
+        13,
+        17
+      ],
+      "synthetic": true
+    }
+  ],
+  "reference_to_capture_pose": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ]
+  ],
+  "has_independent_synthetic_capture": false
+}

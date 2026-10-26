@@ -1,0 +1,46 @@
+{
+  "python": "3.13.15 (main, Aug  7 2026, 02:15:21) [Clang 22.1.3 ]",
+  "opencv": "5.0.0",
+  "numpy": "2.5.4",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "threads": 10,
+  "synthetic": true,
+  "device": "local CPU",
+  "seed": 260026,
+  "elapsed_s": 86.91125695902156,
+  "treatments": [
+    "legacy",
+    "symmetric",
+    "symmetric_ecc",
+    "small_morph",
+    "no_median",
+    "bilateral",
+    "clahe_detection",
+    "robust_gain",
+    "multiplicative",
+    "erode_valid"
+  ],
+  "board_seeds": [
+    300001,
+    300002,
+    300003,
+    300004,
+    300005,
+    300006,
+    300007,
+    300008
+  ],
+  "profiles": [
+    "clean",
+    "mild",
+    "gain",
+    "glare",
+    "pose",
+    "blur_noise"
+  ],
+  "agent_treatments": [
+    "legacy",
+    "symmetric_ecc",
+    "multiplicative"
+  ]
+}

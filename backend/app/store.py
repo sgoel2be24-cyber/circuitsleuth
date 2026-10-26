@@ -16,7 +16,10 @@ inspection by id.
 from __future__ import annotations
 
 import json
+import os
+import re
 import sqlite3
+import tempfile
 import threading
 import time
 import uuid
@@ -30,12 +33,17 @@ _local = threading.local()
 
 def _db() -> sqlite3.Connection:
     conn = getattr(_local, "conn", None)
+    db_path = settings.data_dir / "circuitsleuth.db"
+    if conn is not None and getattr(_local, "path", None) != db_path:
+        conn.close()
+        conn = None
     if conn is None:
         settings.data_dir.mkdir(parents=True, exist_ok=True)
-        conn = sqlite3.connect(settings.data_dir / "circuitsleuth.db")
+        conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA journal_mode=WAL")
         _local.conn = conn
+        _local.path = db_path
         _init(conn)
     return conn
 
@@ -138,6 +146,7 @@ def get_events(ins_id: str) -> list[dict[str, Any]]:
 
 
 def run_dir(ins_id: str) -> Path:
+    _validate_id(ins_id)
     d = settings.runs_dir / ins_id
     d.mkdir(parents=True, exist_ok=True)
     return d
@@ -151,15 +160,41 @@ def artifacts_dir(ins_id: str) -> Path:
 
 def save_state(ins_id: str, state: dict[str, Any]) -> Path:
     p = run_dir(ins_id) / "state.json"
-    p.write_text(json.dumps(state, indent=1, default=str))
+    # Readers (including the separate MCP process) must never observe a
+    # partially written JSON document.
+    with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=p.parent,
+                                     suffix=".tmp", delete=False) as handle:
+        pending = Path(handle.name)
+        json.dump(state, handle, indent=1, default=str)
+    try:
+        # Windows readers commonly open files without FILE_SHARE_DELETE.
+        # A brief read (or scanner/indexer handle) can therefore deny an
+        # otherwise permitted atomic replacement with WinError 5/32/33.
+        # Retry briefly, retaining atomicity and surfacing permanent denial.
+        for attempt in range(6):
+            try:
+                os.replace(pending, p)
+                break
+            except PermissionError as exc:
+                if getattr(exc, "winerror", None) not in (5, 32, 33) or attempt == 5:
+                    raise
+                time.sleep(0.01 * (2 ** attempt))
+    finally:
+        pending.unlink(missing_ok=True)
     return p
 
 
 def load_state(ins_id: str) -> dict[str, Any] | None:
+    _validate_id(ins_id)
     p = settings.runs_dir / ins_id / "state.json"
     if not p.exists():
         return None
     return json.loads(p.read_text())
+
+
+def _validate_id(ins_id: str) -> None:
+    if not re.fullmatch(r"[A-Za-z0-9_-]{1,100}", ins_id):
+        raise ValueError("invalid inspection identifier")
 
 
 def save_run_image(ins_id: str, name: str, data: bytes) -> Path:

@@ -1,0 +1,321 @@
+FFFFFFFFFFFFF.FFFF.                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_ecc_pyramid_returns_forward_test_to_reference[None] ___________
+
+init = None
+
+    @pytest.mark.parametrize('init', [None, np.float32([[1, 0, -2.5], [0, 1, 1.5]])])
+    def test_ecc_pyramid_returns_forward_test_to_reference(init):
+        ref = texture()
+        shifted = cv2.warpAffine(ref, np.float32([[1, 0, 3], [0, 1, -2]]), (320, 240))
+        result = reg._ecc_attempt(ref, shifted, init)
+        assert result.ok
+>       np.testing.assert_allclose(result.warp[:, 2], [-3, 2], atol=0.6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=0.6
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: 3.404646873474121 (ACTUAL), -3 (DESIRED)
+E        [1]: -1.6311180591583252 (ACTUAL), 2 (DESIRED)
+E       Max absolute difference among violations: 6.40464687
+E       Max relative difference among violations: 2.13488229
+E        ACTUAL: array([ 3.404647, -1.631118], dtype=float32)
+E        DESIRED: array([-3,  2])
+
+backend/tests/test_alignment_evidence.py:39: AssertionError
+__________ test_ecc_pyramid_returns_forward_test_to_reference[init1] ___________
+
+init = array([[ 1. ,  0. , -2.5],
+       [ 0. ,  1. ,  1.5]], dtype=float32)
+
+    @pytest.mark.parametrize('init', [None, np.float32([[1, 0, -2.5], [0, 1, 1.5]])])
+    def test_ecc_pyramid_returns_forward_test_to_reference(init):
+        ref = texture()
+        shifted = cv2.warpAffine(ref, np.float32([[1, 0, 3], [0, 1, -2]]), (320, 240))
+        result = reg._ecc_attempt(ref, shifted, init)
+        assert result.ok
+>       np.testing.assert_allclose(result.warp[:, 2], [-3, 2], atol=0.6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=0.6
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: 3.404646873474121 (ACTUAL), -3 (DESIRED)
+E        [1]: -1.6311180591583252 (ACTUAL), 2 (DESIRED)
+E       Max absolute difference among violations: 6.40464687
+E       Max relative difference among violations: 2.13488229
+E        ACTUAL: array([ 3.404647, -1.631118], dtype=float32)
+E        DESIRED: array([-3,  2])
+
+backend/tests/test_alignment_evidence.py:39: AssertionError
+______________ test_ecc_refinement_inverts_initializer_and_result ______________
+
+    def test_ecc_refinement_inverts_initializer_and_result():
+        ref = texture()
+        shifted = cv2.warpAffine(ref, np.float32([[1, 0, 3], [0, 1, -2]]), (320, 240))
+        refined, correlation = reg._ecc_refine(ref, shifted, np.float32([[1, 0, -2.5], [0, 1, 1.5]]))
+        assert correlation > 0.9
+>       np.testing.assert_allclose(refined[:, 2], [-3, 2], atol=0.6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=0.6
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: 3.404688835144043 (ACTUAL), -3 (DESIRED)
+E        [1]: -1.6321361064910889 (ACTUAL), 2 (DESIRED)
+E       Max absolute difference among violations: 6.40468884
+E       Max relative difference among violations: 2.13489628
+E        ACTUAL: array([ 3.404689, -1.632136], dtype=float32)
+E        DESIRED: array([-3,  2])
+
+backend/tests/test_alignment_evidence.py:50: AssertionError
+___________ test_invalid_ecc_output_never_replaces_input[bad_warp0] ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x112ba49d0>
+bad_warp = array([[0., 0., 0.],
+       [0., 0., 0.]], dtype=float32)
+
+    @pytest.mark.parametrize('bad_warp', [
+        np.float32([[0, 0, 0], [0, 0, 0]]),
+        np.float32([[-1, 0, 0], [0, 1, 0]]),
+        np.float32([[1, 0, np.nan], [0, 1, 0]]),
+    ])
+    def test_invalid_ecc_output_never_replaces_input(monkeypatch, bad_warp):
+        monkeypatch.setattr(cv2, 'findTransformECC', lambda *a: (0.99, bad_warp.copy()))
+        initial = np.float32([[1, 0, -3], [0, 1, 2]])
+        refined, correlation = reg._ecc_refine(texture(), texture(), initial)
+>       np.testing.assert_array_equal(refined, initial)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 4 / 6 (66.7%)
+E       Mismatch at indices:
+E        [0, 0]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), -3.0 (DESIRED)
+E        [1, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [1, 2]: 0.0 (ACTUAL), 2.0 (DESIRED)
+E       Max absolute difference among violations: 3.
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[0., 0., 0.],
+E              [0., 0., 0.]], dtype=float32)
+E        DESIRED: array([[ 1.,  0., -3.],
+E              [ 0.,  1.,  2.]], dtype=float32)
+
+backend/tests/test_alignment_evidence.py:62: AssertionError
+___________ test_invalid_ecc_output_never_replaces_input[bad_warp1] ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x112ba75c0>
+bad_warp = array([[-1.,  0.,  0.],
+       [ 0.,  1.,  0.]], dtype=float32)
+
+    @pytest.mark.parametrize('bad_warp', [
+        np.float32([[0, 0, 0], [0, 0, 0]]),
+        np.float32([[-1, 0, 0], [0, 1, 0]]),
+        np.float32([[1, 0, np.nan], [0, 1, 0]]),
+    ])
+    def test_invalid_ecc_output_never_replaces_input(monkeypatch, bad_warp):
+        monkeypatch.setattr(cv2, 'findTransformECC', lambda *a: (0.99, bad_warp.copy()))
+        initial = np.float32([[1, 0, -3], [0, 1, 2]])
+        refined, correlation = reg._ecc_refine(texture(), texture(), initial)
+>       np.testing.assert_array_equal(refined, initial)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 3 / 6 (50%)
+E       Mismatch at indices:
+E        [0, 0]: -1.0 (ACTUAL), 1.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), -3.0 (DESIRED)
+E        [1, 2]: 0.0 (ACTUAL), 2.0 (DESIRED)
+E       Max absolute difference among violations: 3.
+E       Max relative difference among violations: 2.
+E        ACTUAL: array([[-1.,  0.,  0.],
+E              [ 0.,  1.,  0.]], dtype=float32)
+E        DESIRED: array([[ 1.,  0., -3.],
+E              [ 0.,  1.,  2.]], dtype=float32)
+
+backend/tests/test_alignment_evidence.py:62: AssertionError
+___________ test_invalid_ecc_output_never_replaces_input[bad_warp2] ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x112b9bbf0>
+bad_warp = array([[ 1.,  0., nan],
+       [ 0.,  1.,  0.]], dtype=float32)
+
+    @pytest.mark.parametrize('bad_warp', [
+        np.float32([[0, 0, 0], [0, 0, 0]]),
+        np.float32([[-1, 0, 0], [0, 1, 0]]),
+        np.float32([[1, 0, np.nan], [0, 1, 0]]),
+    ])
+    def test_invalid_ecc_output_never_replaces_input(monkeypatch, bad_warp):
+        monkeypatch.setattr(cv2, 'findTransformECC', lambda *a: (0.99, bad_warp.copy()))
+        initial = np.float32([[1, 0, -3], [0, 1, 2]])
+        refined, correlation = reg._ecc_refine(texture(), texture(), initial)
+>       np.testing.assert_array_equal(refined, initial)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       nan location mismatch:
+E        ACTUAL: array([[ 1.,  0., nan],
+E              [ 0.,  1.,  0.]], dtype=float32)
+E        DESIRED: array([[ 1.,  0., -3.],
+E              [ 0.,  1.,  2.]], dtype=float32)
+
+backend/tests/test_alignment_evidence.py:62: AssertionError
+________________ test_local_defect_is_not_erased_by_mixed_units ________________
+
+    def test_local_defect_is_not_erased_by_mixed_units():
+        ref = texture()
+        test = ref.copy()
+        cv2.circle(test, (150, 120), 9, 20, -1)
+        outcome = rt.tool_local_realignment(context(ref, test), 'R01', [138, 108, 24, 24])
+>       assert outcome.supports_defect is not False
+E       AssertionError: assert False is not False
+E        +  where False = ToolOutcome(tool='local_realignment', region_id='R01', summary='Local ECC alignment removed 99% of the difference — re...rts_defect=False, evidence_kind='local_realignment', honesty='reprocess', artifacts={}, duration_s=0.00722408399451524).supports_defect
+
+backend/tests/test_alignment_evidence.py:72: AssertionError
+_____________ test_local_translation_can_clear_with_common_support _____________
+
+    def test_local_translation_can_clear_with_common_support():
+        ref = texture()
+        shifted = cv2.warpAffine(ref, np.float32([[1, 0, 2], [0, 1, -1]]), (320, 240))
+        outcome = rt.tool_local_realignment(context(ref, shifted), 'R01', [100, 80, 90, 70])
+>       assert outcome.metrics['comparison_reliable'] is True
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'comparison_reliable'
+
+backend/tests/test_alignment_evidence.py:81: KeyError
+____________ test_local_translation_with_real_defect_must_not_clear ____________
+
+    def test_local_translation_with_real_defect_must_not_clear():
+        ref = texture()
+        defective = ref.copy()
+        cv2.circle(defective, (150, 120), 6, 10, -1)
+        shifted = cv2.warpAffine(defective, np.float32([[1, 0, 2], [0, 1, -1]]), (320, 240))
+        outcome = rt.tool_local_realignment(context(ref, shifted), 'R01', [100, 80, 90, 70])
+>       assert outcome.supports_defect is not False
+E       AssertionError: assert False is not False
+E        +  where False = ToolOutcome(tool='local_realignment', region_id='R01', summary='Local ECC alignment removed 99% of the difference — re...s_defect=False, evidence_kind='local_realignment', honesty='reprocess', artifacts={}, duration_s=0.0015296670026145875).supports_defect
+
+backend/tests/test_alignment_evidence.py:93: AssertionError
+____________________ test_local_ecc_failure_is_inconclusive ____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x112bab9b0>
+
+    def test_local_ecc_failure_is_inconclusive(monkeypatch):
+        def fail(*args):
+            raise cv2.error('did not converge')
+        monkeypatch.setattr(cv2, 'findTransformECC', fail)
+        ref = texture()
+        outcome = rt.tool_local_realignment(context(ref, ref), 'R01', [100, 80, 40, 40])
+>       assert outcome.supports_defect is None
+E       AssertionError: assert True is None
+E        +  where True = ToolOutcome(tool='local_realignment', region_id='R01', summary='Local alignment leaves 0.0 mean diff (0% change) — dif...ts_defect=True, evidence_kind='local_realignment', honesty='reprocess', artifacts={}, duration_s=4.175002686679363e-05).supports_defect
+
+backend/tests/test_alignment_evidence.py:102: AssertionError
+___________ test_local_unobservable_regions_are_inconclusive[blank] ____________
+
+mode = 'blank'
+
+    @pytest.mark.parametrize('mode', ['blank', 'missing_support'])
+    def test_local_unobservable_regions_are_inconclusive(mode):
+        ref = np.full((240, 320), 80, np.uint8) if mode == 'blank' else texture()
+        valid = np.zeros_like(ref) if mode == 'missing_support' else None
+        outcome = rt.tool_local_realignment(context(ref, ref, valid), 'R01', [100, 80, 40, 40])
+>       assert outcome.supports_defect is None
+E       AssertionError: assert True is None
+E        +  where True = ToolOutcome(tool='local_realignment', region_id='R01', summary='Local alignment leaves 0.0 mean diff (0% change) — dif...ts_defect=True, evidence_kind='local_realignment', honesty='reprocess', artifacts={}, duration_s=0.0007847499800845981).supports_defect
+
+backend/tests/test_alignment_evidence.py:111: AssertionError
+______ test_local_unobservable_regions_are_inconclusive[missing_support] _______
+
+mode = 'missing_support'
+
+    @pytest.mark.parametrize('mode', ['blank', 'missing_support'])
+    def test_local_unobservable_regions_are_inconclusive(mode):
+        ref = np.full((240, 320), 80, np.uint8) if mode == 'blank' else texture()
+        valid = np.zeros_like(ref) if mode == 'missing_support' else None
+        outcome = rt.tool_local_realignment(context(ref, ref, valid), 'R01', [100, 80, 40, 40])
+>       assert outcome.supports_defect is None
+E       AssertionError: assert True is None
+E        +  where True = ToolOutcome(tool='local_realignment', region_id='R01', summary='Local alignment leaves 0.0 mean diff (-0% change) — di...ts_defect=True, evidence_kind='local_realignment', honesty='reprocess', artifacts={}, duration_s=0.0003236670163460076).supports_defect
+
+backend/tests/test_alignment_evidence.py:111: AssertionError
+_ test_conflicting_local_and_independent_evidence_requires_review[False-True] __
+
+local = False, view = True
+
+    @pytest.mark.parametrize('local,view', [(False, True), (True, False)])
+    def test_conflicting_local_and_independent_evidence_requires_review(local, view):
+        ev = [evidence('local_realignment', local), evidence('independent_view', view)]
+        verdict, _, _, notes = verify_candidate(candidate(), ev, 'good')
+>       assert verdict == 'NEEDS_REVIEW'
+E       AssertionError: assert 'CLEARED' == 'NEEDS_REVIEW'
+E         
+E         - NEEDS_REVIEW
+E         + CLEARED
+
+backend/tests/test_alignment_evidence.py:119: AssertionError
+_________ test_inconclusive_view_is_not_overridden_by_local_clearance __________
+
+    def test_inconclusive_view_is_not_overridden_by_local_clearance():
+        ev = [evidence('local_realignment', False), evidence('independent_view', None)]
+>       assert verify_candidate(candidate(), ev, 'good')[0] == 'NEEDS_REVIEW'
+E       AssertionError: assert 'CLEARED' == 'NEEDS_REVIEW'
+E         
+E         - NEEDS_REVIEW
+E         + CLEARED
+
+backend/tests/test_alignment_evidence.py:125: AssertionError
+_____________ test_old_unqualified_local_clearance_requires_review _____________
+
+    def test_old_unqualified_local_clearance_requires_review():
+        ev = [dict(evidence_kind='local_realignment', source_tool='local_realignment',
+                   supports_defect=False, metrics={'reduction_ratio': 0.99})]
+>       assert verify_candidate(candidate(), ev, 'good')[0] == 'NEEDS_REVIEW'
+E       AssertionError: assert 'CLEARED' == 'NEEDS_REVIEW'
+E         
+E         - NEEDS_REVIEW
+E         + CLEARED
+
+backend/tests/test_alignment_evidence.py:131: AssertionError
+________ test_poor_registration_cannot_be_cleared_by_local_reprocessing ________
+
+    def test_poor_registration_cannot_be_cleared_by_local_reprocessing():
+>       assert verify_candidate(candidate(), [evidence('local_realignment', False)], 'poor')[0] == 'NOT_EVALUABLE'
+E       AssertionError: assert 'CLEARED' == 'NOT_EVALUABLE'
+E         
+E         - NOT_EVALUABLE
+E         + CLEARED
+
+backend/tests/test_alignment_evidence.py:135: AssertionError
+_______ test_failed_local_analysis_cannot_clear_an_illumination_suspect ________
+
+    def test_failed_local_analysis_cannot_clear_an_illumination_suspect():
+        ev = [evidence('local_realignment', None, reliable=False)]
+        cand = dict(candidate(), illumination_suspect=True, structural_mismatch_score=0.1)
+>       assert verify_candidate(cand, ev, 'good')[0] == 'NEEDS_REVIEW'
+E       AssertionError: assert 'CLEARED' == 'NEEDS_REVIEW'
+E         
+E         - NEEDS_REVIEW
+E         + CLEARED
+
+backend/tests/test_alignment_evidence.py:141: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/test_alignment_evidence.py::test_ecc_pyramid_returns_forward_test_to_reference[None]
+FAILED backend/tests/test_alignment_evidence.py::test_ecc_pyramid_returns_forward_test_to_reference[init1]
+FAILED backend/tests/test_alignment_evidence.py::test_ecc_refinement_inverts_initializer_and_result
+FAILED backend/tests/test_alignment_evidence.py::test_invalid_ecc_output_never_replaces_input[bad_warp0]
+FAILED backend/tests/test_alignment_evidence.py::test_invalid_ecc_output_never_replaces_input[bad_warp1]
+FAILED backend/tests/test_alignment_evidence.py::test_invalid_ecc_output_never_replaces_input[bad_warp2]
+FAILED backend/tests/test_alignment_evidence.py::test_local_defect_is_not_erased_by_mixed_units
+FAILED backend/tests/test_alignment_evidence.py::test_local_translation_can_clear_with_common_support
+FAILED backend/tests/test_alignment_evidence.py::test_local_translation_with_real_defect_must_not_clear
+FAILED backend/tests/test_alignment_evidence.py::test_local_ecc_failure_is_inconclusive
+FAILED backend/tests/test_alignment_evidence.py::test_local_unobservable_regions_are_inconclusive[blank]
+FAILED backend/tests/test_alignment_evidence.py::test_local_unobservable_regions_are_inconclusive[missing_support]
+FAILED backend/tests/test_alignment_evidence.py::test_conflicting_local_and_independent_evidence_requires_review[False-True]
+FAILED backend/tests/test_alignment_evidence.py::test_inconclusive_view_is_not_overridden_by_local_clearance
+FAILED backend/tests/test_alignment_evidence.py::test_old_unqualified_local_clearance_requires_review
+FAILED backend/tests/test_alignment_evidence.py::test_poor_registration_cannot_be_cleared_by_local_reprocessing
+FAILED backend/tests/test_alignment_evidence.py::test_failed_local_analysis_cannot_clear_an_illumination_suspect
+17 failed, 2 passed in 0.22s

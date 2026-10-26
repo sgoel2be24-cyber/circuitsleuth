@@ -1,0 +1,35 @@
+{
+  "before": {
+    "local_injected_defect": {
+      "supports_defect": false,
+      "metrics": {
+        "mean_diff_before": 8.47,
+        "mean_diff_after": 0.07,
+        "reduction_ratio": 0.9916,
+        "ecc_correlation": 0.5491
+      }
+    },
+    "conflicting_evidence_verdict": "CLEARED",
+    "global_ecc_interior_mae": 18.883178571428573
+  },
+  "after": {
+    "local_injected_defect": {
+      "supports_defect": true,
+      "metrics": {
+        "mean_diff_before": 76.25,
+        "mean_diff_after": 76.25,
+        "reduction_ratio": 0.0,
+        "ecc_correlation": 1.0,
+        "comparison_reliable": true,
+        "common_valid_fraction": 1.0,
+        "max_displacement_px": 0.0,
+        "residual_component_area_px": 253,
+        "measurement_version": "local_ecc_v2",
+        "intensity_scale": "0..255",
+        "comparison_reason": "common observed support and bounded context alignment"
+      }
+    },
+    "conflicting_evidence_verdict": "NEEDS_REVIEW",
+    "global_ecc_interior_mae": 1.5751428571428572
+  }
+}

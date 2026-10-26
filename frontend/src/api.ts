@@ -8,7 +8,7 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
     let detail = res.statusText
     try {
       const body = await res.json()
-      detail = body.detail ?? JSON.stringify(body)
+      detail = typeof body.detail === 'string' ? body.detail : JSON.stringify(body.detail ?? body)
     } catch { /* keep statusText */ }
     throw new Error(detail)
   }
@@ -37,6 +37,7 @@ export const api = {
     return req<Summary>('/api/inspections', { method: 'POST', body: fd })
   },
   start: (id: string) => req<{ ok: boolean }>(`/api/inspections/${id}/start`, { method: 'POST' }),
+  abort: (id: string) => req<{ ok: boolean }>(`/api/inspections/${id}/abort`, { method: 'POST' }),
   getInspection: (id: string) => req<Inspection>(`/api/inspections/${id}`),
   getReport: (id: string) => req<Report>(`/api/inspections/${id}/report`),
   getEvents: (id: string) => req<InspectionEvent[]>(`/api/inspections/${id}/events/all`).catch(() => []),
@@ -70,7 +71,7 @@ export function streamEvents(id: string, onEvent: (ev: InspectionEventT) => void
     onDone()
     es.close()
   })
-  es.onerror = () => { /* EventSource auto-reconnects; workspace also polls */ }
+  es.onerror = () => { /* EventSource reconnects; workspace recovers state and events by polling. */ }
   return es
 }
 

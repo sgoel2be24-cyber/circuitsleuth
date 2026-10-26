@@ -1,0 +1,18 @@
+{
+  "baseline": {
+    "tp": 44,
+    "fp": 52,
+    "fn": 6,
+    "micro_precision": 0.4583333333333333,
+    "micro_recall": 0.88,
+    "micro_f1": 0.6027397260273972
+  },
+  "adaptive": {
+    "tp": 42,
+    "fp": 10,
+    "fn": 8,
+    "micro_precision": 0.8076923076923077,
+    "micro_recall": 0.84,
+    "micro_f1": 0.8235294117647058
+  }
+}

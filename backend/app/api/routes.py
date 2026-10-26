@@ -10,12 +10,13 @@ from pathlib import Path
 import cv2
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, Response, StreamingResponse
 
 from .. import store
 from ..agent import orchestrator
 from ..config import settings
-from ..schemas import InspectionConfig
+from ..schemas import InspectionConfig, OperatorReview
+from ..tools.registry import InspectionToolbelt
 from ..tools.registry import ToolError
 from .. import __version__
 
@@ -25,6 +26,8 @@ app = FastAPI(title="CircuitSleuth API", version=__version__)
 @app.on_event("startup")
 async def _sweep_interrupted_runs() -> None:
     """Mark runs left 'running' by a process restart as failed, honestly."""
+    if not cv2.__version__.startswith("5."):
+        raise RuntimeError(f"CircuitSleuth requires OpenCV 5; installed runtime is {cv2.__version__}")
     if not settings.runs_dir.exists():
         return
     for state_path in settings.runs_dir.glob("*/state.json"):
@@ -36,7 +39,7 @@ async def _sweep_interrupted_runs() -> None:
             continue
         state["status"] = "failed"
         state["stop_reason"] = "interrupted by backend restart"
-        state_path.write_text(json.dumps(state, indent=1, default=str))
+        store.save_state(state["id"], state)
         row = store.get_inspection_row(state["id"])
         if row:
             summary = json.loads(row["summary"])
@@ -54,6 +57,27 @@ app.add_middleware(
 # live SSE subscribers per inspection
 _subscribers: dict[str, set[asyncio.Queue]] = {}
 _running_tasks: dict[str, asyncio.Task] = {}
+
+
+def _require_idle(ins_id: str, state: dict) -> None:
+    task = _running_tasks.get(ins_id)
+    if state.get("status") == "running" or (task is not None and not task.done()):
+        raise HTTPException(409, "inspection is running; wait for completion before modifying its evidence")
+
+
+def _demo_path(scenario_id: str) -> Path:
+    # Scenario identifiers are directory names, never user-supplied paths.
+    if not scenario_id.startswith("scenario_") or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in scenario_id):
+        raise HTTPException(404, "unknown demo scenario")
+    return settings.demo_dir / scenario_id
+
+
+async def _read_upload(upload: UploadFile) -> bytes:
+    # Bound the allocation before decoding; UploadFile itself is spooled.
+    data = await upload.read(settings.max_upload_bytes + 1)
+    if len(data) > settings.max_upload_bytes:
+        raise HTTPException(413, f"image exceeds {settings.max_upload_bytes} byte upload limit")
+    return data
 
 
 def _http(ins_id: str) -> None:
@@ -115,7 +139,7 @@ async def demo_scenario_image(scenario_id: str, which: str):
     """Thumbnail image for the scenario picker."""
     if which not in ("reference", "test", "view2"):
         raise HTTPException(400, "unknown image role")
-    p = settings.demo_dir / scenario_id / f"{which}.png"
+    p = _demo_path(scenario_id) / f"{which}.png"
     if not p.exists():
         raise HTTPException(404, "image not found")
     return FileResponse(p, media_type="image/png")
@@ -130,6 +154,7 @@ async def rerun_inspection(ins_id: str) -> dict:
     old_state = store.load_state(ins_id)
     if old_state is None:
         raise HTTPException(404, "state missing")
+    _require_idle(ins_id, old_state)
     src_dir = settings.runs_dir / ins_id
     new_state = {
         "id": store.new_id(),
@@ -181,8 +206,8 @@ async def create_inspection(
     test: UploadFile | None = File(None),
     view2: UploadFile | None = File(None),
     scenario_id: str | None = Form(None),
-    max_tool_calls: int = Form(12),
-    max_iterations: int = Form(24),
+    max_tool_calls: int = Form(12, ge=3, le=40),
+    max_iterations: int = Form(24, ge=5, le=100),
 ) -> dict:
     cfg = InspectionConfig(max_tool_calls=max_tool_calls, max_iterations=max_iterations)
     ins_id = store.new_id()
@@ -193,7 +218,7 @@ async def create_inspection(
             raise HTTPException(400, f"unsupported file type: {name}")
 
     if scenario_id:
-        demo = settings.demo_dir / scenario_id
+        demo = _demo_path(scenario_id)
         if not (demo / "meta.json").exists():
             raise HTTPException(404, f"unknown demo scenario {scenario_id!r}")
         for src, dst in [("reference.png", "reference.png"), ("test.png", "test.png")]:
@@ -208,7 +233,7 @@ async def create_inspection(
             if f is None:
                 continue
             _check_ext(f.filename or "")
-            data = await f.read()
+            data = await _read_upload(f)
             from ..cv.imaging import decode_bgr, save_png
 
             try:
@@ -258,8 +283,10 @@ async def start_inspection(ins_id: str) -> dict:
     state = store.load_state(ins_id)
     if state is None:
         raise HTTPException(404, "inspection state missing")
-    if state.get("status") == "completed":
-        raise HTTPException(409, "inspection already completed")
+    if state.get("status") != "created":
+        raise HTTPException(409, "inspection already started; use rerun to create a fresh audit trail")
+    state["status"] = "running"
+    store.save_state(ins_id, state)
     store.update_inspection(ins_id, status="running")
 
     async def _sink(ev: dict) -> None:
@@ -267,6 +294,8 @@ async def start_inspection(ins_id: str) -> dict:
 
     task = asyncio.create_task(orchestrator.run_inspection(state, _sink))
     _running_tasks[ins_id] = task
+    task.add_done_callback(lambda finished: _running_tasks.pop(ins_id, None)
+                           if _running_tasks.get(ins_id) is finished else None)
     return {"ok": True, "inspection_id": ins_id}
 
 
@@ -280,7 +309,7 @@ async def get_inspection(ins_id: str) -> dict:
         raise HTTPException(404, "state missing")
     images = {
         k: f"/api/inspections/{ins_id}/images/{k}"
-        for k in ("reference", "test", "view2") if state["images"].get(k)
+        for k in ("reference", "test", "view2", "aligned_test") if state["images"].get(k)
     }
     return {
         "summary": summary,
@@ -295,7 +324,32 @@ async def get_inspection(ins_id: str) -> dict:
         "tool_calls_used": state.get("tool_calls_used", 0),
         "iterations": state.get("iterations", 0),
         "images": images,
+        "coordinate_space": state.get("coordinate_space", "reference"),
     }
+
+
+@app.post("/api/inspections/{ins_id}/abort")
+async def abort_inspection(ins_id: str) -> dict:
+    _http(ins_id)
+    task = _running_tasks.get(ins_id)
+    if task is None or task.done():
+        raise HTTPException(409, "inspection is not running")
+    task.cancel()
+    try:
+        await task
+    except asyncio.CancelledError:
+        # A task cancelled before its first instruction never reaches the
+        # orchestrator's cancellation handler.
+        state = store.load_state(ins_id)
+        if state:
+            state["status"] = "failed"
+            state["stop_reason"] = "operator_requested_termination"
+            await InspectionToolbelt(state)._emit(
+                "inspection_aborted", "Inspection stopped by the operator.", phase="DECIDE"
+            )
+            store.save_state(ins_id, state)
+            _sync_summary_from_state(ins_id, state)
+    return {"ok": True, "inspection_id": ins_id}
 
 
 @app.get("/api/inspections/{ins_id}/events/all")
@@ -327,7 +381,11 @@ async def stream_events(ins_id: str) -> StreamingResponse:
                     yield ": keepalive\n\n"
                     continue
                 yield f"data: {json.dumps(ev)}\n\n"
-                if ev.get("type") in ("report_ready", "inspection_failed", "inspection_aborted"):
+                terminal = ev.get("type") in ("report_ready", "inspection_failed")
+                if ev.get("type") == "inspection_aborted":
+                    current = store.load_state(ins_id)
+                    terminal = bool(current and current.get("status") == "failed")
+                if terminal:
                     yield "event: done\ndata: {}\n\n"
                     return
         finally:
@@ -356,10 +414,52 @@ async def get_artifact(ins_id: str, name: str) -> FileResponse:
     return FileResponse(p, media_type="image/png")
 
 
+@app.get("/api/inspections/{ins_id}/candidates/{region_id}/crop/{role}")
+async def get_candidate_crop(ins_id: str, region_id: str, role: str) -> Response:
+    """Padded evidence crops share the candidate's reference coordinates.
+
+    Difference is a TURBO-colored absolute grayscale difference of the
+    original reference and geometrically aligned test pixels, not a score.
+    """
+    _http(ins_id)
+    if role not in ("reference", "aligned_test", "difference"):
+        raise HTTPException(400, "unknown crop role")
+    state = store.load_state(ins_id)
+    if state is None:
+        raise HTTPException(404, "state missing")
+    candidate = state.get("candidates", {}).get(region_id)
+    if candidate is None:
+        raise HTTPException(404, "unknown region")
+    if not state.get("images", {}).get("aligned_test"):
+        raise HTTPException(409, "aligned evidence is unavailable; rerun the inspection")
+
+    def render() -> bytes:
+        from ..cv.imaging import crop_clamped, load_bgr, to_grayscale
+
+        x, y, w, h = candidate["bbox"]
+        if role == "difference":
+            reference = crop_clamped(load_bgr(state["images"]["reference"]), x, y, w, h, pad=12)
+            test = crop_clamped(load_bgr(state["images"]["aligned_test"]), x, y, w, h, pad=12)
+            difference = cv2.absdiff(to_grayscale(reference), to_grayscale(test))
+            image = cv2.applyColorMap(difference, cv2.COLORMAP_TURBO)
+        else:
+            image = crop_clamped(load_bgr(state["images"][role]), x, y, w, h, pad=12)
+        ok, encoded = cv2.imencode(".png", image)
+        if not ok:
+            raise ValueError("failed to encode crop")
+        return encoded.tobytes()
+
+    try:
+        data = await asyncio.to_thread(render)
+    except (ValueError, OSError, cv2.error) as exc:
+        raise HTTPException(422, f"crop unavailable: {exc}") from exc
+    return Response(data, media_type="image/png", headers={"Cache-Control": "private, max-age=3600"})
+
+
 @app.get("/api/inspections/{ins_id}/images/{which}")
 async def get_image(ins_id: str, which: str) -> FileResponse:
     _http(ins_id)
-    if which not in ("reference", "test", "view2"):
+    if which not in ("reference", "test", "view2", "aligned_test"):
         raise HTTPException(400, "unknown image role")
     p = settings.runs_dir / ins_id / f"{which}.png"
     if not p.exists():
@@ -374,7 +474,8 @@ async def add_view(ins_id: str, view2: UploadFile = File(...)) -> dict:
     state = store.load_state(ins_id)
     if state is None:
         raise HTTPException(404, "state missing")
-    data = await view2.read()
+    _require_idle(ins_id, state)
+    data = await _read_upload(view2)
     from ..cv.imaging import decode_bgr, save_png
 
     try:
@@ -388,14 +489,17 @@ async def add_view(ins_id: str, view2: UploadFile = File(...)) -> dict:
 
 
 @app.post("/api/inspections/{ins_id}/review")
-async def submit_review(ins_id: str, payload: dict) -> dict:
+async def submit_review(ins_id: str, payload: OperatorReview) -> dict:
     """Operator review decision for a region: {region_id, decision: confirmed|rejected, note?}."""
     _http(ins_id)
     state = store.load_state(ins_id)
     if state is None:
         raise HTTPException(404, "state missing")
-    rid = payload.get("region_id")
-    decision = payload.get("decision")
+    _require_idle(ins_id, state)
+    if state.get("status") != "completed":
+        raise HTTPException(409, "operator review requires a completed inspection")
+    rid = payload.region_id
+    decision = payload.decision
     if rid not in state.get("candidates", {}):
         raise HTTPException(404, f"unknown region {rid!r}")
     if decision not in ("confirmed", "rejected"):
@@ -403,7 +507,7 @@ async def submit_review(ins_id: str, payload: dict) -> dict:
     cand = state["candidates"][rid]
     cand["status"] = "CONFIRMED_DEFECT" if decision == "confirmed" else "CLEARED"
     cand["label_basis"] = f"operator review ({decision})"
-    note = payload.get("note", "")
+    note = payload.note
     if note:
         cand["notes"].append(f"operator note: {note}")
     state.setdefault("review_requests", [])
@@ -423,6 +527,9 @@ async def submit_review(ins_id: str, payload: dict) -> dict:
     }
     state["events"].append(ev)
     store.append_event(ins_id, ev)
+    # Refresh the downloadable report from the same reviewed state; otherwise
+    # the UI and exported evidence disagree after an operator decision.
+    await InspectionToolbelt(state, persist=True).generate_inspection_report()
     store.save_state(ins_id, state)
     _sync_summary_from_state(ins_id, state)
     await _broadcast(ins_id, ev)
@@ -449,7 +556,7 @@ def _sync_summary_from_state(ins_id: str, state: dict) -> None:
         "duration_s": state.get("duration_s"),
         "stop_reason": state.get("stop_reason"),
     })
-    store.update_inspection(ins_id, summary=summary, report=state.get("report"))
+    store.update_inspection(ins_id, status=state.get("status"), summary=summary, report=state.get("report"))
 
 
 @app.get("/api/inspections/{ins_id}/report")

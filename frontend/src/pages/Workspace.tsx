@@ -7,6 +7,8 @@ import { AgentFeed } from '../components/AgentFeed'
 import { RegionDetail } from '../components/RegionDetail'
 import { StatusDot, VerdictChip } from '../components/ui'
 import { ReportView } from './Report'
+import { Link } from 'react-router-dom'
+import { Icon } from '../components/Icon'
 
 export function Workspace() {
   const { id = '' } = useParams()
@@ -17,10 +19,12 @@ export function Workspace() {
   const [tab, setTab] = useState<'activity' | 'region' | 'report'>('activity')
   const [error, setError] = useState<string | null>(null)
   const [rerunning, setRerunning] = useState(false)
+  const [stopping, setStopping] = useState(false)
   const startedRef = useRef(false)
+  const runStatus = ins?.status
 
   const refresh = useCallback(() => {
-    api.getInspection(id).then(setIns).catch((e) => setError(e.message))
+    api.getInspection(id).then((d) => { setIns(d); setError(null) }).catch((e) => setError(e.message))
   }, [id])
 
   useEffect(() => {
@@ -49,10 +53,23 @@ export function Workspace() {
     return () => es.close()
   }, [id, refresh])
 
-  if (error) {
+  useEffect(() => {
+    if (!runStatus || !['created', 'running'].includes(runStatus)) return
+    const timer = setInterval(() => {
+      refresh()
+      api.getEvents(id).then((next) => setEvents(prev => {
+        const merged = new Map(prev.map(ev => [ev.seq, ev]))
+        next.forEach(ev => merged.set(ev.seq, ev))
+        return [...merged.values()].sort((a, b) => a.seq - b.seq)
+      }))
+    }, 2500)
+    return () => clearInterval(timer)
+  }, [id, runStatus, refresh])
+
+  if (error && !ins) {
     return (
       <div className="mx-auto max-w-3xl px-6 py-10">
-        <div className="panel border-red-400/30 p-4 text-sm text-red-300">{error}</div>
+        <div role="alert" className="panel border-red-400/30 p-4 text-sm text-red-300">{error}<button className="ml-4 underline" onClick={refresh}>Retry</button><Link className="ml-4 underline" to="/">Overview</Link></div>
       </div>
     )
   }
@@ -70,16 +87,22 @@ export function Workspace() {
     ? api.artifactUrl(id, ins.detection.artifacts.diff_heatmap)
     : null
   const counts = countVerdicts(ins)
+  const phase = events.at(-1)?.phase ?? 'OBSERVE'
+  const phases = ['OBSERVE', 'ALIGN', 'DETECT', 'PLAN', 'ACT', 'VERIFY', 'DECIDE']
+  const phaseIndex = Math.max(0, phases.indexOf(phase))
+  const decided = Object.values(ins.candidates).filter(c => c.status !== 'SUSPECTED').length
 
   const submitReview = async (regionId: string, decision: 'confirmed' | 'rejected', note: string) => {
     await api.submitReview(id, regionId, decision, note)
     refresh()
+    api.getEvents(id).then(setEvents)
   }
 
-  const addViewAndRerun = async (file: File) => {
+  const rerunInspection = async (file?: File) => {
     setRerunning(true)
+    setError(null)
     try {
-      await api.addView(id, file)
+      if (file) await api.addView(id, file)
       const r = await api.rerun(id)
       nav(`/inspections/${r.inspection_id}`)
     } catch (e) {
@@ -89,7 +112,12 @@ export function Workspace() {
   }
 
   return (
-    <div className="mx-auto flex h-[calc(100vh-3.5rem)] max-w-[1600px] flex-col px-4 py-3.5">
+    <div className="workspace-layout mx-auto max-w-[1800px]">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+        <div><Link to="/" className="text-[10px] text-slate-400 hover:text-cyan-200">← Inspection ledger</Link><h1 className="mt-1 text-xl font-medium tracking-tight text-slate-100">Inspection workspace</h1></div>
+        <div className="flex items-center gap-3"><span className="mono text-[10px] text-slate-400">{['synthetic_demo', 'demo'].includes(ins.summary?.source ?? '') ? 'SYNTHETIC DEMONSTRATION' : ins.summary?.source?.toUpperCase()}</span>{running && <button disabled={stopping} onClick={async () => { setStopping(true); try { await api.abort(id); refresh() } catch (e) { setError(e instanceof Error ? e.message : String(e)) } finally { setStopping(false) } }} className="rounded border border-red-300/30 bg-red-400/5 px-3 py-2 text-[11px] text-red-200">{stopping ? 'Stopping…' : 'Stop inspection'}</button>}{!running && <button disabled={rerunning} onClick={() => void rerunInspection()} className="viewer-button disabled:opacity-50">{rerunning ? 'Re-running…' : 'Re-run inspection'}</button>}<button onClick={() => setTab('report')} className="viewer-button flex items-center gap-2"><Icon name="download" size={14}/>Report</button></div>
+      </div>
+      {error && <div role="alert" className="error-banner"><span>{error}</span><button onClick={refresh}>Retry</button></div>}
       {/* ------------------------------------------------------- header strip */}
       <div className="ticked panel mb-3 flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-2.5">
         <div className="flex items-center gap-2.5">
@@ -103,13 +131,14 @@ export function Workspace() {
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
           {Object.entries(counts).map(([k, n]) =>
-            n > 0 ? <VerdictChip key={k} status={k as Verdict} small /> : null,
+            n > 0 ? <span key={k} className="flex items-center gap-1"><span className="mono text-[10px] text-slate-400">{n}</span><VerdictChip status={k as Verdict} small /></span> : null,
           )}
-          {Object.keys(ins.candidates).length === 0 && ins.status === 'completed' && (
+          {Object.keys(ins.candidates).length === 0 && ins.status === 'completed' && ins.stop_reason === 'no_candidates' && ins.registration?.quality !== 'failed' && (
             <span className="mono rounded bg-emerald-400/10 px-2 py-0.5 text-[10px] text-emerald-300 ring-1 ring-emerald-400/40">
               board clean — no anomalies
             </span>
           )}
+          {ins.stop_reason === 'registration_failed' && <VerdictChip status="NOT_EVALUABLE" small />}
         </div>
         <div className="mono ml-auto flex flex-wrap items-center gap-x-4 gap-y-1 text-[10.5px] text-slate-400">
           {ins.registration && (
@@ -141,20 +170,22 @@ export function Workspace() {
       </div>
 
       {/* missing-view operator loop */}
-      {!ins.images.view2 && ins.status === 'completed' && (
+      {!ins.images.view2 && ins.status === 'completed' && ins.review_requests.some(r => !r.resolved) && (
         <div className="ticked panel mb-3 flex flex-wrap items-center gap-3 border-violet-400/25 px-4 py-2.5">
           <span className="label-eyebrow text-violet-300/90">operator loop open</span>
           <span className="text-[12px] text-slate-400">
             This run had no secondary capture, so ambiguous regions could only be escalated.
             Add a new capture of the same board and the agent re-inspects with real optical evidence.
           </span>
-          <ViewUpload onFile={addViewAndRerun} busy={rerunning} />
+          <ViewUpload onFile={rerunInspection} busy={rerunning} />
         </div>
       )}
 
+      <div className="phase-rail" aria-label={`Inspection phase: ${phase}`}>{phases.map((p, i) => <span key={p} className={i === phaseIndex && running ? 'current' : events.some(ev => ev.phase === p) ? 'done' : ''}><i>{events.some(ev => ev.phase === p) && !running ? '✓' : i + 1}</i>{p}</span>)}<span className="mono ml-auto pl-3 text-[9px]">{decided}/{Object.keys(ins.candidates).length} REGIONS DECIDED</span></div>
+
       {/* ------------------------------------------------------- main grid */}
-      <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-[1fr_430px]">
-        <div className="grid min-h-0 grid-rows-[1fr_auto] gap-3">
+      <div className="workspace-grid">
+        <div className="workspace-board-column grid min-h-0 grid-rows-[1fr_auto] gap-3">
           <BoardViewer
             inspectionId={id}
             images={ins.images}
@@ -187,12 +218,13 @@ export function Workspace() {
           </div>
         </div>
 
-        <div className="ticked panel flex min-h-0 flex-col">
+        <div className="workspace-evidence ticked panel flex min-h-0 flex-col overflow-hidden">
           <div className="flex border-b border-[#1d2a3d]">
             {([['activity', 'Agent'], ['region', 'Region'], ['report', 'Report']] as const).map(
               ([k, label]) => (
                 <button
                   key={k}
+                  aria-pressed={tab === k}
                   onClick={() => setTab(k)}
                   className={`relative px-4 py-2.5 text-xs font-medium transition-colors ${
                     tab === k ? 'text-cyan-200' : 'text-slate-500 hover:text-slate-200'
@@ -215,7 +247,9 @@ export function Workspace() {
             )}
             {tab === 'region' && (selectedCandidate ? (
               <RegionDetail
-                candidate={selectedCandidate}
+                key={selectedCandidate.region_id}
+                candidate={selectedCandidate} inspectionId={id}
+                reviewDisabled={ins.status !== 'completed'}
                 onSubmitReview={submitReview}
                 artifactUrl={(n) => api.artifactUrl(id, n)}
               />
@@ -262,3 +296,4 @@ function countVerdicts(ins: Inspection): Record<string, number> {
   for (const c of Object.values(ins.candidates)) out[c.status] = (out[c.status] ?? 0) + 1
   return out
 }
+

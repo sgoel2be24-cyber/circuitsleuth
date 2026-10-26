@@ -1,0 +1,281 @@
+pinhole stage diagnostics [
+  {
+    "board": 400001,
+    "type": "pinhole",
+    "bbox": [
+      162,
+      85,
+      10,
+      10
+    ],
+    "matched": 1,
+    "diff_threshold": 33.882408142089844,
+    "max_diff": 93.05561065673828,
+    "pixels_over_threshold": 49,
+    "structural_gate_pixels": 100,
+    "structureless_pixels": 0,
+    "base_pixels": 49,
+    "added_pixels": 0,
+    "post_morph_pixels": 47,
+    "candidates": [
+      {
+        "bbox": [
+          164,
+          86,
+          7,
+          8
+        ],
+        "area_px": 47,
+        "centroid": [
+          167,
+          90
+        ],
+        "difference_score": 0.3174,
+        "max_diff": 93.1,
+        "structural_mismatch_score": 0.3394,
+        "evidence_quality_score": 0.782,
+        "local_contrast": 46.92,
+        "edge_delta": 0.0,
+        "touches_invalid_warp_region": false,
+        "added_on_flat_background": false,
+        "illumination_suspect": true
+      }
+    ]
+  },
+  {
+    "board": 400002,
+    "type": "pinhole",
+    "bbox": [
+      728,
+      351,
+      10,
+      10
+    ],
+    "matched": 1,
+    "diff_threshold": 34.44600296020508,
+    "max_diff": 83.22767639160156,
+    "pixels_over_threshold": 49,
+    "structural_gate_pixels": 100,
+    "structureless_pixels": 0,
+    "base_pixels": 49,
+    "added_pixels": 0,
+    "post_morph_pixels": 47,
+    "candidates": [
+      {
+        "bbox": [
+          729,
+          353,
+          8,
+          7
+        ],
+        "area_px": 47,
+        "centroid": [
+          733,
+          356
+        ],
+        "difference_score": 0.2868,
+        "max_diff": 83.2,
+        "structural_mismatch_score": 0.3302,
+        "evidence_quality_score": 0.6601,
+        "local_contrast": 39.61,
+        "edge_delta": -0.1429,
+        "touches_invalid_warp_region": false,
+        "added_on_flat_background": false,
+        "illumination_suspect": true
+      },
+      {
+        "bbox": [
+          27,
+          435,
+          27,
+          31
+        ],
+        "area_px": 309,
+        "centroid": [
+          35,
+          451
+        ],
+        "difference_score": 0.2345,
+        "max_diff": 77.8,
+        "structural_mismatch_score": 0.0012,
+        "evidence_quality_score": 0.5053,
+        "local_contrast": 30.32,
+        "edge_delta": -0.0204,
+        "touches_invalid_warp_region": false,
+        "added_on_flat_background": false,
+        "illumination_suspect": true
+      }
+    ]
+  },
+  {
+    "board": 400003,
+    "type": "pinhole",
+    "bbox": [
+      92,
+      265,
+      9,
+      9
+    ],
+    "matched": 0,
+    "diff_threshold": 40.59419250488281,
+    "max_diff": 73.57228088378906,
+    "pixels_over_threshold": 30,
+    "structural_gate_pixels": 32,
+    "structureless_pixels": 0,
+    "base_pixels": 16,
+    "added_pixels": 0,
+    "post_morph_pixels": 11,
+    "candidates": [
+      {
+        "bbox": [
+          540,
+          566,
+          25,
+          8
+        ],
+        "area_px": 180,
+        "centroid": [
+          552,
+          570
+        ],
+        "difference_score": 0.2857,
+        "max_diff": 76.1,
+        "structural_mismatch_score": 0.001,
+        "evidence_quality_score": 0.4841,
+        "local_contrast": 29.04,
+        "edge_delta": 0.2,
+        "touches_invalid_warp_region": false,
+        "added_on_flat_background": true,
+        "illumination_suspect": false
+      }
+    ]
+  },
+  {
+    "board": 400004,
+    "type": "pinhole",
+    "bbox": [
+      109,
+      406,
+      9,
+      9
+    ],
+    "matched": 1,
+    "diff_threshold": 28.90043067932129,
+    "max_diff": 106.47373962402344,
+    "pixels_over_threshold": 41,
+    "structural_gate_pixels": 42,
+    "structureless_pixels": 0,
+    "base_pixels": 29,
+    "added_pixels": 0,
+    "post_morph_pixels": 25,
+    "candidates": [
+      {
+        "bbox": [
+          111,
+          408,
+          7,
+          6
+        ],
+        "area_px": 25,
+        "centroid": [
+          114,
+          411
+        ],
+        "difference_score": 0.3667,
+        "max_diff": 105.5,
+        "structural_mismatch_score": 0.2555,
+        "evidence_quality_score": 0.8653,
+        "local_contrast": 51.92,
+        "edge_delta": 1.0,
+        "touches_invalid_warp_region": false,
+        "added_on_flat_background": false,
+        "illumination_suspect": true
+      },
+      {
+        "bbox": [
+          529,
+          142,
+          17,
+          16
+        ],
+        "area_px": 204,
+        "centroid": [
+          537,
+          150
+        ],
+        "difference_score": 0.234,
+        "max_diff": 65.3,
+        "structural_mismatch_score": 0.0013,
+        "evidence_quality_score": 0.4358,
+        "local_contrast": 26.15,
+        "edge_delta": 0.0,
+        "touches_invalid_warp_region": false,
+        "added_on_flat_background": false,
+        "illumination_suspect": true
+      }
+    ]
+  }
+]
+Real-orchestrator parity: 3 cases pass
+Operating points: {
+  "legacy": {
+    "automatic_boards": 24,
+    "total_boards": 48,
+    "automatic_board_coverage": 0.5,
+    "automatic_board_errors": 2,
+    "selective_board_risk": 0.08333333333333333,
+    "candidate_review_fraction": 0.25133689839572193,
+    "mean_tool_calls": 5.25,
+    "mean_pose_error_px": 0.06409003748558462,
+    "p95_pose_error_px": 0.09343457706272601,
+    "detection_latency_p50_s": 0.07720314600737765,
+    "detection_latency_p95_s": 0.08237737048766576,
+    "clean_reported_false_alarms": 5,
+    "candidate_fp": 78,
+    "invalid_mask_pixels": 0,
+    "missing_view_statuses": {
+      "NEEDS_REVIEW": 27,
+      "CLEARED": 8
+    }
+  },
+  "symmetric_ecc": {
+    "automatic_boards": 30,
+    "total_boards": 48,
+    "automatic_board_coverage": 0.625,
+    "automatic_board_errors": 0,
+    "selective_board_risk": 0.0,
+    "candidate_review_fraction": 0.25149700598802394,
+    "mean_tool_calls": 4.5625,
+    "mean_pose_error_px": 0.03212797408923507,
+    "p95_pose_error_px": 0.042265629209578034,
+    "detection_latency_p50_s": 0.07691227100440301,
+    "detection_latency_p95_s": 0.08235458144044969,
+    "clean_reported_false_alarms": 0,
+    "candidate_fp": 59,
+    "invalid_mask_pixels": 0,
+    "missing_view_statuses": {
+      "NEEDS_REVIEW": 25,
+      "CLEARED": 9
+    }
+  },
+  "multiplicative": {
+    "automatic_boards": 25,
+    "total_boards": 48,
+    "automatic_board_coverage": 0.5208333333333334,
+    "automatic_board_errors": 1,
+    "selective_board_risk": 0.04,
+    "candidate_review_fraction": 0.3411764705882353,
+    "mean_tool_calls": 4.4375,
+    "mean_pose_error_px": 0.03212797408923507,
+    "p95_pose_error_px": 0.042265629209578034,
+    "detection_latency_p50_s": 0.07726947902119718,
+    "detection_latency_p95_s": 0.08035995637183077,
+    "clean_reported_false_alarms": 1,
+    "candidate_fp": 60,
+    "invalid_mask_pixels": 0,
+    "missing_view_statuses": {
+      "NEEDS_REVIEW": 26,
+      "CLEARED": 1
+    }
+  }
+}

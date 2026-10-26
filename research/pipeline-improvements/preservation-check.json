@@ -1,0 +1,13 @@
+{
+  "files_checked": 649,
+  "changed": [],
+  "missing": [],
+  "all_original_fingerprints_equal": true,
+  "existing_git_status_unchanged": true,
+  "scope": "Existing source/data/evaluation/docs/deploy/scripts/verification files; excluded dependency caches/build artifacts and research directory",
+  "research_python_syntax": "passed",
+  "research_report_links": "passed",
+  "ranked_matrix_rows": 12,
+  "heldout_gt_observations": 120,
+  "full_application_tests": "Not rerun: production files unchanged; prior supplied verification remains separate"
+}

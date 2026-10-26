@@ -1,0 +1,49 @@
+{
+  "board": 300005,
+  "profile": "pose",
+  "gt": [
+    {
+      "type": "pinhole",
+      "bbox": [
+        633,
+        384,
+        11,
+        11
+      ],
+      "synthetic": true
+    },
+    {
+      "type": "short_circuit",
+      "bbox": [
+        308,
+        86,
+        12,
+        128
+      ],
+      "synthetic": true
+    },
+    {
+      "type": "spur",
+      "bbox": [
+        539,
+        239,
+        21,
+        8
+      ],
+      "synthetic": true
+    }
+  ],
+  "reference_to_capture_pose": [
+    [
+      1.0047608613967896,
+      0.021923959255218506,
+      -4.719564437866211
+    ],
+    [
+      -0.021923959255218506,
+      1.0047608613967896,
+      5.437530517578125
+    ]
+  ],
+  "has_independent_synthetic_capture": true
+}

@@ -233,11 +233,30 @@ def _warp_to_reference(
     return warped, mask
 
 
+def _invert_ecc_warp(warp: np.ndarray) -> np.ndarray:
+    """Cross the ECC reference->test boundary; public warps map test->reference.
+
+    Reject non-finite, singular and reflected updates rather than passing an
+    unusable transform to downstream pixel/evidence operations.
+    """
+    matrix = np.asarray(warp, dtype=np.float32).reshape(2, 3)
+    if not np.isfinite(matrix).all() or np.linalg.det(matrix[:, :2]) <= 1e-6:
+        raise ValueError("invalid ECC affine transform")
+    return cv2.invertAffineTransform(matrix).astype(np.float32)
+
+
 def _ecc_attempt(ref: np.ndarray, test: np.ndarray, init: np.ndarray | None) -> RegistrationResult:
-    """ECC alignment, coarse-to-fine; returns refined transform or failure."""
+    """ECC alignment, coarse-to-fine; accepts/returns a forward test->ref warp."""
     h, w = ref.shape[:2]
-    warp = (np.eye(3, dtype=np.float32)[:2] if init is None else np.asarray(init, np.float32).copy()).reshape(2, 3)
     attempts_info: list[str] = ["ECC"]
+    try:
+        # ECC optimizes the opposite mapping, including its initializer.
+        warp = np.eye(2, 3, dtype=np.float32) if init is None else _invert_ecc_warp(init)
+    except ValueError as exc:
+        return RegistrationResult(None, None, None, {
+            "detector": "ECC", "attempts": attempts_info, "quality": "failed",
+            "failure_reason": str(exc),
+        })
     scale = 1.0
     for scale in (0.5, 1.0):  # coarse first for large displacements
         small_ref = cv2.resize(ref, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
@@ -262,8 +281,15 @@ def _ecc_attempt(ref: np.ndarray, test: np.ndarray, init: np.ndarray | None) -> 
             )
         warp = small_warp.copy()
         warp[:, 2] /= scale
-    # warp now maps full-res test -> reference
-    if cc < 0.65:
+    # Convert the full-resolution ECC result back to the public convention.
+    try:
+        warp = _invert_ecc_warp(warp)
+    except ValueError as exc:
+        return RegistrationResult(None, None, None, {
+            "detector": "ECC", "attempts": attempts_info, "quality": "failed",
+            "failure_reason": str(exc),
+        })
+    if not np.isfinite(cc) or cc < 0.65:
         # Two different boards can still reach moderate ECC correlation because
         # of shared layout style; require strong correlation before trusting a
         # keypoint-less alignment.
@@ -290,15 +316,15 @@ def _ecc_refine(ref: np.ndarray, test: np.ndarray, warp: np.ndarray) -> tuple[np
         cc, refined = cv2.findTransformECC(
             ref.astype(np.float32) / 255.0,
             test.astype(np.float32) / 255.0,
-            np.ascontiguousarray(warp.astype(np.float32).reshape(2, 3)),
+            np.ascontiguousarray(_invert_ecc_warp(warp)),
             MOTION_AFFINE,
             ECC_TERM,
             None,
             5,
         )
-        if cc > 0.1:
-            return refined.astype(np.float32), float(cc)
-    except cv2.error:
+        if np.isfinite(cc) and cc > 0.1:
+            return _invert_ecc_warp(refined), float(cc)
+    except (cv2.error, ValueError):
         pass
     return warp.astype(np.float32), 0.0
 

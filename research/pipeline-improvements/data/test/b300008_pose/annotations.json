@@ -1,0 +1,49 @@
+{
+  "board": 300008,
+  "profile": "pose",
+  "gt": [
+    {
+      "type": "mousebite",
+      "bbox": [
+        134,
+        220,
+        11,
+        16
+      ],
+      "synthetic": true
+    },
+    {
+      "type": "spurious_copper",
+      "bbox": [
+        631,
+        140,
+        32,
+        20
+      ],
+      "synthetic": true
+    },
+    {
+      "type": "open_circuit",
+      "bbox": [
+        276,
+        263,
+        21,
+        14
+      ],
+      "synthetic": true
+    }
+  ],
+  "reference_to_capture_pose": [
+    [
+      1.0047608613967896,
+      0.021923959255218506,
+      -4.719564437866211
+    ],
+    [
+      -0.021923959255218506,
+      1.0047608613967896,
+      5.437530517578125
+    ]
+  ],
+  "has_independent_synthetic_capture": true
+}

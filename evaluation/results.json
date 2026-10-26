@@ -10,7 +10,7 @@
       "f1": 0.5705,
       "false_positives": 52,
       "false_negatives": 6,
-      "mean_latency_s": 0.8031,
+      "mean_latency_s": 0.7709,
       "mean_tool_calls": 0.0,
       "escalation_rate": 0.0,
       "verdicts": {
@@ -26,7 +26,7 @@
       "f1": 0.7155,
       "false_positives": 10,
       "false_negatives": 8,
-      "mean_latency_s": 1.4153,
+      "mean_latency_s": 1.5522,
       "mean_tool_calls": 4.6,
       "escalation_rate": 0.2636,
       "verdicts": {
@@ -47,7 +47,7 @@
         "f1": 0.7648,
         "false_positives": 5,
         "false_negatives": 3,
-        "mean_latency_s": 0.6784,
+        "mean_latency_s": 0.6632,
         "mean_tool_calls": 0.0,
         "escalation_rate": 0.0,
         "verdicts": {
@@ -63,7 +63,7 @@
         "f1": 0.9143,
         "false_positives": 2,
         "false_negatives": 1,
-        "mean_latency_s": 1.3222,
+        "mean_latency_s": 1.467,
         "mean_tool_calls": 5.4,
         "escalation_rate": 0.05,
         "verdicts": {
@@ -83,7 +83,7 @@
         "f1": 0.2,
         "false_positives": 6,
         "false_negatives": 0,
-        "mean_latency_s": 0.69,
+        "mean_latency_s": 0.6544,
         "mean_tool_calls": 0.0,
         "escalation_rate": 0.0,
         "verdicts": {
@@ -98,7 +98,7 @@
         "f1": 0.8,
         "false_positives": 1,
         "false_negatives": 0,
-        "mean_latency_s": 1.201,
+        "mean_latency_s": 1.373,
         "mean_tool_calls": 2.2,
         "escalation_rate": 0.5556,
         "verdicts": {
@@ -117,7 +117,7 @@
         "f1": 0.3067,
         "false_positives": 16,
         "false_negatives": 1,
-        "mean_latency_s": 1.1052,
+        "mean_latency_s": 1.0084,
         "mean_tool_calls": 0.0,
         "escalation_rate": 0.0,
         "verdicts": {
@@ -133,7 +133,7 @@
         "f1": 0.6667,
         "false_positives": 3,
         "false_negatives": 1,
-        "mean_latency_s": 1.7826,
+        "mean_latency_s": 1.8176,
         "mean_tool_calls": 6.0,
         "escalation_rate": 0.2083,
         "verdicts": {
@@ -153,7 +153,7 @@
         "f1": 1.0,
         "false_positives": 0,
         "false_negatives": 0,
-        "mean_latency_s": 0.9184,
+        "mean_latency_s": 0.9296,
         "mean_tool_calls": 0.0,
         "escalation_rate": 0.0,
         "verdicts": {},
@@ -165,7 +165,7 @@
         "f1": 1.0,
         "false_positives": 0,
         "false_negatives": 0,
-        "mean_latency_s": 1.7696,
+        "mean_latency_s": 1.9116,
         "mean_tool_calls": 0.0,
         "escalation_rate": 0.0,
         "verdicts": {},
@@ -180,7 +180,7 @@
         "f1": 0.3267,
         "false_positives": 15,
         "false_negatives": 1,
-        "mean_latency_s": 0.73,
+        "mean_latency_s": 0.6528,
         "mean_tool_calls": 0.0,
         "escalation_rate": 0.0,
         "verdicts": {
@@ -196,7 +196,7 @@
         "f1": 0.0,
         "false_positives": 0,
         "false_negatives": 5,
-        "mean_latency_s": 0.909,
+        "mean_latency_s": 1.033,
         "mean_tool_calls": 4.8,
         "escalation_rate": 0.6364,
         "verdicts": {
@@ -214,7 +214,7 @@
         "f1": 0.8247,
         "false_positives": 10,
         "false_negatives": 1,
-        "mean_latency_s": 0.6966,
+        "mean_latency_s": 0.7168,
         "mean_tool_calls": 0.0,
         "escalation_rate": 0.0,
         "verdicts": {
@@ -230,7 +230,7 @@
         "f1": 0.9121,
         "false_positives": 4,
         "false_negatives": 1,
-        "mean_latency_s": 1.5076,
+        "mean_latency_s": 1.7112,
         "mean_tool_calls": 9.2,
         "escalation_rate": 0.1143,
         "verdicts": {
@@ -267,7 +267,7 @@
           "CONFIRMED_DEFECT": 2,
           "CLEARED": 1
         },
-        "latency_s": 0.553,
+        "latency_s": 0.578,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -290,7 +290,7 @@
           "CONFIRMED_DEFECT": 2,
           "LIKELY_DEFECT": 1
         },
-        "latency_s": 1.234,
+        "latency_s": 1.352,
         "tool_calls": 5,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -319,7 +319,7 @@
           "LIKELY_DEFECT": 1,
           "CLEARED": 1
         },
-        "latency_s": 0.72,
+        "latency_s": 0.572,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -342,7 +342,7 @@
           "NEEDS_REVIEW": 1,
           "CLEARED": 1
         },
-        "latency_s": 1.209,
+        "latency_s": 1.231,
         "tool_calls": 2,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -371,7 +371,7 @@
           "LIKELY_DEFECT": 3,
           "CLEARED": 2
         },
-        "latency_s": 2.551,
+        "latency_s": 2.238,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -395,7 +395,7 @@
           "NEEDS_REVIEW": 2,
           "CLEARED": 2
         },
-        "latency_s": 3.198,
+        "latency_s": 3.086,
         "tool_calls": 6,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -421,7 +421,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 2.831,
+        "latency_s": 2.566,
         "tool_calls": 0,
         "registration_quality": "poor"
       },
@@ -441,7 +441,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 5.594,
+        "latency_s": 5.624,
         "tool_calls": 0,
         "registration_quality": "poor",
         "stop_reason": "registration_failed"
@@ -470,7 +470,7 @@
           "CONFIRMED_DEFECT": 1,
           "LIKELY_DEFECT": 3
         },
-        "latency_s": 0.758,
+        "latency_s": 0.656,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -493,7 +493,7 @@
           "NEEDS_REVIEW": 3,
           "CLEARED": 1
         },
-        "latency_s": 0.905,
+        "latency_s": 0.973,
         "tool_calls": 4,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -523,7 +523,7 @@
           "LIKELY_DEFECT": 2,
           "CLEARED": 1
         },
-        "latency_s": 0.695,
+        "latency_s": 0.645,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -547,7 +547,7 @@
           "LIKELY_DEFECT": 1,
           "NEEDS_REVIEW": 3
         },
-        "latency_s": 1.668,
+        "latency_s": 1.821,
         "tool_calls": 11,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -576,7 +576,7 @@
           "CONFIRMED_DEFECT": 4,
           "LIKELY_DEFECT": 1
         },
-        "latency_s": 0.742,
+        "latency_s": 0.577,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -599,7 +599,7 @@
           "CONFIRMED_DEFECT": 4,
           "NEEDS_REVIEW": 1
         },
-        "latency_s": 1.435,
+        "latency_s": 1.563,
         "tool_calls": 7,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -627,7 +627,7 @@
         "verdicts": {
           "CLEARED": 2
         },
-        "latency_s": 0.687,
+        "latency_s": 0.584,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -650,7 +650,7 @@
           "NEEDS_REVIEW": 1,
           "CLEARED": 1
         },
-        "latency_s": 1.264,
+        "latency_s": 1.446,
         "tool_calls": 3,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -680,7 +680,7 @@
           "LIKELY_DEFECT": 3,
           "CLEARED": 1
         },
-        "latency_s": 0.792,
+        "latency_s": 0.677,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -703,7 +703,7 @@
           "CONFIRMED_DEFECT": 1,
           "CLEARED": 4
         },
-        "latency_s": 1.654,
+        "latency_s": 1.542,
         "tool_calls": 6,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -729,7 +729,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 0.251,
+        "latency_s": 0.222,
         "tool_calls": 0,
         "registration_quality": "poor"
       },
@@ -749,7 +749,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 0.426,
+        "latency_s": 0.684,
         "tool_calls": 0,
         "registration_quality": "poor",
         "stop_reason": "registration_failed"
@@ -779,7 +779,7 @@
           "LIKELY_DEFECT": 3,
           "CLEARED": 1
         },
-        "latency_s": 0.745,
+        "latency_s": 0.71,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -802,7 +802,7 @@
           "NEEDS_REVIEW": 2,
           "CLEARED": 3
         },
-        "latency_s": 0.964,
+        "latency_s": 1.215,
         "tool_calls": 5,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -831,7 +831,7 @@
           "CONFIRMED_DEFECT": 4,
           "LIKELY_DEFECT": 1
         },
-        "latency_s": 0.684,
+        "latency_s": 0.841,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -854,7 +854,7 @@
           "CONFIRMED_DEFECT": 4,
           "LIKELY_DEFECT": 1
         },
-        "latency_s": 1.346,
+        "latency_s": 1.684,
         "tool_calls": 7,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -884,7 +884,7 @@
           "LIKELY_DEFECT": 2,
           "CLEARED": 1
         },
-        "latency_s": 0.729,
+        "latency_s": 0.637,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -908,7 +908,7 @@
           "LIKELY_DEFECT": 1,
           "CLEARED": 2
         },
-        "latency_s": 1.4,
+        "latency_s": 1.444,
         "tool_calls": 7,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -936,7 +936,7 @@
         "verdicts": {
           "LIKELY_DEFECT": 3
         },
-        "latency_s": 0.714,
+        "latency_s": 0.821,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -959,7 +959,7 @@
           "LIKELY_DEFECT": 1,
           "NEEDS_REVIEW": 2
         },
-        "latency_s": 1.275,
+        "latency_s": 1.653,
         "tool_calls": 4,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -988,7 +988,7 @@
           "LIKELY_DEFECT": 3,
           "CONFIRMED_DEFECT": 1
         },
-        "latency_s": 0.688,
+        "latency_s": 0.704,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1013,7 +1013,7 @@
           "CONFIRMED_DEFECT": 1,
           "CLEARED": 1
         },
-        "latency_s": 1.282,
+        "latency_s": 1.846,
         "tool_calls": 5,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1039,7 +1039,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 0.23,
+        "latency_s": 0.504,
         "tool_calls": 0,
         "registration_quality": "poor"
       },
@@ -1059,7 +1059,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 0.418,
+        "latency_s": 0.756,
         "tool_calls": 0,
         "registration_quality": "poor",
         "stop_reason": "registration_failed"
@@ -1089,7 +1089,7 @@
           "CLEARED": 2,
           "LIKELY_DEFECT": 2
         },
-        "latency_s": 0.728,
+        "latency_s": 0.627,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1112,7 +1112,7 @@
           "NEEDS_REVIEW": 2,
           "CLEARED": 3
         },
-        "latency_s": 1.006,
+        "latency_s": 1.266,
         "tool_calls": 7,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1141,7 +1141,7 @@
           "CONFIRMED_DEFECT": 4,
           "LIKELY_DEFECT": 2
         },
-        "latency_s": 0.722,
+        "latency_s": 0.791,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1165,7 +1165,7 @@
           "CLEARED": 1,
           "LIKELY_DEFECT": 1
         },
-        "latency_s": 1.563,
+        "latency_s": 1.624,
         "tool_calls": 9,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1193,7 +1193,7 @@
         "verdicts": {
           "CONFIRMED_DEFECT": 3
         },
-        "latency_s": 0.682,
+        "latency_s": 0.692,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1215,7 +1215,7 @@
         "verdicts": {
           "CONFIRMED_DEFECT": 3
         },
-        "latency_s": 1.271,
+        "latency_s": 1.206,
         "tool_calls": 3,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1243,7 +1243,7 @@
         "verdicts": {
           "LIKELY_DEFECT": 1
         },
-        "latency_s": 0.694,
+        "latency_s": 0.707,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1265,7 +1265,7 @@
         "verdicts": {
           "NEEDS_REVIEW": 1
         },
-        "latency_s": 1.179,
+        "latency_s": 1.471,
         "tool_calls": 1,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1294,7 +1294,7 @@
           "CONFIRMED_DEFECT": 1,
           "LIKELY_DEFECT": 4
         },
-        "latency_s": 0.749,
+        "latency_s": 0.813,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1318,7 +1318,7 @@
           "NEEDS_REVIEW": 2,
           "CLEARED": 2
         },
-        "latency_s": 1.402,
+        "latency_s": 1.313,
         "tool_calls": 7,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1344,7 +1344,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 1.045,
+        "latency_s": 1.142,
         "tool_calls": 0,
         "registration_quality": "poor"
       },
@@ -1364,7 +1364,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 2.012,
+        "latency_s": 2.123,
         "tool_calls": 0,
         "registration_quality": "poor",
         "stop_reason": "registration_failed"
@@ -1393,7 +1393,7 @@
           "LIKELY_DEFECT": 4,
           "CONFIRMED_DEFECT": 1
         },
-        "latency_s": 0.738,
+        "latency_s": 0.678,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1415,7 +1415,7 @@
         "verdicts": {
           "NEEDS_REVIEW": 5
         },
-        "latency_s": 0.868,
+        "latency_s": 0.905,
         "tool_calls": 5,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1444,7 +1444,7 @@
           "CONFIRMED_DEFECT": 4,
           "LIKELY_DEFECT": 3
         },
-        "latency_s": 0.711,
+        "latency_s": 0.635,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1468,7 +1468,7 @@
           "LIKELY_DEFECT": 3,
           "CLEARED": 1
         },
-        "latency_s": 1.455,
+        "latency_s": 1.584,
         "tool_calls": 7,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1498,7 +1498,7 @@
           "CLEARED": 1,
           "LIKELY_DEFECT": 1
         },
-        "latency_s": 0.686,
+        "latency_s": 0.832,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1522,7 +1522,7 @@
           "LIKELY_DEFECT": 1,
           "CLEARED": 1
         },
-        "latency_s": 1.271,
+        "latency_s": 1.77,
         "tool_calls": 5,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1550,7 +1550,7 @@
         "verdicts": {
           "LIKELY_DEFECT": 1
         },
-        "latency_s": 0.635,
+        "latency_s": 0.588,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1572,7 +1572,7 @@
         "verdicts": {
           "CLEARED": 1
         },
-        "latency_s": 1.078,
+        "latency_s": 1.064,
         "tool_calls": 1,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1602,7 +1602,7 @@
           "CONFIRMED_DEFECT": 1,
           "CLEARED": 1
         },
-        "latency_s": 0.746,
+        "latency_s": 0.61,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1626,7 +1626,7 @@
           "CONFIRMED_DEFECT": 1,
           "CLEARED": 3
         },
-        "latency_s": 1.377,
+        "latency_s": 1.301,
         "tool_calls": 6,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1652,7 +1652,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 0.235,
+        "latency_s": 0.214,
         "tool_calls": 0,
         "registration_quality": "poor"
       },
@@ -1672,7 +1672,7 @@
           "f1": 1.0
         },
         "verdicts": {},
-        "latency_s": 0.398,
+        "latency_s": 0.371,
         "tool_calls": 0,
         "registration_quality": "poor",
         "stop_reason": "registration_failed"
@@ -1700,7 +1700,7 @@
         "verdicts": {
           "LIKELY_DEFECT": 3
         },
-        "latency_s": 0.681,
+        "latency_s": 0.593,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1723,7 +1723,7 @@
           "NEEDS_REVIEW": 2,
           "CLEARED": 1
         },
-        "latency_s": 0.802,
+        "latency_s": 0.806,
         "tool_calls": 3,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"
@@ -1752,7 +1752,7 @@
           "CONFIRMED_DEFECT": 4,
           "LIKELY_DEFECT": 5
         },
-        "latency_s": 0.671,
+        "latency_s": 0.672,
         "tool_calls": 0,
         "registration_quality": "good"
       },
@@ -1777,7 +1777,7 @@
           "NEEDS_REVIEW": 1,
           "CLEARED": 1
         },
-        "latency_s": 1.506,
+        "latency_s": 1.843,
         "tool_calls": 12,
         "registration_quality": "good",
         "stop_reason": "all_regions_decided"

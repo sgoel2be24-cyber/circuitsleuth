@@ -1,0 +1,16 @@
+{
+  "changed_existing_files": [
+    "backend/app/cv/registration.py",
+    "backend/app/cv/verification.py",
+    "backend/app/cv/region_tools.py",
+    "backend/tests/test_region_tools.py"
+  ],
+  "changed_research_files": [
+    "research/pipeline-improvements/diagnostics.py",
+    "research/pipeline-improvements/experiments.py"
+  ],
+  "new_test_file": "backend/tests/test_alignment_evidence.py",
+  "original_data_evaluation_results_unchanged": true,
+  "original_research_results_unchanged": true,
+  "api_schema_artifact_contract_files_unchanged": true
+}

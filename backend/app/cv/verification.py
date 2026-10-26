@@ -6,18 +6,20 @@ deliberately simple and inspectable — judges can trace every verdict.
   R1  registration poor/failed and never recovered          -> NOT_EVALUABLE
   R2  candidate touches the warp-invalid border and no
       independent view resolved it                          -> NOT_EVALUABLE
-  R3  local realignment removed >70% of the difference      -> CLEARED (alignment artifact)
+  R3  conflicting local/independent evidence               -> NEEDS_REVIEW
   R4  an independent view was compared:
         - anomaly persists + strong baseline                -> CONFIRMED_DEFECT
         - anomaly persists                                  -> LIKELY_DEFECT
         - anomaly absent, comparison reliable               -> CLEARED (observation artifact)
         - unreliable comparison                             -> NEEDS_REVIEW
+      otherwise a reliable local realignment may clear;
+      unqualified/inconclusive local evidence              -> NEEDS_REVIEW
   R5  strong baseline + >=2 reprocessing tools agree        -> CONFIRMED_DEFECT
   R6  moderate baseline + >=1 tool agrees                   -> LIKELY_DEFECT
   R7  illumination confound with no structural support      -> CLEARED
   R8  otherwise                                             -> NEEDS_REVIEW
 
-"Strong baseline" = difference_score >= 0.15 AND structural_mismatch >= 0.40.
+"Strong baseline" = difference_score >= 0.15 AND structural_mismatch >= 0.32.
 "Moderate" = difference_score >= 0.08 OR structural_mismatch >= 0.30.
 Classification (label) is separate from verdict and may honestly be
 "unclassified_surface_anomaly".
@@ -64,15 +66,20 @@ def verify_candidate(
     strong = diff >= STRONG_DIFF and mismatch >= STRONG_MISMATCH
     moderate = diff >= MODERATE_DIFF or mismatch >= MODERATE_MISMATCH
 
-    realign_support = _supports(evidence, {"local_realignment"})
-    realign_refute = _refutes(evidence, {"local_realignment"})
+    local_evidence = [e for e in evidence if e.get("evidence_kind") == "local_realignment"]
+    # Older persisted evidence has neither consistent units nor a support
+    # quality gate. Retain its audit record, but do not trust it to clear.
+    qualified_local = [e for e in local_evidence
+                       if (e.get("metrics") or {}).get("comparison_reliable") is True]
+    realign_support = _supports(qualified_local, {"local_realignment"})
+    realign_refute = _refutes(qualified_local, {"local_realignment"})
     view_support = _supports(evidence, {"independent_view"})
     view_refute = _refutes(evidence, {"independent_view"})
     reprocess_support = _supports(evidence, {"difference_severity", "edge_topology", "illumination_confound"})
     reprocess_refute = _refutes(evidence, {"difference_severity", "edge_topology", "illumination_confound"})
 
     # R1 — handled by caller for registration-level failure; still guard here.
-    if registration_quality in ("poor", "failed") and not view_support and not realign_refute:
+    if registration_quality in ("poor", "failed") and not view_support:
         return "NOT_EVALUABLE", None, "registration unreliable", [
             "Registration quality was %s; refusing to report defects without independent confirmation." % registration_quality
         ]
@@ -83,16 +90,16 @@ def verify_candidate(
             "Candidate touches the region where warped test pixels are missing; evidence incomplete."
         ]
 
-    # R3 — local realignment cleared it
-    if realign_refute:
-        m = realign_refute[-1].get("metrics", {})
-        return "CLEARED", None, "registration artifact", [
-            "Local ECC realignment removed %s of the local difference; the anomaly was misalignment."
-            % m.get("reduction_ratio", "?")
+    # R3 — no single source overrides an explicit evidence conflict.
+    if ((view_support and _refutes(local_evidence, {"local_realignment"}))
+            or (view_refute and realign_support) or (view_support and view_refute)
+            or (realign_support and realign_refute)):
+        return "NEEDS_REVIEW", *_classify(cand, evidence), [
+            "Conflicting evidence from local realignment or independent captures; operator review required."
         ]
 
     # R4 — independent view was actually compared
-    if view_support or view_refute:
+    if any(e.get("evidence_kind") == "independent_view" for e in evidence):
         if view_support and strong and quality >= 0.4:
             return "CONFIRMED_DEFECT", *_classify(cand, evidence), []
         if view_support:
@@ -106,8 +113,22 @@ def verify_candidate(
             return "CLEARED", None, "not present in independent view", [
                 "The anomaly did not reproduce in an independent capture; likely an observation artifact."
             ]
-        notes.append("Independent view comparison was unreliable (local alignment of the second view is weak).")
+        return "NEEDS_REVIEW", *_classify(cand, evidence), [
+            "Independent view comparison was unreliable; additional reprocessing cannot resolve this evidence gap."
+        ]
 
+    if local_evidence and (len(qualified_local) != len(local_evidence)
+                           or any(e.get("supports_defect") is None for e in local_evidence)):
+        return "NEEDS_REVIEW", *_classify(cand, evidence), [
+            "Local alignment evidence was unreliable or inconclusive; it cannot justify an automatic verdict."
+        ]
+
+    if realign_refute:
+        m = realign_refute[-1].get("metrics", {})
+        return "CLEARED", None, "registration artifact", [
+            "Reliable local ECC removed %s of the local difference on common observed pixels, with no coherent residual."
+            % m.get("reduction_ratio", "?")
+        ]
     # R5/R6/R7 — reprocessing evidence only
     if strong and quality >= 0.35 and len(reprocess_support) >= 2 and not reprocess_refute:
         verdict = "CONFIRMED_DEFECT"
@@ -122,7 +143,7 @@ def verify_candidate(
         and (e.get("metrics") or {}).get("illumination_confound_likely")
         for e in evidence
     )
-    if (cand.get("illumination_suspect") or confound_proven) and not reprocess_support:
+    if (cand.get("illumination_suspect") or confound_proven) and not reprocess_support and not realign_support:
         return "CLEARED", None, "illumination confound", [
             "Difference is high but structural mismatch is low and adaptive-threshold analysis found no geometry change — consistent with glare/shadow."
         ]

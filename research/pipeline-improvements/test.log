@@ -1,0 +1,190 @@
+test 300001 clean done 1.7 s
+test 300001 mild done 3.4 s
+test 300001 gain done 4.7 s
+test 300001 glare done 6.6 s
+test 300001 pose done 8.4 s
+test 300001 blur_noise done 10.2 s
+test 300002 clean done 12.0 s
+test 300002 mild done 13.7 s
+test 300002 gain done 15.0 s
+test 300002 glare done 17.5 s
+test 300002 pose done 19.2 s
+test 300002 blur_noise done 20.9 s
+test 300003 clean done 22.7 s
+test 300003 mild done 24.5 s
+test 300003 gain done 25.8 s
+test 300003 glare done 27.8 s
+test 300003 pose done 30.7 s
+test 300003 blur_noise done 33.0 s
+test 300004 clean done 34.7 s
+test 300004 mild done 36.3 s
+test 300004 gain done 37.6 s
+test 300004 glare done 39.7 s
+test 300004 pose done 41.5 s
+test 300004 blur_noise done 43.2 s
+test 300005 clean done 44.9 s
+test 300005 mild done 46.5 s
+test 300005 gain done 47.9 s
+test 300005 glare done 49.9 s
+test 300005 pose done 51.7 s
+test 300005 blur_noise done 54.0 s
+test 300006 clean done 55.6 s
+test 300006 mild done 57.3 s
+test 300006 gain done 58.6 s
+test 300006 glare done 60.7 s
+test 300006 pose done 62.4 s
+test 300006 blur_noise done 64.2 s
+test 300007 clean done 65.9 s
+test 300007 mild done 67.7 s
+test 300007 gain done 69.0 s
+test 300007 glare done 71.0 s
+test 300007 pose done 72.8 s
+test 300007 blur_noise done 74.6 s
+test 300008 clean done 76.3 s
+test 300008 mild done 78.0 s
+test 300008 gain done 79.4 s
+test 300008 glare done 81.3 s
+test 300008 pose done 83.1 s
+test 300008 blur_noise done 84.9 s
+{
+  "bilateral": {
+    "n": 48,
+    "tp": 107,
+    "fp": 59,
+    "fn": 13,
+    "micro_precision": 0.6445783132530121,
+    "micro_recall": 0.8916666666666667,
+    "micro_f1": 0.7482517482517482,
+    "macro_f1": 0.7816813973063973,
+    "clean_false_candidates": 2,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07680611977169367
+  },
+  "clahe_detection": {
+    "n": 48,
+    "tp": 109,
+    "fp": 136,
+    "fn": 11,
+    "micro_precision": 0.4448979591836735,
+    "micro_recall": 0.9083333333333333,
+    "micro_f1": 0.5972602739726027,
+    "macro_f1": 0.6075892857142857,
+    "clean_false_candidates": 27,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.08111568048116169
+  },
+  "erode_valid": {
+    "n": 48,
+    "tp": 108,
+    "fp": 52,
+    "fn": 12,
+    "micro_precision": 0.675,
+    "micro_recall": 0.9,
+    "micro_f1": 0.7714285714285715,
+    "macro_f1": 0.7975739538239539,
+    "clean_false_candidates": 2,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07744294529159863
+  },
+  "legacy": {
+    "n": 48,
+    "tp": 109,
+    "fp": 78,
+    "fn": 11,
+    "micro_precision": 0.5828877005347594,
+    "micro_recall": 0.9083333333333333,
+    "micro_f1": 0.7100977198697068,
+    "macro_f1": 0.7014971139971141,
+    "clean_false_candidates": 9,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07775404855783563
+  },
+  "multiplicative": {
+    "n": 48,
+    "tp": 110,
+    "fp": 60,
+    "fn": 10,
+    "micro_precision": 0.6470588235294118,
+    "micro_recall": 0.9166666666666666,
+    "micro_f1": 0.7586206896551724,
+    "macro_f1": 0.7935425685425685,
+    "clean_false_candidates": 4,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.0773589913539278
+  },
+  "no_median": {
+    "n": 48,
+    "tp": 108,
+    "fp": 56,
+    "fn": 12,
+    "micro_precision": 0.6585365853658537,
+    "micro_recall": 0.9,
+    "micro_f1": 0.7605633802816901,
+    "macro_f1": 0.7903303872053872,
+    "clean_false_candidates": 2,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07855258847606213
+  },
+  "robust_gain": {
+    "n": 48,
+    "tp": 104,
+    "fp": 51,
+    "fn": 16,
+    "micro_precision": 0.6709677419354839,
+    "micro_recall": 0.8666666666666667,
+    "micro_f1": 0.7563636363636363,
+    "macro_f1": 0.8308201058201058,
+    "clean_false_candidates": 0,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.15854951298630718
+  },
+  "small_morph": {
+    "n": 48,
+    "tp": 111,
+    "fp": 97,
+    "fn": 9,
+    "micro_precision": 0.5336538461538461,
+    "micro_recall": 0.925,
+    "micro_f1": 0.676829268292683,
+    "macro_f1": 0.7308501683501684,
+    "clean_false_candidates": 3,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07593484900038068
+  },
+  "symmetric": {
+    "n": 48,
+    "tp": 107,
+    "fp": 61,
+    "fn": 13,
+    "micro_precision": 0.6369047619047619,
+    "micro_recall": 0.8916666666666667,
+    "micro_f1": 0.7430555555555556,
+    "macro_f1": 0.7766218734968735,
+    "clean_false_candidates": 2,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07734034033516461
+  },
+  "symmetric_ecc": {
+    "n": 48,
+    "tp": 108,
+    "fp": 59,
+    "fn": 12,
+    "micro_precision": 0.6467065868263473,
+    "micro_recall": 0.9,
+    "micro_f1": 0.7526132404181185,
+    "macro_f1": 0.785550444925445,
+    "clean_false_candidates": 2,
+    "clean_boards": 8,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07866346179192381
+  }
+}

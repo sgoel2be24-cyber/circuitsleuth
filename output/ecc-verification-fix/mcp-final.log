@@ -1,0 +1,4 @@
+MCP tools: ['align_images', 'detect_defects', 'generate_inspection_report', 'get_inspection_context', 'inspect_region', 'request_additional_view', 'request_human_review', 'verify_candidate']
+All eight tools executed; verified verdict: CONFIRMED_DEFECT
+MCP stdio smoke test PASSED (10 consecutive persisted audit events)
+(1.3s)

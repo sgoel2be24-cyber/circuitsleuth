@@ -28,7 +28,8 @@ export function AgentFeed({ events, running, artifactUrl }: {
   artifactUrl: (name: string) => string
 }) {
   const [expanded, setExpanded] = useState<number | null>(null)
-  const ordered = [...events].reverse()
+  const [filter, setFilter] = useState<'all' | 'decisions' | 'tools'>('all')
+  const ordered = [...events].filter(ev => filter === 'all' || (filter === 'tools' ? ev.phase === 'ACT' : ['PLAN', 'VERIFY', 'DECIDE'].includes(ev.phase))).reverse()
   return (
     <div className="flex h-full min-h-0 flex-col">
       <div className="flex items-center gap-2 border-b border-[#223047] px-3 py-2">
@@ -40,6 +41,7 @@ export function AgentFeed({ events, running, artifactUrl }: {
         )}
         <span className="ml-auto font-mono text-[10px] text-slate-500">{events.length} events</span>
       </div>
+      <div className="flex gap-1 border-b border-[#25333f] px-3 py-2" aria-label="Filter agent events">{(['all', 'decisions', 'tools'] as const).map(f => <button key={f} aria-pressed={filter === f} onClick={() => setFilter(f)} className={`rounded px-2 py-1 text-[10px] capitalize ${filter === f ? 'bg-[#253b3a] text-emerald-200' : 'text-slate-400 hover:bg-white/5'}`}>{f}</button>)}</div>
       <div className="min-h-0 flex-1 overflow-y-auto p-2">
         {ordered.length === 0 && (
           <p className="px-2 py-6 text-center text-xs text-slate-500">Waiting for the agent…</p>
@@ -51,6 +53,8 @@ export function AgentFeed({ events, running, artifactUrl }: {
               <li key={ev.seq}>
                 <button
                   onClick={() => setExpanded(isOpen ? null : ev.seq)}
+                  aria-expanded={isOpen}
+                  title={ev.message}
                   className={`w-full rounded-md px-2 py-1.5 text-left transition-colors ${
                     isOpen ? 'bg-[#182334]' : 'hover:bg-[#141d2b]'
                   }`}
@@ -58,7 +62,7 @@ export function AgentFeed({ events, running, artifactUrl }: {
                   <div className="flex items-center gap-2">
                     <span className="w-4 text-center font-mono text-xs text-cyan-400">{ICONS[ev.type] ?? '·'}</span>
                     <PhaseChip phase={ev.phase} />
-                    <span className="min-w-0 flex-1 truncate text-xs text-slate-300">{ev.message}</span>
+                    <span className="min-w-0 flex-1 line-clamp-2 text-[11px] leading-relaxed text-slate-300">{ev.message}</span>
                     <span className="shrink-0 font-mono text-[9px] text-slate-600">
                       {new Date(ev.ts * 1000).toLocaleTimeString()}
                     </span>
@@ -74,6 +78,9 @@ export function AgentFeed({ events, running, artifactUrl }: {
                         />
                       ))}
                     </div>
+                  )}
+                  {isOpen && (
+                    <p className="mt-2 px-1 text-[11px] leading-relaxed text-slate-200">{ev.message}</p>
                   )}
                   {isOpen && (
                     <pre className="mt-1.5 max-h-56 overflow-auto rounded bg-[#0a0e14] p-2 font-mono text-[10px] leading-relaxed text-slate-400">

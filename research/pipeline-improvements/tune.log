@@ -1,0 +1,166 @@
+tune 200001 clean done 1.4 s
+tune 200001 mild done 2.6 s
+tune 200001 gain done 3.9 s
+tune 200001 glare done 5.4 s
+tune 200001 pose done 6.8 s
+tune 200001 blur_noise done 8.1 s
+tune 200002 clean done 9.4 s
+tune 200002 mild done 10.7 s
+tune 200002 gain done 12.0 s
+tune 200002 glare done 13.6 s
+tune 200002 pose done 15.0 s
+tune 200002 blur_noise done 16.3 s
+tune 200003 clean done 17.6 s
+tune 200003 mild done 19.0 s
+tune 200003 gain done 20.5 s
+tune 200003 glare done 22.0 s
+tune 200003 pose done 23.4 s
+tune 200003 blur_noise done 24.7 s
+tune 200004 clean done 25.9 s
+tune 200004 mild done 27.2 s
+tune 200004 gain done 28.5 s
+tune 200004 glare done 30.0 s
+tune 200004 pose done 31.4 s
+tune 200004 blur_noise done 32.7 s
+{
+  "bilateral": {
+    "n": 24,
+    "tp": 49,
+    "fp": 34,
+    "fn": 11,
+    "micro_precision": 0.5903614457831325,
+    "micro_recall": 0.8166666666666667,
+    "micro_f1": 0.6853146853146853,
+    "macro_f1": 0.684508547008547,
+    "clean_false_candidates": 2,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07619449305154073
+  },
+  "clahe_detection": {
+    "n": 24,
+    "tp": 50,
+    "fp": 80,
+    "fn": 10,
+    "micro_precision": 0.38461538461538464,
+    "micro_recall": 0.8333333333333334,
+    "micro_f1": 0.5263157894736842,
+    "macro_f1": 0.5205808080808081,
+    "clean_false_candidates": 16,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.08091396521194838
+  },
+  "erode_valid": {
+    "n": 24,
+    "tp": 49,
+    "fp": 28,
+    "fn": 11,
+    "micro_precision": 0.6363636363636364,
+    "micro_recall": 0.8166666666666667,
+    "micro_f1": 0.7153284671532847,
+    "macro_f1": 0.6974206349206349,
+    "clean_false_candidates": 2,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07637346011809616
+  },
+  "legacy": {
+    "n": 24,
+    "tp": 50,
+    "fp": 46,
+    "fn": 10,
+    "micro_precision": 0.5208333333333334,
+    "micro_recall": 0.8333333333333334,
+    "micro_f1": 0.6410256410256411,
+    "macro_f1": 0.6196759259259258,
+    "clean_false_candidates": 6,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.0776041562106305
+  },
+  "multiplicative": {
+    "n": 24,
+    "tp": 50,
+    "fp": 26,
+    "fn": 10,
+    "micro_precision": 0.6578947368421053,
+    "micro_recall": 0.8333333333333334,
+    "micro_f1": 0.7352941176470589,
+    "macro_f1": 0.722089947089947,
+    "clean_false_candidates": 2,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07717901203674653
+  },
+  "no_median": {
+    "n": 24,
+    "tp": 49,
+    "fp": 33,
+    "fn": 11,
+    "micro_precision": 0.5975609756097561,
+    "micro_recall": 0.8166666666666667,
+    "micro_f1": 0.6901408450704225,
+    "macro_f1": 0.6872863247863248,
+    "clean_false_candidates": 2,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07755275329448826
+  },
+  "robust_gain": {
+    "n": 24,
+    "tp": 48,
+    "fp": 28,
+    "fn": 12,
+    "micro_precision": 0.631578947368421,
+    "micro_recall": 0.8,
+    "micro_f1": 0.7058823529411765,
+    "macro_f1": 0.7023899711399711,
+    "clean_false_candidates": 2,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.1562803977067233
+  },
+  "small_morph": {
+    "n": 24,
+    "tp": 46,
+    "fp": 55,
+    "fn": 14,
+    "micro_precision": 0.45544554455445546,
+    "micro_recall": 0.7666666666666667,
+    "micro_f1": 0.5714285714285714,
+    "macro_f1": 0.5911463536463536,
+    "clean_false_candidates": 2,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07605632808069156
+  },
+  "symmetric": {
+    "n": 24,
+    "tp": 49,
+    "fp": 35,
+    "fn": 11,
+    "micro_precision": 0.5833333333333334,
+    "micro_recall": 0.8166666666666667,
+    "micro_f1": 0.6805555555555556,
+    "macro_f1": 0.6800442612942613,
+    "clean_false_candidates": 2,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07640127432872153
+  },
+  "symmetric_ecc": {
+    "n": 24,
+    "tp": 49,
+    "fp": 35,
+    "fn": 11,
+    "micro_precision": 0.5833333333333334,
+    "micro_recall": 0.8166666666666667,
+    "micro_f1": 0.6805555555555556,
+    "macro_f1": 0.6800442612942613,
+    "clean_false_candidates": 2,
+    "clean_boards": 4,
+    "registration_refusals": 0,
+    "mean_detection_s": 0.07665701723938885
+  }
+}

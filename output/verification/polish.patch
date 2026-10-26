@@ -1,0 +1,491 @@
+--- a/deploy/README.md
++++ b/deploy/README.md
+@@ -27,8 +27,9 @@
+ powershell -ExecutionPolicy Bypass -File scripts/verify_local.ps1
+ ```
+ 
+-With the backend already running on port 8100, add `-IncludeMcp` to run the
+-independent MCP stdio smoke test. The verifier does not create cloud resources.
++Add `-IncludeMcp` to run the independent MCP stdio smoke test; no API server
++is needed. On macOS/Linux, use `.venv/bin/python scripts/verify_local.py
++--include-mcp` (on one line). The verifier does not create cloud resources.
+ 
+ ## Run the container locally
+ 
+--- a/docs/EVALUATION.md
++++ b/docs/EVALUATION.md
+@@ -48,7 +48,7 @@
+ 
+ ## Tests
+ 
+-37 pytest cases cover registration (warp recovery, periodicity trap, wrong
++Automated regressions cover registration (warp recovery, periodicity trap, wrong
+ board refusal), detection (ground-truth IoU, clean-board restraint), region
+ tools, the verification rule table, the planner, the orchestrator end-to-end
+ on all six scenarios, the REST API journey, and the MCP tool surface.
+--- a/frontend/src/components/CandidateCrops.tsx
++++ b/frontend/src/components/CandidateCrops.tsx
+@@ -1,4 +1,3 @@
+-import { api } from '../api'
+ import type { Candidate } from '../types'
+ 
+ export function CandidateCrops({ inspectionId, candidate }: { inspectionId: string; candidate: Candidate }) {
+--- a/frontend/src/components/RegionDetail.tsx
++++ b/frontend/src/components/RegionDetail.tsx
+@@ -128,7 +128,7 @@
+               Clear region
+             </button>
+           </div>
+-          {reviewDisabled && <p className="mt-2 text-[11px] text-slate-400">Operator decisions are available when the inspection stops.</p>}
++          {reviewDisabled && <p className="mt-2 text-[11px] text-slate-400">Operator decisions are available after an inspection completes. Re-run a failed inspection to finish verification.</p>}
+           {reviewError && <p role="alert" className="mt-2 text-xs text-red-200">{reviewError}</p>}
+         </div>
+       )}
+--- a/frontend/src/index.css
++++ b/frontend/src/index.css
+@@ -228,7 +228,7 @@
+ .ledger-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 0 20px 15px; }
+ .filter-tabs { display: flex; gap: 3px; padding: 3px; background: #0b1118; border: 1px solid #26313d; border-radius: 5px; }.filter-tabs button { padding: 5px 8px; font-size: 9px; color: #91a3b2; border-radius: 3px; white-space: nowrap; }.filter-tabs button.selected { background: #25313b; color: #e0ece7; }
+ .ledger-search { display: flex; align-items: center; gap: 6px; color: #7e94a3; max-width: 210px; }.ledger-search input { width: 100%; min-width: 80px; background: transparent; font-size: 10px; padding: 6px; outline-offset: 0; color: #c1d2df; }.ledger-search input::placeholder { color: #8295a6; }
+-.ledger-table-wrap { overflow-x: auto; }.ledger-table { width: 100%; text-align: left; border-collapse: collapse; min-width: 520px; }.ledger-table th { font: 8px var(--font-mono); color: #8b9dab; background: #0d141c; padding: 11px 13px; letter-spacing: .7px; border-block: 1px solid #24303b; }.ledger-table th:first-child, .ledger-table td:first-child { padding-left: 20px; }.ledger-table td { padding: 13px; border-bottom: 1px solid #202c38; }.ledger-table tr:last-child td { border-bottom: 0; }.ledger-table tbody tr:hover { background: #151f29; }.run-link { display: flex; align-items: center; gap: 10px; }.run-icon { display: grid; place-items: center; height: 32px; width: 32px; border: 1px solid #2c3d45; background: #19272b; border-radius: 7px; color: #9dcebb; flex-shrink: 0; }.run-link strong { font-size: 10px; color: #d6e1e8; font-weight: 400; }.run-link small { display: block; font-size: 9px; color: #8c9daa; margin-top: 3px; text-transform: capitalize; }.run-link small span { color: #708594; }.run-status { font-size: 10px; display: flex; align-items: center; gap: 6px; color: #a9b8c4; text-transform: capitalize; }.run-status > span { width: 5px; height: 5px; }.cycle-cell { color: #a5b4c2; font-size: 10px; white-space: nowrap; }.open-run { display: grid; place-items: center; height: 28px; width: 28px; color: #8da2ae; border-radius: 5px; }.open-run:hover { background: #2d443f; color: #b6f6d7; }
++.ledger-table-wrap { position: relative; overflow-x: auto; }.ledger-table { width: 100%; text-align: left; border-collapse: collapse; min-width: 520px; }.ledger-table th { font: 8px var(--font-mono); color: #8b9dab; background: #0d141c; padding: 11px 13px; letter-spacing: .7px; border-block: 1px solid #24303b; }.ledger-table th:first-child, .ledger-table td:first-child { padding-left: 20px; }.ledger-table td { padding: 13px; border-bottom: 1px solid #202c38; }.ledger-table tr:last-child td { border-bottom: 0; }.ledger-table tbody tr:hover { background: #151f29; }.run-link { display: flex; align-items: center; gap: 10px; }.run-icon { display: grid; place-items: center; height: 32px; width: 32px; border: 1px solid #2c3d45; background: #19272b; border-radius: 7px; color: #9dcebb; flex-shrink: 0; }.run-link strong { font-size: 10px; color: #d6e1e8; font-weight: 400; }.run-link small { display: block; font-size: 9px; color: #8c9daa; margin-top: 3px; text-transform: capitalize; }.run-link small span { color: #708594; }.run-status { font-size: 10px; display: flex; align-items: center; gap: 6px; color: #a9b8c4; text-transform: capitalize; }.run-status > span { width: 5px; height: 5px; }.cycle-cell { color: #a5b4c2; font-size: 10px; white-space: nowrap; }.open-run { display: grid; place-items: center; height: 28px; width: 28px; color: #8da2ae; border-radius: 5px; }.open-run:hover { background: #2d443f; color: #b6f6d7; }
+ .ledger-empty { padding: 45px 20px; display: flex; align-items: center; flex-direction: column; color: #6e9e91; }.ledger-empty h3 { margin-top: 14px; font-size: 15px; color: #c7d7df; }.ledger-empty p { font-size: 11px; margin-top: 6px; color: #91a3b2; }.ledger-footer { display: flex; justify-content: space-between; gap: 10px; padding: 12px 20px; font-size: 9px; color: #8b9eab; border-top: 1px solid #24303b; }
+ .dashboard-right { display: grid; gap: 17px; }.distribution-panel .section-heading { padding-bottom: 4px; }.outcome-total { display: flex; align-items: baseline; gap: 8px; padding: 7px 20px; }.outcome-total strong { font-size: 28px; color: #e2ede8; font-weight: 450; letter-spacing: -1px; }.outcome-total span { font-size: 10px; color: #8399a7; }.distribution-track { display: flex; height: 5px; border-radius: 4px; overflow: hidden; margin: 8px 20px 16px; background: #26343e; gap: 2px; }.distribution-legend { padding: 0 20px 19px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 15px; }.distribution-legend > div { display: flex; gap: 6px; align-items: center; font-size: 9px; color: #9eb0bd; }.legend-dot { width: 5px; height: 5px; border-radius: 1px; }.distribution-legend strong { font-size: 9px; margin-left: auto; font-weight: 400; color: #dae6ed; }.telemetry-panel .section-heading { padding-bottom: 13px; }.telemetry-panel ol { padding: 0 19px 14px; }.telemetry-panel li { display: flex; gap: 12px; position: relative; padding: 0 0 17px; }.telemetry-panel li:not(:last-child)::after { content: ''; width: 1px; background: #2b4346; position: absolute; left: 3px; top: 13px; bottom: 0; }.event-node { width: 7px; height: 7px; border: 1px solid #79b4a1; border-radius: 50%; background: #1b3a31; margin-top: 4px; flex-shrink: 0; }.event-phase { font-size: 8px; color: #a4d5c3; letter-spacing: .7px; }.telemetry-panel li p { font-size: 10px; line-height: 1.55; color: #90a3b1; margin-top: 3px; }
+ .runtime-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid #222e39; margin-top: 24px; padding: 16px 0 0; font: 8px var(--font-mono); color: #8298a6; }.runtime-footer b { font-weight: 400; color: #b0c8bc; }.runtime-python { margin-left: 8px; color: #8a9daa; }
+--- a/frontend/src/pages/Dashboard.tsx
++++ b/frontend/src/pages/Dashboard.tsx
+@@ -14,6 +14,7 @@
+   const [loading, setLoading] = useState(true)
+   const [query, setQuery] = useState('')
+   const [filter, setFilter] = useState('all')
++  const [visibleCount, setVisibleCount] = useState(9)
+   const load = useCallback(async () => {
+     try { const rows = await api.listInspections(); setInspections(rows); setError(null) }
+     catch (e) { setError(e instanceof Error ? e.message : String(e)) }
+@@ -66,13 +67,13 @@
+       <div className="dashboard-lower rise rise-3">
+         <section className="panel ledger-panel">
+           <div className="section-heading"><div><h2>Inspection ledger</h2><p>Your recorded runs, ready to investigate.</p></div><span className="record-count mono">{inspections.length} RECORDS</span></div>
+-          <div className="ledger-controls"><div className="filter-tabs" aria-label="Filter inspections">{[['all','All runs'],['completed','Completed'],['review','Needs review']].map(([key,label]) => <button key={key} aria-pressed={filter === key} onClick={() => setFilter(key)} className={filter === key ? 'selected' : ''}>{label}</button>)}</div><label className="ledger-search"><Icon name="search" size={15}/><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search inspections…" aria-label="Search inspections"/></label></div>
++          <div className="ledger-controls"><div className="filter-tabs" aria-label="Filter inspections">{[['all','All runs'],['completed','Completed'],['review','Needs review']].map(([key,label]) => <button key={key} aria-pressed={filter === key} onClick={() => { setFilter(key); setVisibleCount(9) }} className={filter === key ? 'selected' : ''}>{label}</button>)}</div><label className="ledger-search"><Icon name="search" size={15}/><input value={query} onChange={e => { setQuery(e.target.value); setVisibleCount(9) }} placeholder="Search inspections…" aria-label="Search inspections"/></label></div>
+           <div className="ledger-table-wrap"><table className="ledger-table"><thead><tr><th>INSPECTION / SOURCE</th><th>STATUS</th><th>FINDINGS</th><th>CYCLE</th><th><span className="sr-only">Open</span></th></tr></thead><tbody>
+             {loading && [0,1,2].map(n => <tr key={n}><td colSpan={5}><div className="skeleton h-9"/></td></tr>)}
+-            {!loading && filtered.slice(0, 9).map(i => <tr key={i.id}><td><Link to={`/inspections/${i.id}`} className="run-link"><span className="run-icon"><Icon name="chip" size={17}/></span><span><strong className="mono">{i.id}</strong><small>{i.scenario_id?.replaceAll('_',' ') ?? 'Custom upload'} <span>· {new Date(i.created_at).toLocaleDateString(undefined, {month:'short',day:'numeric'})}</span></small></span></Link></td><td><span className="run-status"><StatusDot status={i.status}/>{i.status}</span></td><td><Outcome inspection={i}/></td><td className="mono cycle-cell">{i.duration_s ? `${i.duration_s.toFixed(2)}s` : '—'}</td><td><Link className="open-run" to={`/inspections/${i.id}`} aria-label={`Open inspection ${i.id}`}><Icon name="arrow" size={16}/></Link></td></tr>)}
++            {!loading && filtered.slice(0, visibleCount).map(i => <tr key={i.id}><td><Link to={`/inspections/${i.id}`} className="run-link"><span className="run-icon"><Icon name="chip" size={17}/></span><span><strong className="mono">{i.id}</strong><small>{i.scenario_id?.replaceAll('_',' ') ?? 'Custom upload'} <span>· {new Date(i.created_at).toLocaleDateString(undefined, {month:'short',day:'numeric'})}</span></small></span></Link></td><td><span className="run-status"><StatusDot status={i.status}/>{i.status}</span></td><td><Outcome inspection={i}/></td><td className="mono cycle-cell">{i.duration_s ? `${i.duration_s.toFixed(2)}s` : '—'}</td><td><Link className="open-run" to={`/inspections/${i.id}`} aria-label={`Open inspection ${i.id}`}><Icon name="arrow" size={16}/></Link></td></tr>)}
+           </tbody></table></div>
+           {!loading && filtered.length === 0 && <div className="ledger-empty"><Icon name={inspections.length ? 'search' : 'scan'} size={30}/><h3>{inspections.length ? 'No matching inspections' : 'Your first inspection starts here.'}</h3><p>{inspections.length ? 'Try another search or change the filter.' : 'Choose a synthetic scenario or bring your own board images.'}</p>{!inspections.length && <Link to="/new" className="hero-link">Start an inspection <Icon name="arrow" size={16}/></Link>}</div>}
+-          {filtered.length > 9 && <div className="ledger-footer"><span>Showing 9 of {filtered.length} runs</span><button onClick={() => setQuery('')}>Use search to find any inspection</button></div>}
++          {filtered.length > 9 && <div className="ledger-footer"><span>Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} runs</span>{visibleCount < filtered.length && <button onClick={() => setVisibleCount(n => n + 9)}>Show more inspections →</button>}</div>}
+         </section>
+         <aside className="dashboard-right">
+           <section className="panel distribution-panel"><div className="section-heading"><h2>Region outcomes</h2><Icon name="activity" size={16}/></div><div className="outcome-total"><strong>{total}</strong><span>regions assessed</span></div><div className="distribution-track" role="img" aria-label={distribution.map(d => `${d.label}: ${d.count}`).join(', ')}>{distribution.map(d => d.count > 0 && <span key={d.label} style={{width:`${d.count / total * 100}%`, background:d.color}}/>)}</div><div className="distribution-legend">{distribution.map(d => <div key={d.label}><span className="legend-dot" style={{background:d.color}}/><span>{d.label}</span><strong className="mono">{d.count}</strong></div>)}</div></section>
+--- a/frontend/src/pages/Workspace.tsx
++++ b/frontend/src/pages/Workspace.tsx
+@@ -98,10 +98,11 @@
+     api.getEvents(id).then(setEvents)
+   }
+ 
+-  const addViewAndRerun = async (file: File) => {
++  const rerunInspection = async (file?: File) => {
+     setRerunning(true)
++    setError(null)
+     try {
+-      await api.addView(id, file)
++      if (file) await api.addView(id, file)
+       const r = await api.rerun(id)
+       nav(`/inspections/${r.inspection_id}`)
+     } catch (e) {
+@@ -114,7 +115,7 @@
+     <div className="workspace-layout mx-auto max-w-[1800px]">
+       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+         <div><Link to="/" className="text-[10px] text-slate-400 hover:text-cyan-200">← Inspection ledger</Link><h1 className="mt-1 text-xl font-medium tracking-tight text-slate-100">Inspection workspace</h1></div>
+-        <div className="flex items-center gap-3"><span className="mono text-[10px] text-slate-400">{['synthetic_demo', 'demo'].includes(ins.summary?.source ?? '') ? 'SYNTHETIC DEMONSTRATION' : ins.summary?.source?.toUpperCase()}</span>{running && <button disabled={stopping} onClick={async () => { setStopping(true); try { await api.abort(id); refresh() } catch (e) { setError(e instanceof Error ? e.message : String(e)) } finally { setStopping(false) } }} className="rounded border border-red-300/30 bg-red-400/5 px-3 py-2 text-[11px] text-red-200">{stopping ? 'Stopping…' : 'Stop inspection'}</button>}<button onClick={() => setTab('report')} className="viewer-button flex items-center gap-2"><Icon name="download" size={14}/>Report</button></div>
++        <div className="flex items-center gap-3"><span className="mono text-[10px] text-slate-400">{['synthetic_demo', 'demo'].includes(ins.summary?.source ?? '') ? 'SYNTHETIC DEMONSTRATION' : ins.summary?.source?.toUpperCase()}</span>{running && <button disabled={stopping} onClick={async () => { setStopping(true); try { await api.abort(id); refresh() } catch (e) { setError(e instanceof Error ? e.message : String(e)) } finally { setStopping(false) } }} className="rounded border border-red-300/30 bg-red-400/5 px-3 py-2 text-[11px] text-red-200">{stopping ? 'Stopping…' : 'Stop inspection'}</button>}{!running && <button disabled={rerunning} onClick={() => void rerunInspection()} className="viewer-button disabled:opacity-50">{rerunning ? 'Re-running…' : 'Re-run inspection'}</button>}<button onClick={() => setTab('report')} className="viewer-button flex items-center gap-2"><Icon name="download" size={14}/>Report</button></div>
+       </div>
+       {error && <div role="alert" className="error-banner"><span>{error}</span><button onClick={refresh}>Retry</button></div>}
+       {/* ------------------------------------------------------- header strip */}
+@@ -176,7 +177,7 @@
+             This run had no secondary capture, so ambiguous regions could only be escalated.
+             Add a new capture of the same board and the agent re-inspects with real optical evidence.
+           </span>
+-          <ViewUpload onFile={addViewAndRerun} busy={rerunning} />
++          <ViewUpload onFile={rerunInspection} busy={rerunning} />
+         </div>
+       )}
+ 
+@@ -248,7 +249,7 @@
+               <RegionDetail
+                 key={selectedCandidate.region_id}
+                 candidate={selectedCandidate} inspectionId={id}
+-                reviewDisabled={running}
++                reviewDisabled={ins.status !== 'completed'}
+                 onSubmitReview={submitReview}
+                 artifactUrl={(n) => api.artifactUrl(id, n)}
+               />
+--- a/README.md
++++ b/README.md
+@@ -85,34 +85,44 @@
+ 
+ ## Quick start
+ 
+-```bat
+-git clone <this repo>
+-cd circuitsleuth
+-scripts\run_dev.bat
++Use Python 3.13 and Node 24 or newer. From the repository root on macOS/Linux:
++
++```bash
++python3.13 -m venv .venv
++.venv/bin/python -m pip install -r backend/requirements.lock.txt
++npm --prefix frontend ci
++.venv/bin/python tools/generate_dataset.py
++.venv/bin/python -m uvicorn backend.app.main:app --port 8100 --http h11 --ws none
+ ```
+ 
+-That creates the venv, installs pinned deps (`opencv-python-headless==5.0.0.93`), generates the demo
+-dataset, and opens:
++In another terminal, run `npm --prefix frontend run dev`. Open the UI at
++`http://localhost:5173`; API health is at `http://127.0.0.1:8100/api/health`.
+ 
+-- UI — `http://localhost:5173`
+-- API — `http://127.0.0.1:8100/api/health`
++On Windows, `scripts\run_dev.bat` performs the setup and starts both services.
++For manual commands, replace `.venv/bin/python` with `.venv\Scripts\python.exe`.
++The pinned snapshot is `backend/requirements.lock.txt`; `requirements.txt`
++describes broader compatibility constraints.
+ 
+-Manual equivalent:
++Run the portable verifier (no API server required):
+ 
+ ```bash
+-python -m venv .venv
+-.venv\Scripts\python -m pip install -r backend\requirements.txt
+-.venv\Scripts\python tools\generate_dataset.py
+-.venv\Scripts\python -m uvicorn backend.app.main:app --port 8100
+-cd frontend && npm install && npm run dev
++.venv/bin/python scripts/verify_local.py --include-mcp
+ ```
+ 
+-Run the tests and the benchmark:
++It checks dependency consistency, OpenCV 5, backend regressions, frontend lint
++and production build, and all eight MCP tools over stdio. Its inspection data
++is temporary. The Windows verifier remains available as
++`powershell -File scripts/verify_local.ps1 -IncludeMcp`.
++
++Reproduce the synthetic benchmark separately, keeping its generated run states
++apart from your inspection history:
+ 
+ ```bash
+-scripts\run_tests.bat                                # 37 pytest cases
+-.venv\Scripts\python evaluation\benchmark.py --variants 5
++CIRCUITSLEUTH_DATA_DIR=/tmp/circuitsleuth-benchmark .venv/bin/python evaluation/benchmark.py --variants 5 --out output/benchmark
+ ```
++
++Current polish verification and remaining submission gaps:
++[`docs/POLISH_REVIEW.md`](docs/POLISH_REVIEW.md).
+ 
+ ## Demo scenarios
+ 
+@@ -135,7 +145,7 @@
+ backend/app/agent/        orchestrator + documented planning policy
+ backend/app/tools/        toolbelt (single source of truth) + MCP server
+ backend/app/api/          FastAPI routes, SSE streaming, static serving
+-backend/tests/            37 pytest cases incl. end-to-end scenario behavior
++backend/tests/            pytest regressions incl. end-to-end scenario behavior
+ tools/                    seeded synthetic PCB generator, MCP smoke test
+ evaluation/               benchmark + generated results
+ frontend/                 React 19 + TypeScript + Vite + Tailwind 4 UI
+--- a/scripts/verify_local.ps1
++++ b/scripts/verify_local.ps1
+@@ -31,14 +31,8 @@
+         Pop-Location
+     }
+     if ($IncludeMcp) {
+-        $health = Invoke-RestMethod -Uri "$ApiBase/api/health" -TimeoutSec 10
+-        if ($health.status -ne 'ok' -or $health.opencv_version -notlike '5.*') {
+-            throw 'MCP smoke test requires a running OpenCV 5 backend.'
+-        }
+-        # The smoke test currently targets the standard local port.
+-        if ($ApiBase.TrimEnd('/') -ne 'http://127.0.0.1:8100') {
+-            throw 'The MCP smoke test currently requires http://127.0.0.1:8100.'
+-        }
++        # The smoke test starts its own stdio server and uses temporary data.
++        # ApiBase is retained as a compatible parameter for existing callers.
+         Invoke-Checked $projectPython @('tools/mcp_smoke_test.py')
+     }
+     Write-Host 'Local checks passed. Container and AWS execution were not checked.' -ForegroundColor Green
+--- a/submission/DEVPOST.md
++++ b/submission/DEVPOST.md
+@@ -57,7 +57,7 @@
+ - Reported false positives: **52 → 10**
+ - Mean tool calls: 4.6 per inspection; mean latency ~1.4 s
+ 
+-Plus 37 automated tests, including end-to-end behavior assertions for all six
++Plus automated regression tests, including end-to-end behavior assertions for all six
+ demo scenarios.
+ 
+ ## Tech
+@@ -78,3 +78,9 @@
+ - Optional LLM planner proposing tool arguments (schema-validated) alongside
+   the deterministic baseline policy.
+ - Real multi-capture rig integration for genuine re-inspection loops.
++
++## Technical report and reproducibility
++
++See `docs/TECHNICAL_REPORT.md` for the implementation and proposed AWS diagram,
++`docs/POLISH_REVIEW.md` for current verification and remaining submission gaps,
++and `scripts/verify_local.py --include-mcp` for portable local checks.
+--- /dev/null
++++ b/scripts/verify_local.py
+@@ -0,0 +1,58 @@
++r"""Portable local checks; invoke with the project's virtual-environment Python.
++
++Usage: .venv/bin/python scripts/verify_local.py --include-mcp
++Windows: .venv\Scripts\python.exe scripts/verify_local.py --include-mcp
++Tests use temporary storage. No API server or cloud account is required.
++"""
++
++from __future__ import annotations
++
++import argparse
++import importlib.util
++import os
++from pathlib import Path
++import shutil
++import subprocess
++import sys
++import tempfile
++
++ROOT = Path(__file__).resolve().parents[1]
++
++
++def main() -> None:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--include-mcp", action="store_true", help="also exercise all eight tools over stdio")
++    args = parser.parse_args()
++    npm = shutil.which("npm")
++    if npm is None:
++        parser.error("npm is required; install Node and run npm ci in frontend first")
++    if importlib.util.find_spec("pip") is not None:
++        dependency_check = [sys.executable, "-m", "pip", "check"]
++    elif uv := shutil.which("uv"):
++        dependency_check = [uv, "pip", "check", "--python", sys.executable]
++    else:
++        parser.error("install pip in the virtual environment to check dependencies")
++
++    with tempfile.TemporaryDirectory(prefix="circuitsleuth-verify-") as temporary:
++        env = {**os.environ, "CIRCUITSLEUTH_DATA_DIR": temporary}
++
++        def run(command: list[str], cwd: Path = ROOT) -> None:
++            print("Checking:", " ".join(command), flush=True)
++            subprocess.run(command, cwd=cwd, env=env, check=True)
++
++        run(dependency_check)
++        run([sys.executable, "-c", "import cv2; print('OpenCV', cv2.__version__); "
++             "assert cv2.__version__.startswith('5.'), 'OpenCV 5 is required'"])
++        run([sys.executable, "-m", "pytest", "backend/tests", "-q"])
++        run([npm, "run", "lint"], ROOT / "frontend")
++        run([npm, "run", "build"], ROOT / "frontend")
++        if args.include_mcp:
++            run([sys.executable, "tools/mcp_smoke_test.py"])
++    print("Local checks passed. Container and AWS execution were not checked.")
++
++
++if __name__ == "__main__":
++    try:
++        main()
++    except subprocess.CalledProcessError as exc:
++        raise SystemExit(exc.returncode) from None
+--- /dev/null
++++ b/docs/POLISH_REVIEW.md
+@@ -0,0 +1,98 @@
++# CircuitSleuth polish and reevaluation
++
++Reviewed by Codex on 26 October 2026 against the supplied ZIP and live
++[OpenCV competition requirements](https://opencv26.devpost.com/).
++
++## Verdict
++
++Preserve the existing inspection pipeline. Its substantive OpenCV 5 processing,
++evidence-driven tool selection, independent-view checks, explicit uncertainty,
++and human escalation form a coherent Agentic Vision demonstration. The local
++implementation is working; submission readiness still depends on actual AWS
++execution and judge-accessible deliverables.
++
++## Changes
++
++- Removed the unused import that caused the fresh production build to fail
++  with TypeScript TS6133.
++- Added **Show more inspections** to the ledger. Previously only the first nine
++  loaded rows could be browsed; changing a search or filter resets the window.
++  The existing API still returns its latest 100 inspections.
++- Scoped the ledger's absolute screen-reader label to its scroll container,
++  fixing page-wide horizontal overflow at a 390 px phone viewport. The table
++  retains its own horizontal scrolling.
++- Added **Re-run inspection** for terminal runs. It invokes the existing clone
++  endpoint, produces a new ID and audit trail, and preserves the original report.
++  This also provides a retry path if capture upload succeeds but rerunning fails.
++- Disabled operator decisions until the inspection is completed, matching the
++  API's existing rule; failed runs can be rerun to finish verification.
++- Added a portable verifier and macOS/Linux setup instructions using the existing
++  lock files. Removed the Windows verifier's obsolete HTTP-server prerequisite
++  for the independent MCP stdio smoke test. Its `ApiBase` parameter remains
++  accepted for compatibility.
++
++The backend, CV algorithms, policy, schema, dependency locks, demo files,
++original benchmark results, API paths, candidate IDs, and artifact naming are
++unchanged byte-for-byte from the supplied archive. The route's existing
++`key={pathname}` already isolates workspace state across runs; it was retained.
++
++## Verification
++
++| Check | Evidence |
++|---|---|
++| Original backend baseline | 54 passed, 2 Windows-only tests skipped |
++| Final local verifier | Dependency consistency, OpenCV 5.0.0, 54 passed / 2 skipped, frontend lint and build, MCP smoke |
++| MCP stdio | All eight tools executed; 10 consecutive persisted audit events |
++| Benchmark | 30 inspections; every non-timing JSON output equals the supplied results |
++| Integrity | SHA-256 comparison to original ZIP; all backend, dataset and evaluation files preserved |
++| Browser | Operator review, report download, fresh rerun and original-report preservation; ledger browsing and responsive checks recorded in `output/playwright/` |
++
++Evidence: `output/verification/local-checks.log`, `frontend-build.log`,
++`benchmark.log`, `benchmark-comparison.json`, `archive-integrity.json` and
++`output/playwright/`. Browser and benchmark runs used separate temporary data
++directories, leaving bundled historical inspections untouched.
++
++## Results and practical limits
++
++| Macro metric across 30 synthetic inspections | Fixed baseline | Adaptive agent |
++|---|---:|---:|
++| Reported precision | 0.516 | 0.863 |
++| Reported recall | 0.893 | 0.782 |
++| Reported F1 | 0.571 | 0.716 |
++| Reported false positives | 52 | 10 |
++| False negatives | 6 | 8 |
++| Escalation rate | 0% | 26.4% |
++
++The reduction in false alarms trades some reported recall for escalation.
++These are synthetic, low-IoU (0.15) localization measurements, averaged per
++inspection. Registration refusals with no annotated defects also contribute
++perfect empty-case scores; the headline is not a production PCB accuracy
++estimate. Runtime timings depend on the machine. Original results are preserved;
++this machine's rerun is under `output/verification/benchmark/`.
++
++## Competition readiness
++
++| Criterion | Weight | Assessment |
++|---|---:|---|
++| Technical execution | 30% | OpenCV 5 runtime and existing regressions verified |
++| Innovation | 20% | Visual measurements change later tool calls and escalation; retain the explicit planner |
++| Real-world impact | 20% | Useful inspection problem, but synthetic evidence only; no production validation |
++| User experience | 10% | Working inspection, evidence, report and review flow; targeted navigation fixes |
++| Documentation/presentation | 10% | Reproduction and technical report provided; actual team/demo video still needed |
++| Cloud/reproducibility/responsible operation | 10% | Locks verified locally; AWS workload and container execution remain unverified |
++
++Source: [judging criteria and requirements](https://opencv26.devpost.com/).
++No numerical judge score is inferred from this review.
++
++Before submitting, provide evidence of a meaningful AWS inspection, a
++judge-accessible repository/archive, an endpoint or arranged screen-share,
++and a public/unlisted video of at most five minutes showing the team, working
++application, architecture and results. The tool-reported deliverables also flag
++an archive as required. No COOL execution was found; a COOL award claim needs
++additional Arm/Graviton execution and comparison evidence.
++
++The site's prose/announcement says 26 October 11:59 p.m. Pacific
++(27 October 12:29 p.m. IST), but its structured submission deadline is
++27 October 06:45 UTC (12:15 p.m. IST). Use the earlier **12:15 p.m. IST on
++27 October** as the conservative cutoff; confirm the actual Devpost countdown.
++No project was submitted or cloud service deployed during this review.
+--- /dev/null
++++ b/docs/TECHNICAL_REPORT.md
+@@ -0,0 +1,89 @@
++# CircuitSleuth technical report
++
++## Problem and users
++
++PCB inspection operators need to separate actual surface changes from glare,
++misalignment and image noise. CircuitSleuth compares a reference and test board,
++then investigates uncertain regions instead of treating every difference as a
++defect. The current product is a supervised synthetic demonstration for
++inspection engineers and evaluators, with uploaded-image support.
++
++## Implemented architecture
++
++```mermaid
++flowchart TD
++    UI[React UI: configure, inspect, review, export] --> API[FastAPI REST and SSE]
++    API --> Agent[Bounded perception / decision / action loop]
++    Agent --> Tools[Shared inspection toolbelt]
++    MCP[External MCP client over stdio] --> Tools
++    Tools --> CV[OpenCV 5: align, detect, reprocess, compare views, verify]
++    CV --> Agent
++    Agent --> Review[Request capture or human review]
++    Review --> UI
++    Tools --> Store[SQLite index, JSON state and PNG evidence]
++    Store --> API
++```
++
++The UI, orchestration and MCP server share the same tool implementations.
++The planner reranks open regions using uncertainty, severity, evidence quality,
++information gain, tool cost and repeat penalties. Evidence changes subsequent
++choices. Missing secondary captures produce a capture request and human review;
++registration failure triggers recovery and then refusal to assess defects.
++Tool and iteration limits terminate the loop and escalate unresolved regions.
++
++OpenCV 5 performs substantive analysis: SIFT/ORB feature matching, RANSAC
++registration hypotheses, photometric verification and ECC refinement; normalized
++image differences and local structural comparisons; regional topology,
++thresholding, local registration and independent-view analysis. Verification
++uses an explicit rule table. Scores are heuristics, not calibrated probabilities.
++See [architecture](ARCHITECTURE.md), [evaluation](EVALUATION.md), and
++[MCP integration](MCP.md) for implementation details.
++
++## AWS design and execution status
++
++```mermaid
++flowchart LR
++    Judge[Judge browser] -. planned HTTPS .-> AR[AWS App Runner: single container]
++    ECR[AWS ECR: built image] -. planned pull .-> AR
++    AR -. planned execution .-> CV[FastAPI and OpenCV 5 workload]
++    AR -. planned stdout .-> Logs[CloudWatch logs]
++    CV -. ephemeral only .-> Data[Local SQLite and PNG artifacts]
++```
++
++Dashed links describe the deployment template, not an executed AWS workload.
++`deploy/Dockerfile` builds the React frontend and Python runtime into one image;
++`deploy/apprunner-service.example.json` provides a configurable ECR/App Runner
++example. AWS and container execution remain unverified. App Runner filesystem
++state is ephemeral and unshared across instances; durable external artifact and
++database storage are future work. The local benchmark does not establish cloud
++performance, cloud cost, or COOL award eligibility.
++
++## Reproduction and results
++
++Use Python 3.13, `backend/requirements.lock.txt`, Node 24 or newer and
++`npm ci` against the existing frontend lock. Follow [the README](../README.md)
++and run `scripts/verify_local.py --include-mcp` with the virtual environment's
++Python. The portable verifier uses temporary inspection data and exercises the
++same eight tools through actual MCP stdio.
++
++On macOS the final regression suite passes 54 tests, with two Windows filesystem
++semantics tests skipped. The production frontend builds and lint passes. The
++30-inspection synthetic benchmark reproduces all supplied non-timing outputs:
++macro reported F1 0.571 to 0.716, false positives 52 to 10, reported recall
++0.893 to 0.782 and an adaptive escalation rate of 26.4%. Failures, metrics,
++per-region decisions and budget use are retained in the evidence artifacts.
++Full review and evidence pointers: [polish review](POLISH_REVIEW.md).
++
++## Limitations and responsible operation
++
++All measured data is seeded and synthetic: six templates with five variants
++each, matched at IoU 0.15. There is no real production PCB validation, capture-rig
++integration or calibrated confidence estimate. Reprocessing adds no optical
++information; a second view is a separately supplied capture. Human decisions
++are recorded in events and refreshed reports. Reruns create new inspection IDs.
++
++Keep deployment supervised: uploads and operator actions currently have no
++application authentication. Do not use the demo to autonomously accept or
++reject safety-critical hardware. Use human review for unresolved evidence and
++retain reports with the original captures. Validate real board diversity,
++optical quality, limits, concurrency and persistent storage before wider use.

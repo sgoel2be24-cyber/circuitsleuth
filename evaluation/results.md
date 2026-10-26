@@ -13,7 +13,7 @@ Headline precision/recall/F1 are **verdict-level**: only regions the system actu
 | F1 | 0.571 | 0.716 |
 | False positives | 52 | 10 |
 | False negatives | 6 | 8 |
-| Mean latency (s) | 0.80 | 1.42 |
+| Mean latency (s) | 0.77 | 1.55 |
 | Mean tool calls | 0.0 | 4.6 |
 | Escalation rate | 0.0% | 26.4% |
 | Registration failures caught | 5 | 5 |
@@ -38,5 +38,5 @@ Headline precision/recall/F1 are **verdict-level**: only regions the system actu
 - Scenario 05 has no secondary view by design: the adaptive agent's correct behavior is
   to request a new capture and escalate to human review instead of guessing, so its
   reported-recall for this template is intentionally 0 while the baseline guesses.
-- Escalation rate includes deliberate, honest escalations â€” for the adaptive system
+- Escalation rate includes deliberate, honest escalations — for the adaptive system
   these replace fabricated confidence on ambiguous evidence.

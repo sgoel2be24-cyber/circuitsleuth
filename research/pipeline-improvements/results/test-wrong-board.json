@@ -1,0 +1,96 @@
+[
+  {
+    "board": 300001,
+    "treatment": "legacy",
+    "ok": false,
+    "metrics": {
+      "detector": "SIFT",
+      "keypoints_reference": 808,
+      "keypoints_test": 651,
+      "attempts": [
+        "SIFT",
+        "ECC",
+        "ECC"
+      ],
+      "good_matches": 181,
+      "inliers": 106,
+      "inlier_ratio": 0.5856,
+      "mean_residual_px": 0.109,
+      "coverage_score": 0.312,
+      "photometric_score": 0.5928,
+      "quality": "poor",
+      "failure_reason": "quality gates failed (inliers=106 ratio=0.59 residual=0.11 coverage=0.31)"
+    }
+  },
+  {
+    "board": 300001,
+    "treatment": "symmetric_ecc",
+    "ok": true,
+    "metrics": {
+      "detector": "ORB",
+      "keypoints_reference": 1799,
+      "keypoints_test": 1612,
+      "attempts": [
+        "SIFT",
+        "ORB",
+        "ECC-refine"
+      ],
+      "good_matches": 250,
+      "inliers": 119,
+      "inlier_ratio": 0.476,
+      "mean_residual_px": 0.044,
+      "coverage_score": 0.375,
+      "photometric_score": 0.593,
+      "quality": "marginal",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.5794
+    }
+  },
+  {
+    "board": 300002,
+    "treatment": "legacy",
+    "ok": false,
+    "metrics": {
+      "detector": "SIFT",
+      "keypoints_reference": 726,
+      "keypoints_test": 784,
+      "attempts": [
+        "SIFT",
+        "ECC",
+        "ECC"
+      ],
+      "good_matches": 187,
+      "inliers": 97,
+      "inlier_ratio": 0.5187,
+      "mean_residual_px": 0.189,
+      "coverage_score": 0.312,
+      "photometric_score": 0.6367,
+      "quality": "poor",
+      "failure_reason": "quality gates failed (inliers=97 ratio=0.52 residual=0.19 coverage=0.31)"
+    }
+  },
+  {
+    "board": 300002,
+    "treatment": "symmetric_ecc",
+    "ok": true,
+    "metrics": {
+      "detector": "ORB",
+      "keypoints_reference": 1651,
+      "keypoints_test": 1750,
+      "attempts": [
+        "SIFT",
+        "ORB",
+        "ECC-refine"
+      ],
+      "good_matches": 263,
+      "inliers": 133,
+      "inlier_ratio": 0.5057,
+      "mean_residual_px": 0.072,
+      "coverage_score": 0.375,
+      "photometric_score": 0.6397,
+      "quality": "marginal",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.6284
+    }
+  }
+]

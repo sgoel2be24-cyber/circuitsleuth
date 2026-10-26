@@ -1,0 +1,101 @@
+{
+  "bilateral": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.022117104945999225,
+      0.11113787588940456
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  },
+  "clahe_detection": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.18181601544086584,
+      -0.037715620771413945
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  },
+  "erode_valid": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.006827677698436778,
+      0.13838028348450113
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  },
+  "multiplicative": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.017427747463640286,
+      0.10416109331720289
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  },
+  "no_median": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.0025970173490000798,
+      0.11485807659608048
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  },
+  "robust_gain": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.046657454223965576,
+      0.14270713454782796
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  },
+  "small_morph": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.08552815262912983,
+      0.04581486639539486
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  },
+  "symmetric": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.022641522751826425,
+      0.09874430264462307
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  },
+  "symmetric_ecc": {
+    "reference": "legacy",
+    "metric": "candidate micro-F1 at IoU .15",
+    "board_clusters": 8,
+    "resamples": 2000,
+    "delta_95_percentile_interval": [
+      -0.015175678915647075,
+      0.10519343621658284
+    ],
+    "caveat": "Few procedural board groups; repeated captures are not independent production samples."
+  }
+}

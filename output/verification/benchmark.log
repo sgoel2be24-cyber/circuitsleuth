@@ -1,0 +1,35 @@
+[1/5] scenario_01_clear_defects: base rep-F1=0.80 adapt rep-F1=1.00 tools=5
+[1/5] scenario_02_clean_board: base rep-F1=0.00 adapt rep-F1=1.00 tools=2
+[1/5] scenario_03_ambiguous_glare: base rep-F1=0.00 adapt rep-F1=0.00 tools=6
+[1/5] scenario_04_registration_failure: base rep-F1=1.00 adapt rep-F1=1.00 tools=0
+[1/5] scenario_05_no_second_view: base rep-F1=0.40 adapt rep-F1=0.00 tools=4
+[1/5] scenario_06_multiple_regions: base rep-F1=0.83 adapt rep-F1=1.00 tools=11
+[2/5] scenario_01_clear_defects: base rep-F1=0.50 adapt rep-F1=0.57 tools=7
+[2/5] scenario_02_clean_board: base rep-F1=1.00 adapt rep-F1=1.00 tools=3
+[2/5] scenario_03_ambiguous_glare: base rep-F1=0.40 adapt rep-F1=1.00 tools=6
+[2/5] scenario_04_registration_failure: base rep-F1=1.00 adapt rep-F1=1.00 tools=0
+[2/5] scenario_05_no_second_view: base rep-F1=0.40 adapt rep-F1=0.00 tools=5
+[2/5] scenario_06_multiple_regions: base rep-F1=1.00 adapt rep-F1=1.00 tools=7
+[3/5] scenario_01_clear_defects: base rep-F1=0.86 adapt rep-F1=1.00 tools=7
+[3/5] scenario_02_clean_board: base rep-F1=0.00 adapt rep-F1=0.00 tools=4
+[3/5] scenario_03_ambiguous_glare: base rep-F1=0.40 adapt rep-F1=0.67 tools=5
+[3/5] scenario_04_registration_failure: base rep-F1=1.00 adapt rep-F1=1.00 tools=0
+[3/5] scenario_05_no_second_view: base rep-F1=0.50 adapt rep-F1=0.00 tools=7
+[3/5] scenario_06_multiple_regions: base rep-F1=0.91 adapt rep-F1=1.00 tools=9
+[4/5] scenario_01_clear_defects: base rep-F1=1.00 adapt rep-F1=1.00 tools=3
+[4/5] scenario_02_clean_board: base rep-F1=0.00 adapt rep-F1=1.00 tools=1
+[4/5] scenario_03_ambiguous_glare: base rep-F1=0.33 adapt rep-F1=1.00 tools=7
+[4/5] scenario_04_registration_failure: base rep-F1=1.00 adapt rep-F1=1.00 tools=0
+[4/5] scenario_05_no_second_view: base rep-F1=0.33 adapt rep-F1=0.00 tools=5
+[4/5] scenario_06_multiple_regions: base rep-F1=0.67 adapt rep-F1=0.73 tools=7
+[5/5] scenario_01_clear_defects: base rep-F1=0.67 adapt rep-F1=1.00 tools=5
+[5/5] scenario_02_clean_board: base rep-F1=0.00 adapt rep-F1=1.00 tools=1
+[5/5] scenario_03_ambiguous_glare: base rep-F1=0.40 adapt rep-F1=0.67 tools=6
+[5/5] scenario_04_registration_failure: base rep-F1=1.00 adapt rep-F1=1.00 tools=0
+[5/5] scenario_05_no_second_view: base rep-F1=0.00 adapt rep-F1=0.00 tools=3
+[5/5] scenario_06_multiple_regions: base rep-F1=0.71 adapt rep-F1=0.83 tools=12
+
+=== OVERALL ===
+baseline F1=0.571  adaptive F1=0.716
+baseline FP=52  adaptive FP=10
+adaptive mean tools=4.6  latency=0.34s

@@ -1,0 +1,57 @@
+ M README.md
+ M backend/app/agent/orchestrator.py
+ M backend/app/api/routes.py
+ M backend/app/cv/registration.py
+ M backend/app/cv/verification.py
+ M backend/app/main.py
+ M backend/app/schemas.py
+ M backend/app/store.py
+ M backend/app/tools/registry.py
+ M backend/tests/test_api.py
+ M backend/tests/test_mcp.py
+ M data/demo/scenario_01_clear_defects/annotations.json
+ M data/demo/scenario_01_clear_defects/meta.json
+ M data/demo/scenario_02_clean_board/meta.json
+ M data/demo/scenario_03_ambiguous_glare/annotations.json
+ M data/demo/scenario_03_ambiguous_glare/meta.json
+ M data/demo/scenario_04_registration_failure/meta.json
+ M data/demo/scenario_05_no_second_view/annotations.json
+ M data/demo/scenario_05_no_second_view/meta.json
+ M data/demo/scenario_06_multiple_regions/annotations.json
+ M data/demo/scenario_06_multiple_regions/meta.json
+ M deploy/Dockerfile
+ M deploy/README.md
+ M docs/EVALUATION.md
+ M docs/screenshots/new-inspection.png
+ M docs/screenshots/workspace.png
+ M evaluation/results.json
+ M evaluation/results.md
+ M frontend/src/App.tsx
+ M frontend/src/api.ts
+ M frontend/src/components/AgentFeed.tsx
+ M frontend/src/components/BoardViewer.tsx
+ M frontend/src/components/RegionDetail.tsx
+ M frontend/src/components/ui.tsx
+ M frontend/src/index.css
+ M frontend/src/pages/Dashboard.tsx
+ M frontend/src/pages/NewInspection.tsx
+ M frontend/src/pages/Report.tsx
+ M frontend/src/pages/Workspace.tsx
+ M scripts/run_dev.bat
+ M submission/DEVPOST.md
+ M tools/mcp_smoke_test.py
+?? .dockerignore
+?? DESIGN.md
+?? backend/requirements.lock.txt
+?? backend/tests/test_evidence_integrity.py
+?? deploy/apprunner-service.example.json
+?? docs/PLAN_AUDIT.md
+?? docs/POLISH_REVIEW.md
+?? docs/TECHNICAL_REPORT.md
+?? frontend/src/components/CandidateCrops.tsx
+?? frontend/src/components/Icon.tsx
+?? frontend/src/components/verdictStyles.ts
+?? output/
+?? research/
+?? scripts/verify_local.ps1
+?? scripts/verify_local.py

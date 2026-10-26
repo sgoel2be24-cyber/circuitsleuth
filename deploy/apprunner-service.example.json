@@ -1,0 +1,27 @@
+{
+  "ServiceName": "circuitsleuth",
+  "SourceConfiguration": {
+    "AuthenticationConfiguration": {
+      "AccessRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/<ECR_ACCESS_ROLE>"
+    },
+    "AutoDeploymentsEnabled": false,
+    "ImageRepository": {
+      "ImageIdentifier": "<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/circuitsleuth:<IMAGE_TAG>",
+      "ImageRepositoryType": "ECR",
+      "ImageConfiguration": {
+        "Port": "8080",
+        "RuntimeEnvironmentVariables": {
+          "CIRCUITSLEUTH_DATA_DIR": "/tmp/circuitsleuth"
+        }
+      }
+    }
+  },
+  "InstanceConfiguration": {
+    "Cpu": "1024",
+    "Memory": "2048"
+  },
+  "HealthCheckConfiguration": {
+    "Protocol": "HTTP",
+    "Path": "/api/health"
+  }
+}

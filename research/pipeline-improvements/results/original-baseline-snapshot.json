@@ -1,0 +1,40 @@
+{
+  "sha256": "2a12a5229736857ec749f9cac63c369c8e4431cd29abfa71e8c60b087066e878",
+  "overall": {
+    "n_inspections": 30,
+    "baseline": {
+      "precision": 0.5158,
+      "recall": 0.8933,
+      "f1": 0.5705,
+      "false_positives": 52,
+      "false_negatives": 6,
+      "mean_latency_s": 0.7709,
+      "mean_tool_calls": 0.0,
+      "escalation_rate": 0.0,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 42,
+        "CLEARED": 14,
+        "LIKELY_DEFECT": 54
+      },
+      "registration_failures": 5
+    },
+    "adaptive": {
+      "precision": 0.8627,
+      "recall": 0.7822,
+      "f1": 0.7155,
+      "false_positives": 10,
+      "false_negatives": 8,
+      "mean_latency_s": 1.5522,
+      "mean_tool_calls": 4.6,
+      "escalation_rate": 0.2636,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 36,
+        "LIKELY_DEFECT": 16,
+        "NEEDS_REVIEW": 29,
+        "CLEARED": 29
+      },
+      "registration_failures": 5
+    }
+  },
+  "iou": 0.15
+}

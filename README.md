@@ -83,36 +83,51 @@ purely verification behavior:
 > Full methodology and per-template tables: [`docs/EVALUATION.md`](docs/EVALUATION.md) and
 > [`evaluation/results.md`](evaluation/results.md).
 
+Repository cross-checks and CI: [`docs/REPOSITORY_VERIFICATION.md`](docs/REPOSITORY_VERIFICATION.md).
+
 ## Quick start
 
-```bat
-git clone <this repo>
-cd circuitsleuth
-scripts\run_dev.bat
-```
-
-That creates the venv, installs pinned deps (`opencv-python-headless==5.0.0.93`), generates the demo
-dataset, and opens:
-
-- UI — `http://localhost:5173`
-- API — `http://127.0.0.1:8100/api/health`
-
-Manual equivalent:
+Use Python 3.13 and Node 24 or newer. From the repository root on macOS/Linux:
 
 ```bash
-python -m venv .venv
-.venv\Scripts\python -m pip install -r backend\requirements.txt
-.venv\Scripts\python tools\generate_dataset.py
-.venv\Scripts\python -m uvicorn backend.app.main:app --port 8100
-cd frontend && npm install && npm run dev
+python3.13 -m venv .venv
+.venv/bin/python -m pip install -r backend/requirements.lock.txt
+npm --prefix frontend ci
+.venv/bin/python tools/generate_dataset.py
+.venv/bin/python -m uvicorn backend.app.main:app --port 8100 --http h11 --ws none
 ```
 
-Run the tests and the benchmark:
+In another terminal, run `npm --prefix frontend run dev`. Open the UI at
+`http://localhost:5173`; API health is at `http://127.0.0.1:8100/api/health`.
+
+On Windows, `scripts\run_dev.bat` performs the setup and starts both services.
+For manual commands, replace `.venv/bin/python` with `.venv\Scripts\python.exe`.
+The pinned snapshot is `backend/requirements.lock.txt`; `requirements.txt`
+describes broader compatibility constraints.
+
+Run the portable verifier (no API server required):
 
 ```bash
-scripts\run_tests.bat                                # 37 pytest cases
-.venv\Scripts\python evaluation\benchmark.py --variants 5
+.venv/bin/python scripts/verify_local.py --include-mcp
 ```
+
+It checks dependency consistency, OpenCV 5, backend regressions, frontend lint
+and production build, and all eight MCP tools over stdio. Its inspection data
+is temporary. The Windows verifier remains available as
+`powershell -File scripts/verify_local.ps1 -IncludeMcp`.
+
+Reproduce the synthetic benchmark separately, keeping its generated run states
+apart from your inspection history:
+
+```bash
+CIRCUITSLEUTH_DATA_DIR=/tmp/circuitsleuth-benchmark .venv/bin/python evaluation/benchmark.py --variants 5 --out output/benchmark
+```
+
+Latest alignment/evidence implementation and validation:
+[`docs/ALIGNMENT_FIXES.md`](docs/ALIGNMENT_FIXES.md).
+
+Current polish verification and remaining submission gaps:
+[`docs/POLISH_REVIEW.md`](docs/POLISH_REVIEW.md).
 
 ## Demo scenarios
 
@@ -135,7 +150,7 @@ backend/app/cv/           OpenCV 5 pipeline (preprocess, registration, detection
 backend/app/agent/        orchestrator + documented planning policy
 backend/app/tools/        toolbelt (single source of truth) + MCP server
 backend/app/api/          FastAPI routes, SSE streaming, static serving
-backend/tests/            37 pytest cases incl. end-to-end scenario behavior
+backend/tests/            pytest regressions incl. end-to-end scenario behavior
 tools/                    seeded synthetic PCB generator, MCP smoke test
 evaluation/               benchmark + generated results
 frontend/                 React 19 + TypeScript + Vite + Tailwind 4 UI

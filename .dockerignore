@@ -1,0 +1,16 @@
+.git
+.venv
+frontend/node_modules
+frontend/dist
+data/runs
+data/*.db*
+backend/data
+.env
+.env.*
+deploy/*.local.json
+**/__pycache__
+**/.pytest_cache
+docs/screenshots
+research
+output
+.github

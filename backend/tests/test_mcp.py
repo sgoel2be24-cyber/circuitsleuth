@@ -50,21 +50,21 @@ def test_mcp_tools_operate_on_real_state(tmp_path, monkeypatch):
     )
     store.save_state(state["id"], state)
 
-    tb = mcp_server._bind("ins_mcptest")
-
     async def drive():
-        ctx = await tb.get_inspection_context()
+        import json
+        # Real MCP dispatch creates a fresh toolbelt for every tool call.
+        ctx = json.loads(await mcp_server.get_inspection_context("ins_mcptest"))
         assert ctx["inspection_id"] == "ins_mcptest"
-        reg = await tb.align_images()
+        reg = json.loads(await mcp_server.align_images("ins_mcptest"))
         assert reg["ok"]
-        det = await tb.detect_defects()
+        det = json.loads(await mcp_server.detect_defects("ins_mcptest"))
         assert det["candidate_count"] >= 1
         rid = next(iter(det["candidates"]))
-        view = await tb.request_additional_view(rid)
+        view = json.loads(await mcp_server.request_additional_view("ins_mcptest", rid))
         assert view["status"] == "compared"
-        verdict = await tb.verify_candidate(rid)
+        verdict = json.loads(await mcp_server.verify_candidate("ins_mcptest", rid))
         assert verdict["verdict"] in ("CONFIRMED_DEFECT", "LIKELY_DEFECT")
-        report = await tb.generate_inspection_report()
+        report = json.loads(await mcp_server.generate_inspection_report("ins_mcptest"))
         assert report["verdicts"]
 
     asyncio.run(drive())
@@ -74,6 +74,9 @@ def test_mcp_tools_operate_on_real_state(tmp_path, monkeypatch):
     assert persisted["status"] == "created"  # orchestrator never started; tools did
     assert persisted["candidates"]
     assert persisted["report"] is not None
+    events = store.get_events("ins_mcptest")
+    assert len(events) == len(persisted["events"])
+    assert [e["seq"] for e in events] == list(range(1, len(events) + 1))
 
 
 def test_unknown_inspection_raises():

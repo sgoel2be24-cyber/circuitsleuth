@@ -57,7 +57,7 @@ baseline vs adaptive agent on the same OpenCV core:
 - Reported false positives: **52 → 10**
 - Mean tool calls: 4.6 per inspection; mean latency ~1.4 s
 
-Plus 37 automated tests, including end-to-end behavior assertions for all six
+Plus automated regression tests, including end-to-end behavior assertions for all six
 demo scenarios.
 
 ## Tech
@@ -78,3 +78,9 @@ itself is **unverified** — no AWS account was used for this submission.
 - Optional LLM planner proposing tool arguments (schema-validated) alongside
   the deterministic baseline policy.
 - Real multi-capture rig integration for genuine re-inspection loops.
+
+## Technical report and reproducibility
+
+See `docs/TECHNICAL_REPORT.md` for the implementation and proposed AWS diagram,
+`docs/POLISH_REVIEW.md` for current verification and remaining submission gaps,
+and `scripts/verify_local.py --include-mcp` for portable local checks.

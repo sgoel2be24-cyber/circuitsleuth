@@ -1,0 +1,2262 @@
+{
+  "commit": "08e98c4db5922613fb97176eb3d6497d48260cb1",
+  "pairs": 6,
+  "rows": [
+    {
+      "group": "group00041",
+      "gt": [
+        {
+          "bbox": [
+            77,
+            315,
+            33,
+            58
+          ],
+          "type": 1
+        },
+        {
+          "bbox": [
+            188,
+            254,
+            39,
+            27
+          ],
+          "type": 3
+        },
+        {
+          "bbox": [
+            362,
+            303,
+            35,
+            31
+          ],
+          "type": 4
+        },
+        {
+          "bbox": [
+            393,
+            375,
+            42,
+            28
+          ],
+          "type": 6
+        },
+        {
+          "bbox": [
+            229,
+            306,
+            30,
+            39
+          ],
+          "type": 5
+        }
+      ],
+      "shape": [
+        640,
+        640
+      ],
+      "test_rail_fraction": 0.98354248046875,
+      "production_variants": [
+        {
+          "treatment": "legacy",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 125,
+            "keypoints_test": 152,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 47,
+            "inliers": 40,
+            "inlier_ratio": 0.8511,
+            "mean_residual_px": 0.709,
+            "coverage_score": 0.625,
+            "photometric_score": 0.9894,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9955
+          },
+          "candidates": [
+            {
+              "bbox": [
+                408,
+                385,
+                12,
+                9
+              ],
+              "area_px": 80,
+              "centroid": [
+                413,
+                390
+              ],
+              "difference_score": 0.9426,
+              "max_diff": 252.4,
+              "structural_mismatch_score": 0.9375,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                87,
+                336,
+                12,
+                17
+              ],
+              "area_px": 148,
+              "centroid": [
+                93,
+                343
+              ],
+              "difference_score": 0.9591,
+              "max_diff": 251.9,
+              "structural_mismatch_score": 0.8073,
+              "evidence_quality_score": 0.0026,
+              "local_contrast": 0.15,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                199,
+                263,
+                8,
+                7
+              ],
+              "area_px": 30,
+              "centroid": [
+                203,
+                266
+              ],
+              "difference_score": 0.8282,
+              "max_diff": 251.5,
+              "structural_mismatch_score": 0.9252,
+              "evidence_quality_score": 0.0021,
+              "local_contrast": 0.13,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                240,
+                322,
+                10,
+                9
+              ],
+              "area_px": 72,
+              "centroid": [
+                244,
+                326
+              ],
+              "difference_score": 0.9814,
+              "max_diff": 252.5,
+              "structural_mismatch_score": 0.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 0.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": true
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 5,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "symmetric_ecc",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 125,
+            "keypoints_test": 152,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 47,
+            "inliers": 40,
+            "inlier_ratio": 0.8511,
+            "mean_residual_px": 0.709,
+            "coverage_score": 0.625,
+            "photometric_score": 0.9941,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9955
+          },
+          "candidates": [
+            {
+              "bbox": [
+                408,
+                385,
+                12,
+                9
+              ],
+              "area_px": 76,
+              "centroid": [
+                413,
+                390
+              ],
+              "difference_score": 0.9481,
+              "max_diff": 253.9,
+              "structural_mismatch_score": 0.9474,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                197,
+                265,
+                10,
+                7
+              ],
+              "area_px": 35,
+              "centroid": [
+                202,
+                267
+              ],
+              "difference_score": 0.8464,
+              "max_diff": 253.3,
+              "structural_mismatch_score": 0.8932,
+              "evidence_quality_score": 0.4443,
+              "local_contrast": 26.66,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                87,
+                336,
+                12,
+                17
+              ],
+              "area_px": 154,
+              "centroid": [
+                93,
+                344
+              ],
+              "difference_score": 0.9519,
+              "max_diff": 252.5,
+              "structural_mismatch_score": 0.7927,
+              "evidence_quality_score": 0.0026,
+              "local_contrast": 0.15,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                239,
+                322,
+                10,
+                10
+              ],
+              "area_px": 83,
+              "centroid": [
+                244,
+                327
+              ],
+              "difference_score": 0.9892,
+              "max_diff": 253.7,
+              "structural_mismatch_score": 0.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 0.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": true
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 5,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "erode_valid",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 125,
+            "keypoints_test": 152,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 47,
+            "inliers": 40,
+            "inlier_ratio": 0.8511,
+            "mean_residual_px": 0.709,
+            "coverage_score": 0.625,
+            "photometric_score": 0.9941,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9955
+          },
+          "candidates": [],
+          "score": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 5,
+            "matched_gt": [],
+            "precision": 1.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      ],
+      "provided_alignment_candidates": 4,
+      "supplied_alignment_binary_xor_diagnostic": {
+        "tp": 4,
+        "fp": 91,
+        "fn": 1,
+        "matched_gt": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "precision": 0.042105263157894736,
+        "recall": 0.8,
+        "f1": 0.08
+      },
+      "diagnostic_note": "XOR uses supplied prealignment and fixed binary threshold; no agent, class prediction, quality gate or capture robustness. Not a promoted pipeline."
+    },
+    {
+      "group": "group13000",
+      "gt": [
+        {
+          "bbox": [
+            94,
+            287,
+            87,
+            65
+          ],
+          "type": 1
+        },
+        {
+          "bbox": [
+            140,
+            379,
+            36,
+            27
+          ],
+          "type": 3
+        },
+        {
+          "bbox": [
+            319,
+            232,
+            38,
+            32
+          ],
+          "type": 5
+        },
+        {
+          "bbox": [
+            55,
+            380,
+            39,
+            41
+          ],
+          "type": 6
+        }
+      ],
+      "shape": [
+        640,
+        640
+      ],
+      "test_rail_fraction": 0.99604736328125,
+      "production_variants": [
+        {
+          "treatment": "legacy",
+          "ok": true,
+          "registration": {
+            "detector": "ECC",
+            "attempts": [
+              "SIFT",
+              "ORB",
+              "ECC"
+            ],
+            "ecc_correlation": 0.9814,
+            "warp": [
+              [
+                0.8822199702262878,
+                -0.00171999994199723,
+                20.622970581054688
+              ],
+              [
+                -0.0033199999015778303,
+                1.0029499530792236,
+                -1.0293899774551392
+              ]
+            ],
+            "quality": "marginal",
+            "failure_reason": null
+          },
+          "candidates": [
+            {
+              "bbox": [
+                76,
+                0,
+                22,
+                17
+              ],
+              "area_px": 187,
+              "centroid": [
+                85,
+                9
+              ],
+              "difference_score": 1.0538,
+              "max_diff": 276.0,
+              "structural_mismatch_score": 0.9687,
+              "evidence_quality_score": 0.7784,
+              "local_contrast": 46.71,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                110,
+                487,
+                22,
+                53
+              ],
+              "area_px": 478,
+              "centroid": [
+                118,
+                513
+              ],
+              "difference_score": 0.9414,
+              "max_diff": 243.9,
+              "structural_mismatch_score": 0.9511,
+              "evidence_quality_score": 1.0,
+              "local_contrast": 78.94,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                152,
+                389,
+                6,
+                8
+              ],
+              "area_px": 35,
+              "centroid": [
+                155,
+                392
+              ],
+              "difference_score": 0.8939,
+              "max_diff": 252.5,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                152,
+                327,
+                6,
+                9
+              ],
+              "area_px": 37,
+              "centroid": [
+                154,
+                331
+              ],
+              "difference_score": 0.8714,
+              "max_diff": 252.2,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                122,
+                307,
+                18,
+                17
+              ],
+              "area_px": 103,
+              "centroid": [
+                131,
+                314
+              ],
+              "difference_score": 0.8991,
+              "max_diff": 255.1,
+              "structural_mismatch_score": 0.7929,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                112,
+                0,
+                45,
+                22
+              ],
+              "area_px": 498,
+              "centroid": [
+                134,
+                8
+              ],
+              "difference_score": 0.9188,
+              "max_diff": 254.1,
+              "structural_mismatch_score": 0.6537,
+              "evidence_quality_score": 1.0,
+              "local_contrast": 127.09,
+              "edge_delta": 0.6226,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                27,
+                98,
+                30,
+                40
+              ],
+              "area_px": 888,
+              "centroid": [
+                43,
+                117
+              ],
+              "difference_score": 0.776,
+              "max_diff": 207.8,
+              "structural_mismatch_score": 0.5789,
+              "evidence_quality_score": 0.9841,
+              "local_contrast": 59.04,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                77,
+                391,
+                18,
+                17
+              ],
+              "area_px": 189,
+              "centroid": [
+                85,
+                399
+              ],
+              "difference_score": 0.9326,
+              "max_diff": 253.4,
+              "structural_mismatch_score": 0.254,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                576,
+                0,
+                9,
+                144
+              ],
+              "area_px": 1288,
+              "centroid": [
+                580,
+                71
+              ],
+              "difference_score": 0.4383,
+              "max_diff": 117.3,
+              "structural_mismatch_score": 0.146,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": true
+            },
+            {
+              "bbox": [
+                574,
+                207,
+                11,
+                433
+              ],
+              "area_px": 3915,
+              "centroid": [
+                579,
+                429
+              ],
+              "difference_score": 0.4375,
+              "max_diff": 147.4,
+              "structural_mismatch_score": 0.0442,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": true,
+              "added_on_flat_background": false,
+              "illumination_suspect": true
+            },
+            {
+              "bbox": [
+                310,
+                240,
+                17,
+                14
+              ],
+              "area_px": 187,
+              "centroid": [
+                318,
+                246
+              ],
+              "difference_score": 0.8888,
+              "max_diff": 251.1,
+              "structural_mismatch_score": 0.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": true
+            }
+          ],
+          "score": {
+            "tp": 1,
+            "fp": 10,
+            "fn": 3,
+            "matched_gt": [
+              3
+            ],
+            "precision": 0.09090909090909091,
+            "recall": 0.25,
+            "f1": 0.13333333333333333
+          }
+        },
+        {
+          "treatment": "symmetric_ecc",
+          "ok": true,
+          "registration": {
+            "detector": "ECC",
+            "attempts": [
+              "SIFT",
+              "ORB",
+              "ECC"
+            ],
+            "ecc_correlation": 0.9814,
+            "warp": [
+              [
+                1.1335099935531616,
+                0.0019399999873712659,
+                -23.37425994873047
+              ],
+              [
+                0.0037499999161809683,
+                0.9970600008964539,
+                0.9490699768066406
+              ]
+            ],
+            "quality": "marginal",
+            "failure_reason": null
+          },
+          "candidates": [
+            {
+              "bbox": [
+                152,
+                389,
+                6,
+                8
+              ],
+              "area_px": 44,
+              "centroid": [
+                154,
+                392
+              ],
+              "difference_score": 0.9395,
+              "max_diff": 250.4,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                152,
+                332,
+                6,
+                6
+              ],
+              "area_px": 28,
+              "centroid": [
+                155,
+                334
+              ],
+              "difference_score": 0.9157,
+              "max_diff": 249.1,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                135,
+                322,
+                5,
+                5
+              ],
+              "area_px": 21,
+              "centroid": [
+                137,
+                324
+              ],
+              "difference_score": 0.9153,
+              "max_diff": 248.9,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                107,
+                307,
+                11,
+                6
+              ],
+              "area_px": 44,
+              "centroid": [
+                112,
+                310
+              ],
+              "difference_score": 0.8918,
+              "max_diff": 249.5,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                117,
+                0,
+                12,
+                16
+              ],
+              "area_px": 50,
+              "centroid": [
+                122,
+                6
+              ],
+              "difference_score": 0.9017,
+              "max_diff": 255.7,
+              "structural_mismatch_score": 0.7749,
+              "evidence_quality_score": 0.3,
+              "local_contrast": 75.51,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": true,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                138,
+                0,
+                10,
+                13
+              ],
+              "area_px": 45,
+              "centroid": [
+                143,
+                5
+              ],
+              "difference_score": 0.7437,
+              "max_diff": 254.2,
+              "structural_mismatch_score": 0.7588,
+              "evidence_quality_score": 0.3,
+              "local_contrast": 79.97,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": true,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                51,
+                391,
+                23,
+                21
+              ],
+              "area_px": 277,
+              "centroid": [
+                62,
+                400
+              ],
+              "difference_score": 0.8771,
+              "max_diff": 251.2,
+              "structural_mismatch_score": 0.0253,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                350,
+                243,
+                22,
+                14
+              ],
+              "area_px": 232,
+              "centroid": [
+                361,
+                249
+              ],
+              "difference_score": 0.9138,
+              "max_diff": 252.6,
+              "structural_mismatch_score": 0.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": true
+            }
+          ],
+          "score": {
+            "tp": 1,
+            "fp": 7,
+            "fn": 3,
+            "matched_gt": [
+              3
+            ],
+            "precision": 0.125,
+            "recall": 0.25,
+            "f1": 0.16666666666666666
+          }
+        },
+        {
+          "treatment": "erode_valid",
+          "ok": true,
+          "registration": {
+            "detector": "ECC",
+            "attempts": [
+              "SIFT",
+              "ORB",
+              "ECC"
+            ],
+            "ecc_correlation": 0.9814,
+            "warp": [
+              [
+                1.1335099935531616,
+                0.0019399999873712659,
+                -23.37425994873047
+              ],
+              [
+                0.0037499999161809683,
+                0.9970600008964539,
+                0.9490699768066406
+              ]
+            ],
+            "quality": "marginal",
+            "failure_reason": null
+          },
+          "candidates": [],
+          "score": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "matched_gt": [],
+            "precision": 1.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      ],
+      "provided_alignment_candidates": 10,
+      "supplied_alignment_binary_xor_diagnostic": {
+        "tp": 3,
+        "fp": 10,
+        "fn": 1,
+        "matched_gt": [
+          0,
+          2,
+          3
+        ],
+        "precision": 0.23076923076923078,
+        "recall": 0.75,
+        "f1": 0.35294117647058826
+      },
+      "diagnostic_note": "XOR uses supplied prealignment and fixed binary threshold; no agent, class prediction, quality gate or capture robustness. Not a promoted pipeline."
+    },
+    {
+      "group": "group20085",
+      "gt": [
+        {
+          "bbox": [
+            263,
+            63,
+            36,
+            27
+          ],
+          "type": 1
+        },
+        {
+          "bbox": [
+            201,
+            266,
+            50,
+            28
+          ],
+          "type": 2
+        },
+        {
+          "bbox": [
+            296,
+            350,
+            26,
+            26
+          ],
+          "type": 3
+        },
+        {
+          "bbox": [
+            419,
+            333,
+            29,
+            28
+          ],
+          "type": 4
+        },
+        {
+          "bbox": [
+            341,
+            236,
+            29,
+            31
+          ],
+          "type": 5
+        },
+        {
+          "bbox": [
+            260,
+            165,
+            31,
+            27
+          ],
+          "type": 6
+        },
+        {
+          "bbox": [
+            139,
+            327,
+            27,
+            29
+          ],
+          "type": 3
+        },
+        {
+          "bbox": [
+            324,
+            367,
+            26,
+            43
+          ],
+          "type": 2
+        },
+        {
+          "bbox": [
+            403,
+            53,
+            34,
+            34
+          ],
+          "type": 1
+        }
+      ],
+      "shape": [
+        640,
+        640
+      ],
+      "test_rail_fraction": 0.9560205078125,
+      "production_variants": [
+        {
+          "treatment": "legacy",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 270,
+            "keypoints_test": 339,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 82,
+            "inliers": 61,
+            "inlier_ratio": 0.7439,
+            "mean_residual_px": 0.943,
+            "coverage_score": 0.812,
+            "photometric_score": 0.9691,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_rejected": true
+          },
+          "candidates": [
+            {
+              "bbox": [
+                222,
+                276,
+                11,
+                9
+              ],
+              "area_px": 71,
+              "centroid": [
+                227,
+                280
+              ],
+              "difference_score": 0.9538,
+              "max_diff": 251.2,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0009,
+              "local_contrast": 0.06,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                334,
+                389,
+                7,
+                3
+              ],
+              "area_px": 15,
+              "centroid": [
+                337,
+                390
+              ],
+              "difference_score": 0.9691,
+              "max_diff": 251.1,
+              "structural_mismatch_score": 0.8542,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                351,
+                246,
+                10,
+                12
+              ],
+              "area_px": 100,
+              "centroid": [
+                356,
+                251
+              ],
+              "difference_score": 0.9372,
+              "max_diff": 252.0,
+              "structural_mismatch_score": 0.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": true
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 9,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "symmetric_ecc",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 270,
+            "keypoints_test": 339,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 82,
+            "inliers": 61,
+            "inlier_ratio": 0.7439,
+            "mean_residual_px": 0.943,
+            "coverage_score": 0.812,
+            "photometric_score": 0.9778,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9881
+          },
+          "candidates": [
+            {
+              "bbox": [
+                222,
+                276,
+                11,
+                10
+              ],
+              "area_px": 86,
+              "centroid": [
+                227,
+                280
+              ],
+              "difference_score": 0.902,
+              "max_diff": 253.6,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0013,
+              "local_contrast": 0.08,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                334,
+                389,
+                7,
+                3
+              ],
+              "area_px": 17,
+              "centroid": [
+                337,
+                390
+              ],
+              "difference_score": 0.9807,
+              "max_diff": 253.7,
+              "structural_mismatch_score": 0.8549,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                351,
+                246,
+                11,
+                12
+              ],
+              "area_px": 110,
+              "centroid": [
+                356,
+                251
+              ],
+              "difference_score": 0.8613,
+              "max_diff": 254.6,
+              "structural_mismatch_score": 0.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": true
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 3,
+            "fn": 9,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "erode_valid",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 270,
+            "keypoints_test": 339,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 82,
+            "inliers": 61,
+            "inlier_ratio": 0.7439,
+            "mean_residual_px": 0.943,
+            "coverage_score": 0.812,
+            "photometric_score": 0.9778,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9881
+          },
+          "candidates": [],
+          "score": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 9,
+            "matched_gt": [],
+            "precision": 1.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      ],
+      "provided_alignment_candidates": 3,
+      "supplied_alignment_binary_xor_diagnostic": {
+        "tp": 5,
+        "fp": 240,
+        "fn": 4,
+        "matched_gt": [
+          0,
+          1,
+          3,
+          6,
+          7
+        ],
+        "precision": 0.02040816326530612,
+        "recall": 0.5555555555555556,
+        "f1": 0.03937007874015748
+      },
+      "diagnostic_note": "XOR uses supplied prealignment and fixed binary threshold; no agent, class prediction, quality gate or capture robustness. Not a promoted pipeline."
+    },
+    {
+      "group": "group50600",
+      "gt": [
+        {
+          "bbox": [
+            380,
+            380,
+            47,
+            29
+          ],
+          "type": 1
+        },
+        {
+          "bbox": [
+            221,
+            343,
+            45,
+            41
+          ],
+          "type": 3
+        },
+        {
+          "bbox": [
+            172,
+            314,
+            32,
+            31
+          ],
+          "type": 6
+        },
+        {
+          "bbox": [
+            211,
+            178,
+            29,
+            37
+          ],
+          "type": 5
+        },
+        {
+          "bbox": [
+            181,
+            239,
+            47,
+            31
+          ],
+          "type": 3
+        }
+      ],
+      "shape": [
+        640,
+        640
+      ],
+      "test_rail_fraction": 0.95851318359375,
+      "production_variants": [
+        {
+          "treatment": "legacy",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 202,
+            "keypoints_test": 354,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 39,
+            "inliers": 17,
+            "inlier_ratio": 0.4359,
+            "mean_residual_px": 1.083,
+            "coverage_score": 0.375,
+            "photometric_score": 0.9378,
+            "quality": "marginal",
+            "failure_reason": null,
+            "ecc_refine_rejected": true
+          },
+          "candidates": [
+            {
+              "bbox": [
+                221,
+                189,
+                9,
+                17
+              ],
+              "area_px": 93,
+              "centroid": [
+                226,
+                196
+              ],
+              "difference_score": 0.9695,
+              "max_diff": 253.4,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                401,
+                390,
+                7,
+                10
+              ],
+              "area_px": 64,
+              "centroid": [
+                404,
+                394
+              ],
+              "difference_score": 0.9447,
+              "max_diff": 248.5,
+              "structural_mismatch_score": 0.9939,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                201,
+                254,
+                6,
+                3
+              ],
+              "area_px": 14,
+              "centroid": [
+                204,
+                255
+              ],
+              "difference_score": 0.9452,
+              "max_diff": 250.8,
+              "structural_mismatch_score": 0.9855,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 0.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                245,
+                363,
+                8,
+                11
+              ],
+              "area_px": 52,
+              "centroid": [
+                248,
+                368
+              ],
+              "difference_score": 0.9494,
+              "max_diff": 249.8,
+              "structural_mismatch_score": 0.8654,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                185,
+                326,
+                10,
+                10
+              ],
+              "area_px": 53,
+              "centroid": [
+                189,
+                330
+              ],
+              "difference_score": 0.8967,
+              "max_diff": 249.7,
+              "structural_mismatch_score": 0.5472,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 5,
+            "fn": 5,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "symmetric_ecc",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 202,
+            "keypoints_test": 354,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 39,
+            "inliers": 17,
+            "inlier_ratio": 0.4359,
+            "mean_residual_px": 1.083,
+            "coverage_score": 0.375,
+            "photometric_score": 0.9677,
+            "quality": "marginal",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9787
+          },
+          "candidates": [
+            {
+              "bbox": [
+                201,
+                253,
+                6,
+                4
+              ],
+              "area_px": 18,
+              "centroid": [
+                204,
+                254
+              ],
+              "difference_score": 0.9577,
+              "max_diff": 254.2,
+              "structural_mismatch_score": 0.9858,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                401,
+                391,
+                7,
+                10
+              ],
+              "area_px": 66,
+              "centroid": [
+                404,
+                396
+              ],
+              "difference_score": 0.9409,
+              "max_diff": 250.7,
+              "structural_mismatch_score": 0.9934,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                221,
+                188,
+                10,
+                18
+              ],
+              "area_px": 108,
+              "centroid": [
+                226,
+                196
+              ],
+              "difference_score": 0.932,
+              "max_diff": 254.0,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                245,
+                362,
+                9,
+                12
+              ],
+              "area_px": 64,
+              "centroid": [
+                248,
+                368
+              ],
+              "difference_score": 0.9387,
+              "max_diff": 252.2,
+              "structural_mismatch_score": 0.7969,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                185,
+                325,
+                10,
+                11
+              ],
+              "area_px": 87,
+              "centroid": [
+                190,
+                330
+              ],
+              "difference_score": 0.9064,
+              "max_diff": 251.3,
+              "structural_mismatch_score": 0.6092,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            }
+          ],
+          "score": {
+            "tp": 1,
+            "fp": 4,
+            "fn": 4,
+            "matched_gt": [
+              3
+            ],
+            "precision": 0.2,
+            "recall": 0.2,
+            "f1": 0.2
+          }
+        },
+        {
+          "treatment": "erode_valid",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 202,
+            "keypoints_test": 354,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 39,
+            "inliers": 17,
+            "inlier_ratio": 0.4359,
+            "mean_residual_px": 1.083,
+            "coverage_score": 0.375,
+            "photometric_score": 0.9677,
+            "quality": "marginal",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9787
+          },
+          "candidates": [],
+          "score": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 5,
+            "matched_gt": [],
+            "precision": 1.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      ],
+      "provided_alignment_candidates": 1,
+      "supplied_alignment_binary_xor_diagnostic": {
+        "tp": 4,
+        "fp": 247,
+        "fn": 1,
+        "matched_gt": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "precision": 0.01593625498007968,
+        "recall": 0.8,
+        "f1": 0.03125
+      },
+      "diagnostic_note": "XOR uses supplied prealignment and fixed binary threshold; no agent, class prediction, quality gate or capture robustness. Not a promoted pipeline."
+    },
+    {
+      "group": "group77000",
+      "gt": [
+        {
+          "bbox": [
+            236,
+            107,
+            41,
+            30
+          ],
+          "type": 1
+        },
+        {
+          "bbox": [
+            98,
+            159,
+            52,
+            33
+          ],
+          "type": 2
+        },
+        {
+          "bbox": [
+            362,
+            194,
+            28,
+            31
+          ],
+          "type": 3
+        },
+        {
+          "bbox": [
+            340,
+            49,
+            36,
+            32
+          ],
+          "type": 5
+        }
+      ],
+      "shape": [
+        640,
+        640
+      ],
+      "test_rail_fraction": 0.9755810546875,
+      "production_variants": [
+        {
+          "treatment": "legacy",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 246,
+            "keypoints_test": 286,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 80,
+            "inliers": 67,
+            "inlier_ratio": 0.8375,
+            "mean_residual_px": 0.8,
+            "coverage_score": 0.625,
+            "photometric_score": 0.9873,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9955
+          },
+          "candidates": [
+            {
+              "bbox": [
+                117,
+                170,
+                18,
+                14
+              ],
+              "area_px": 136,
+              "centroid": [
+                125,
+                177
+              ],
+              "difference_score": 0.9113,
+              "max_diff": 251.9,
+              "structural_mismatch_score": 0.8596,
+              "evidence_quality_score": 1.0,
+              "local_contrast": 101.73,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                374,
+                210,
+                8,
+                6
+              ],
+              "area_px": 37,
+              "centroid": [
+                378,
+                212
+              ],
+              "difference_score": 0.7795,
+              "max_diff": 244.3,
+              "structural_mismatch_score": 0.9719,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 4,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "symmetric_ecc",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 246,
+            "keypoints_test": 286,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 80,
+            "inliers": 67,
+            "inlier_ratio": 0.8375,
+            "mean_residual_px": 0.8,
+            "coverage_score": 0.625,
+            "photometric_score": 0.9917,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9955
+          },
+          "candidates": [
+            {
+              "bbox": [
+                116,
+                170,
+                18,
+                13
+              ],
+              "area_px": 137,
+              "centroid": [
+                124,
+                176
+              ],
+              "difference_score": 0.9092,
+              "max_diff": 252.4,
+              "structural_mismatch_score": 0.847,
+              "evidence_quality_score": 1.0,
+              "local_contrast": 100.01,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                373,
+                210,
+                8,
+                6
+              ],
+              "area_px": 37,
+              "centroid": [
+                377,
+                212
+              ],
+              "difference_score": 0.7293,
+              "max_diff": 250.7,
+              "structural_mismatch_score": 0.9691,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 2,
+            "fn": 4,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "erode_valid",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 246,
+            "keypoints_test": 286,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 80,
+            "inliers": 67,
+            "inlier_ratio": 0.8375,
+            "mean_residual_px": 0.8,
+            "coverage_score": 0.625,
+            "photometric_score": 0.9917,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9955
+          },
+          "candidates": [],
+          "score": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "matched_gt": [],
+            "precision": 1.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      ],
+      "provided_alignment_candidates": 2,
+      "supplied_alignment_binary_xor_diagnostic": {
+        "tp": 4,
+        "fp": 155,
+        "fn": 0,
+        "matched_gt": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "precision": 0.025157232704402517,
+        "recall": 1.0,
+        "f1": 0.049079754601226995
+      },
+      "diagnostic_note": "XOR uses supplied prealignment and fixed binary threshold; no agent, class prediction, quality gate or capture robustness. Not a promoted pipeline."
+    },
+    {
+      "group": "group92000",
+      "gt": [
+        {
+          "bbox": [
+            213,
+            251,
+            79,
+            46
+          ],
+          "type": 1
+        },
+        {
+          "bbox": [
+            262,
+            177,
+            45,
+            39
+          ],
+          "type": 4
+        },
+        {
+          "bbox": [
+            358,
+            274,
+            37,
+            35
+          ],
+          "type": 6
+        }
+      ],
+      "shape": [
+        640,
+        640
+      ],
+      "test_rail_fraction": 0.980107421875,
+      "production_variants": [
+        {
+          "treatment": "legacy",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 184,
+            "keypoints_test": 219,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 54,
+            "inliers": 35,
+            "inlier_ratio": 0.6481,
+            "mean_residual_px": 0.694,
+            "coverage_score": 0.75,
+            "photometric_score": 0.9858,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9934
+          },
+          "candidates": [
+            {
+              "bbox": [
+                285,
+                187,
+                7,
+                18
+              ],
+              "area_px": 102,
+              "centroid": [
+                288,
+                195
+              ],
+              "difference_score": 0.9504,
+              "max_diff": 252.6,
+              "structural_mismatch_score": 0.9948,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                265,
+                276,
+                7,
+                11
+              ],
+              "area_px": 63,
+              "centroid": [
+                268,
+                282
+              ],
+              "difference_score": 0.9247,
+              "max_diff": 249.6,
+              "structural_mismatch_score": 0.9927,
+              "evidence_quality_score": 0.002,
+              "local_contrast": 0.12,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                231,
+                264,
+                11,
+                14
+              ],
+              "area_px": 96,
+              "centroid": [
+                237,
+                271
+              ],
+              "difference_score": 0.8644,
+              "max_diff": 249.7,
+              "structural_mismatch_score": 0.9348,
+              "evidence_quality_score": 0.8839,
+              "local_contrast": 53.03,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                374,
+                285,
+                9,
+                15
+              ],
+              "area_px": 81,
+              "centroid": [
+                378,
+                292
+              ],
+              "difference_score": 0.9018,
+              "max_diff": 250.8,
+              "structural_mismatch_score": 0.8889,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 3,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "symmetric_ecc",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 184,
+            "keypoints_test": 219,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 54,
+            "inliers": 35,
+            "inlier_ratio": 0.6481,
+            "mean_residual_px": 0.694,
+            "coverage_score": 0.75,
+            "photometric_score": 0.9908,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9934
+          },
+          "candidates": [
+            {
+              "bbox": [
+                285,
+                187,
+                7,
+                19
+              ],
+              "area_px": 103,
+              "centroid": [
+                288,
+                196
+              ],
+              "difference_score": 0.9609,
+              "max_diff": 254.0,
+              "structural_mismatch_score": 1.0,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": false,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                265,
+                277,
+                7,
+                10
+              ],
+              "area_px": 58,
+              "centroid": [
+                268,
+                282
+              ],
+              "difference_score": 0.9412,
+              "max_diff": 251.2,
+              "structural_mismatch_score": 0.9854,
+              "evidence_quality_score": 0.002,
+              "local_contrast": 0.12,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                374,
+                286,
+                9,
+                14
+              ],
+              "area_px": 81,
+              "centroid": [
+                378,
+                293
+              ],
+              "difference_score": 0.904,
+              "max_diff": 252.9,
+              "structural_mismatch_score": 0.8889,
+              "evidence_quality_score": 0.0,
+              "local_contrast": 0.0,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            },
+            {
+              "bbox": [
+                231,
+                265,
+                11,
+                14
+              ],
+              "area_px": 102,
+              "centroid": [
+                236,
+                271
+              ],
+              "difference_score": 0.8568,
+              "max_diff": 251.2,
+              "structural_mismatch_score": 0.9245,
+              "evidence_quality_score": 0.838,
+              "local_contrast": 50.28,
+              "edge_delta": 1.0,
+              "touches_invalid_warp_region": false,
+              "added_on_flat_background": true,
+              "illumination_suspect": false
+            }
+          ],
+          "score": {
+            "tp": 0,
+            "fp": 4,
+            "fn": 3,
+            "matched_gt": [],
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        },
+        {
+          "treatment": "erode_valid",
+          "ok": true,
+          "registration": {
+            "detector": "SIFT",
+            "keypoints_reference": 184,
+            "keypoints_test": 219,
+            "attempts": [
+              "SIFT",
+              "ECC-refine"
+            ],
+            "good_matches": 54,
+            "inliers": 35,
+            "inlier_ratio": 0.6481,
+            "mean_residual_px": 0.694,
+            "coverage_score": 0.75,
+            "photometric_score": 0.9908,
+            "quality": "good",
+            "failure_reason": null,
+            "ecc_refine_correlation": 0.9934
+          },
+          "candidates": [],
+          "score": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 3,
+            "matched_gt": [],
+            "precision": 1.0,
+            "recall": 0.0,
+            "f1": 0.0
+          }
+        }
+      ],
+      "provided_alignment_candidates": 3,
+      "supplied_alignment_binary_xor_diagnostic": {
+        "tp": 2,
+        "fp": 149,
+        "fn": 1,
+        "matched_gt": [
+          0,
+          2
+        ],
+        "precision": 0.013245033112582781,
+        "recall": 0.6666666666666666,
+        "f1": 0.025974025974025976
+      },
+      "diagnostic_note": "XOR uses supplied prealignment and fixed binary threshold; no agent, class prediction, quality gate or capture robustness. Not a promoted pipeline."
+    }
+  ],
+  "caveat": "Small purposive compatibility smoke. Mixed real scan/artificial-defect dataset; no production accuracy claim."
+}

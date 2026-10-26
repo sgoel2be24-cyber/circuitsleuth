@@ -16,3 +16,10 @@ data/debug_*
 
 # Environment
 .env
+.env.*
+!.env.example
+deploy/*.local.json
+
+# Local operating-system files and regenerable research runtime state
+.DS_Store
+research/pipeline-improvements/orchestrator-parity-store/

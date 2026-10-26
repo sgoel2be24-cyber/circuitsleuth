@@ -1,0 +1,1786 @@
+{
+  "synthetic_data": true,
+  "iou_threshold": 0.15,
+  "variants_per_template": 5,
+  "overall": {
+    "n_inspections": 30,
+    "baseline": {
+      "precision": 0.5208,
+      "recall": 0.8933,
+      "f1": 0.5751,
+      "false_positives": 50,
+      "false_negatives": 6,
+      "mean_latency_s": 0.185,
+      "mean_tool_calls": 0.0,
+      "escalation_rate": 0.0,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 42,
+        "CLEARED": 16,
+        "LIKELY_DEFECT": 52
+      },
+      "registration_failures": 5
+    },
+    "adaptive": {
+      "precision": 0.8627,
+      "recall": 0.7822,
+      "f1": 0.7155,
+      "false_positives": 10,
+      "false_negatives": 8,
+      "mean_latency_s": 0.3389,
+      "mean_tool_calls": 4.6,
+      "escalation_rate": 0.2727,
+      "verdicts": {
+        "CONFIRMED_DEFECT": 36,
+        "LIKELY_DEFECT": 16,
+        "NEEDS_REVIEW": 30,
+        "CLEARED": 28
+      },
+      "registration_failures": 5
+    }
+  },
+  "per_template": {
+    "scenario_01_clear_defects": {
+      "n": 5,
+      "baseline": {
+        "precision": 0.7833,
+        "recall": 0.8,
+        "f1": 0.779,
+        "false_positives": 4,
+        "false_negatives": 3,
+        "mean_latency_s": 0.1752,
+        "mean_tool_calls": 0.0,
+        "escalation_rate": 0.0,
+        "verdicts": {
+          "CONFIRMED_DEFECT": 13,
+          "CLEARED": 4,
+          "LIKELY_DEFECT": 3
+        },
+        "registration_failures": 0
+      },
+      "adaptive": {
+        "precision": 0.9,
+        "recall": 0.9333,
+        "f1": 0.9143,
+        "false_positives": 2,
+        "false_negatives": 1,
+        "mean_latency_s": 0.3396,
+        "mean_tool_calls": 5.2,
+        "escalation_rate": 0.0,
+        "verdicts": {
+          "CONFIRMED_DEFECT": 13,
+          "LIKELY_DEFECT": 3,
+          "CLEARED": 4
+        },
+        "registration_failures": 0
+      }
+    },
+    "scenario_02_clean_board": {
+      "n": 5,
+      "baseline": {
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.2,
+        "false_positives": 6,
+        "false_negatives": 0,
+        "mean_latency_s": 0.1698,
+        "mean_tool_calls": 0.0,
+        "escalation_rate": 0.0,
+        "verdicts": {
+          "LIKELY_DEFECT": 6,
+          "CLEARED": 3
+        },
+        "registration_failures": 0
+      },
+      "adaptive": {
+        "precision": 0.8,
+        "recall": 1.0,
+        "f1": 0.8,
+        "false_positives": 1,
+        "false_negatives": 0,
+        "mean_latency_s": 0.3214,
+        "mean_tool_calls": 2.4,
+        "escalation_rate": 0.6667,
+        "verdicts": {
+          "NEEDS_REVIEW": 6,
+          "CLEARED": 2,
+          "LIKELY_DEFECT": 1
+        },
+        "registration_failures": 0
+      }
+    },
+    "scenario_03_ambiguous_glare": {
+      "n": 5,
+      "baseline": {
+        "precision": 0.2,
+        "recall": 0.8,
+        "f1": 0.32,
+        "false_positives": 15,
+        "false_negatives": 1,
+        "mean_latency_s": 0.2152,
+        "mean_tool_calls": 0.0,
+        "escalation_rate": 0.0,
+        "verdicts": {
+          "LIKELY_DEFECT": 15,
+          "CLEARED": 5,
+          "CONFIRMED_DEFECT": 4
+        },
+        "registration_failures": 0
+      },
+      "adaptive": {
+        "precision": 0.6,
+        "recall": 0.8,
+        "f1": 0.6667,
+        "false_positives": 3,
+        "false_negatives": 1,
+        "mean_latency_s": 0.3792,
+        "mean_tool_calls": 6.0,
+        "escalation_rate": 0.2083,
+        "verdicts": {
+          "LIKELY_DEFECT": 3,
+          "NEEDS_REVIEW": 5,
+          "CLEARED": 12,
+          "CONFIRMED_DEFECT": 4
+        },
+        "registration_failures": 0
+      }
+    },
+    "scenario_04_registration_failure": {
+      "n": 5,
+      "baseline": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "mean_latency_s": 0.1876,
+        "mean_tool_calls": 0.0,
+        "escalation_rate": 0.0,
+        "verdicts": {},
+        "registration_failures": 5
+      },
+      "adaptive": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "mean_latency_s": 0.3714,
+        "mean_tool_calls": 0.0,
+        "escalation_rate": 0.0,
+        "verdicts": {},
+        "registration_failures": 5
+      }
+    },
+    "scenario_05_no_second_view": {
+      "n": 5,
+      "baseline": {
+        "precision": 0.2067,
+        "recall": 0.8,
+        "f1": 0.3267,
+        "false_positives": 15,
+        "false_negatives": 1,
+        "mean_latency_s": 0.1838,
+        "mean_tool_calls": 0.0,
+        "escalation_rate": 0.0,
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "LIKELY_DEFECT": 15,
+          "CLEARED": 3
+        },
+        "registration_failures": 0
+      },
+      "adaptive": {
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "false_positives": 0,
+        "false_negatives": 5,
+        "mean_latency_s": 0.2478,
+        "mean_tool_calls": 4.8,
+        "escalation_rate": 0.6364,
+        "verdicts": {
+          "NEEDS_REVIEW": 14,
+          "CLEARED": 8
+        },
+        "registration_failures": 0
+      }
+    },
+    "scenario_06_multiple_regions": {
+      "n": 5,
+      "baseline": {
+        "precision": 0.7349,
+        "recall": 0.96,
+        "f1": 0.8247,
+        "false_positives": 10,
+        "false_negatives": 1,
+        "mean_latency_s": 0.1784,
+        "mean_tool_calls": 0.0,
+        "escalation_rate": 0.0,
+        "verdicts": {
+          "CONFIRMED_DEFECT": 21,
+          "LIKELY_DEFECT": 13,
+          "CLEARED": 1
+        },
+        "registration_failures": 0
+      },
+      "adaptive": {
+        "precision": 0.8762,
+        "recall": 0.96,
+        "f1": 0.9121,
+        "false_positives": 4,
+        "false_negatives": 1,
+        "mean_latency_s": 0.3738,
+        "mean_tool_calls": 9.2,
+        "escalation_rate": 0.1429,
+        "verdicts": {
+          "CONFIRMED_DEFECT": 19,
+          "LIKELY_DEFECT": 9,
+          "NEEDS_REVIEW": 5,
+          "CLEARED": 2
+        },
+        "registration_failures": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "template": "scenario_01_clear_defects",
+      "variant": 0,
+      "gt_defects": 3,
+      "baseline": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8,
+        "detection": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 2,
+          "CLEARED": 1
+        },
+        "latency_s": 0.19,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 2,
+          "LIKELY_DEFECT": 1
+        },
+        "latency_s": 0.328,
+        "tool_calls": 5,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_02_clean_board",
+      "variant": 0,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 1,
+          "CLEARED": 1
+        },
+        "latency_s": 0.172,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 2
+        },
+        "latency_s": 0.315,
+        "tool_calls": 3,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_03_ambiguous_glare",
+      "variant": 0,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 5,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 3,
+          "CLEARED": 2
+        },
+        "latency_s": 0.203,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 5,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 1,
+          "NEEDS_REVIEW": 2,
+          "CLEARED": 2
+        },
+        "latency_s": 0.374,
+        "tool_calls": 6,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_04_registration_failure",
+      "variant": 0,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.521,
+        "tool_calls": 0,
+        "registration_quality": "poor"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 1.057,
+        "tool_calls": 0,
+        "registration_quality": "poor",
+        "stop_reason": "registration_failed"
+      }
+    },
+    {
+      "template": "scenario_05_no_second_view",
+      "variant": 0,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 1,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "detection": {
+          "tp": 1,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1": 0.4
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 1,
+          "LIKELY_DEFECT": 3
+        },
+        "latency_s": 0.181,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 1,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1": 0.4
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 3,
+          "CLEARED": 1
+        },
+        "latency_s": 0.251,
+        "tool_calls": 4,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_06_multiple_regions",
+      "variant": 0,
+      "gt_defects": 5,
+      "baseline": {
+        "tp": 5,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.7143,
+        "recall": 1.0,
+        "f1": 0.8333,
+        "detection": {
+          "tp": 5,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.625,
+          "recall": 1.0,
+          "f1": 0.7692
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 5,
+          "LIKELY_DEFECT": 2,
+          "CLEARED": 1
+        },
+        "latency_s": 0.195,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 5,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.625,
+          "recall": 1.0,
+          "f1": 0.7692
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "LIKELY_DEFECT": 1,
+          "NEEDS_REVIEW": 3
+        },
+        "latency_s": 0.389,
+        "tool_calls": 11,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_01_clear_defects",
+      "variant": 1,
+      "gt_defects": 3,
+      "baseline": {
+        "tp": 2,
+        "fp": 2,
+        "fn": 1,
+        "precision": 0.5,
+        "recall": 0.6667,
+        "f1": 0.5714,
+        "detection": {
+          "tp": 2,
+          "fp": 3,
+          "fn": 1,
+          "precision": 0.4,
+          "recall": 0.6667,
+          "f1": 0.5
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "CLEARED": 1
+        },
+        "latency_s": 0.172,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 2,
+        "fp": 2,
+        "fn": 1,
+        "precision": 0.5,
+        "recall": 0.6667,
+        "f1": 0.5714,
+        "detection": {
+          "tp": 2,
+          "fp": 3,
+          "fn": 1,
+          "precision": 0.4,
+          "recall": 0.6667,
+          "f1": 0.5
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "CLEARED": 1
+        },
+        "latency_s": 0.333,
+        "tool_calls": 6,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_02_clean_board",
+      "variant": 1,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "CLEARED": 2
+        },
+        "latency_s": 0.167,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 1,
+          "CLEARED": 1
+        },
+        "latency_s": 0.338,
+        "tool_calls": 3,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_03_ambiguous_glare",
+      "variant": 1,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 1,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 1,
+          "LIKELY_DEFECT": 3,
+          "CLEARED": 1
+        },
+        "latency_s": 0.188,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 1,
+          "CLEARED": 4
+        },
+        "latency_s": 0.372,
+        "tool_calls": 6,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_04_registration_failure",
+      "variant": 1,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.053,
+        "tool_calls": 0,
+        "registration_quality": "poor"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.095,
+        "tool_calls": 0,
+        "registration_quality": "poor",
+        "stop_reason": "registration_failed"
+      }
+    },
+    {
+      "template": "scenario_05_no_second_view",
+      "variant": 1,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 1,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 1,
+          "LIKELY_DEFECT": 3,
+          "CLEARED": 1
+        },
+        "latency_s": 0.177,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 2,
+          "CLEARED": 3
+        },
+        "latency_s": 0.248,
+        "tool_calls": 5,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_06_multiple_regions",
+      "variant": 1,
+      "gt_defects": 5,
+      "baseline": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "LIKELY_DEFECT": 1
+        },
+        "latency_s": 0.174,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 5,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "LIKELY_DEFECT": 1
+        },
+        "latency_s": 0.355,
+        "tool_calls": 7,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_01_clear_defects",
+      "variant": 2,
+      "gt_defects": 3,
+      "baseline": {
+        "tp": 3,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.8571,
+        "detection": {
+          "tp": 3,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.6,
+          "recall": 1.0,
+          "f1": 0.75
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 2,
+          "LIKELY_DEFECT": 2,
+          "CLEARED": 1
+        },
+        "latency_s": 0.174,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 3,
+          "fp": 2,
+          "fn": 0,
+          "precision": 0.6,
+          "recall": 1.0,
+          "f1": 0.75
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 2,
+          "LIKELY_DEFECT": 1,
+          "CLEARED": 2
+        },
+        "latency_s": 0.356,
+        "tool_calls": 7,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_02_clean_board",
+      "variant": 2,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 3
+        },
+        "latency_s": 0.164,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 1,
+          "NEEDS_REVIEW": 2
+        },
+        "latency_s": 0.338,
+        "tool_calls": 4,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_03_ambiguous_glare",
+      "variant": 2,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 1,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "detection": {
+          "tp": 1,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1": 0.4
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 3,
+          "CONFIRMED_DEFECT": 1
+        },
+        "latency_s": 0.209,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 1,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667,
+        "detection": {
+          "tp": 1,
+          "fp": 3,
+          "fn": 0,
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1": 0.4
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 1,
+          "LIKELY_DEFECT": 1,
+          "CONFIRMED_DEFECT": 1,
+          "CLEARED": 1
+        },
+        "latency_s": 0.398,
+        "tool_calls": 5,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_04_registration_failure",
+      "variant": 2,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.052,
+        "tool_calls": 0,
+        "registration_quality": "poor"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.092,
+        "tool_calls": 0,
+        "registration_quality": "poor",
+        "stop_reason": "registration_failed"
+      }
+    },
+    {
+      "template": "scenario_05_no_second_view",
+      "variant": 2,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 1,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.3333,
+        "recall": 1.0,
+        "f1": 0.5,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 1,
+          "CLEARED": 2,
+          "LIKELY_DEFECT": 2
+        },
+        "latency_s": 0.18,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 2,
+          "CLEARED": 3
+        },
+        "latency_s": 0.264,
+        "tool_calls": 7,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_06_multiple_regions",
+      "variant": 2,
+      "gt_defects": 5,
+      "baseline": {
+        "tp": 5,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.8333,
+        "recall": 1.0,
+        "f1": 0.9091,
+        "detection": {
+          "tp": 5,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.8333,
+          "recall": 1.0,
+          "f1": 0.9091
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "LIKELY_DEFECT": 2
+        },
+        "latency_s": 0.172,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 5,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.8333,
+          "recall": 1.0,
+          "f1": 0.9091
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "NEEDS_REVIEW": 1,
+          "LIKELY_DEFECT": 1
+        },
+        "latency_s": 0.368,
+        "tool_calls": 9,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_01_clear_defects",
+      "variant": 3,
+      "gt_defects": 3,
+      "baseline": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 3
+        },
+        "latency_s": 0.168,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 3,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 3
+        },
+        "latency_s": 0.333,
+        "tool_calls": 3,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_02_clean_board",
+      "variant": 3,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 1
+        },
+        "latency_s": 0.172,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 1
+        },
+        "latency_s": 0.308,
+        "tool_calls": 1,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_03_ambiguous_glare",
+      "variant": 3,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 1,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 1,
+          "LIKELY_DEFECT": 3,
+          "CLEARED": 1
+        },
+        "latency_s": 0.193,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 1,
+          "NEEDS_REVIEW": 2,
+          "CLEARED": 2
+        },
+        "latency_s": 0.38,
+        "tool_calls": 7,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_04_registration_failure",
+      "variant": 3,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.261,
+        "tool_calls": 0,
+        "registration_quality": "poor"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.519,
+        "tool_calls": 0,
+        "registration_quality": "poor",
+        "stop_reason": "registration_failed"
+      }
+    },
+    {
+      "template": "scenario_05_no_second_view",
+      "variant": 3,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 1,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.2,
+        "recall": 1.0,
+        "f1": 0.3333,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 4,
+          "CONFIRMED_DEFECT": 1
+        },
+        "latency_s": 0.201,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 5
+        },
+        "latency_s": 0.242,
+        "tool_calls": 5,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_06_multiple_regions",
+      "variant": 3,
+      "gt_defects": 5,
+      "baseline": {
+        "tp": 4,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.5714,
+        "recall": 0.8,
+        "f1": 0.6667,
+        "detection": {
+          "tp": 4,
+          "fp": 3,
+          "fn": 1,
+          "precision": 0.5714,
+          "recall": 0.8,
+          "f1": 0.6667
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "LIKELY_DEFECT": 3
+        },
+        "latency_s": 0.173,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 4,
+        "fp": 2,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.8,
+        "f1": 0.7273,
+        "detection": {
+          "tp": 4,
+          "fp": 3,
+          "fn": 1,
+          "precision": 0.5714,
+          "recall": 0.8,
+          "f1": 0.6667
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 3,
+          "LIKELY_DEFECT": 3,
+          "CLEARED": 1
+        },
+        "latency_s": 0.352,
+        "tool_calls": 7,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_01_clear_defects",
+      "variant": 4,
+      "gt_defects": 3,
+      "baseline": {
+        "tp": 2,
+        "fp": 1,
+        "fn": 1,
+        "precision": 0.6667,
+        "recall": 0.6667,
+        "f1": 0.6667,
+        "detection": {
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 2,
+          "CLEARED": 1,
+          "LIKELY_DEFECT": 1
+        },
+        "latency_s": 0.172,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 3,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.75,
+          "recall": 1.0,
+          "f1": 0.8571
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 2,
+          "LIKELY_DEFECT": 1,
+          "CLEARED": 1
+        },
+        "latency_s": 0.348,
+        "tool_calls": 5,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_02_clean_board",
+      "variant": 4,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 1.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 1
+        },
+        "latency_s": 0.174,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 1.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "CLEARED": 1
+        },
+        "latency_s": 0.308,
+        "tool_calls": 1,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_03_ambiguous_glare",
+      "variant": 4,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 1,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 3,
+          "CONFIRMED_DEFECT": 1,
+          "CLEARED": 1
+        },
+        "latency_s": 0.283,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 1,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6667,
+        "detection": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.2,
+          "recall": 1.0,
+          "f1": 0.3333
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 1,
+          "CONFIRMED_DEFECT": 1,
+          "CLEARED": 3
+        },
+        "latency_s": 0.372,
+        "tool_calls": 6,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_04_registration_failure",
+      "variant": 4,
+      "gt_defects": 0,
+      "baseline": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.051,
+        "tool_calls": 0,
+        "registration_quality": "poor"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "detection": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "verdicts": {},
+        "latency_s": 0.094,
+        "tool_calls": 0,
+        "registration_quality": "poor",
+        "stop_reason": "registration_failed"
+      }
+    },
+    {
+      "template": "scenario_05_no_second_view",
+      "variant": 4,
+      "gt_defects": 1,
+      "baseline": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "LIKELY_DEFECT": 3
+        },
+        "latency_s": 0.18,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": 1.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "detection": {
+          "tp": 0,
+          "fp": 3,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "verdicts": {
+          "NEEDS_REVIEW": 2,
+          "CLEARED": 1
+        },
+        "latency_s": 0.234,
+        "tool_calls": 3,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    },
+    {
+      "template": "scenario_06_multiple_regions",
+      "variant": 4,
+      "gt_defects": 5,
+      "baseline": {
+        "tp": 5,
+        "fp": 4,
+        "fn": 0,
+        "precision": 0.5556,
+        "recall": 1.0,
+        "f1": 0.7143,
+        "detection": {
+          "tp": 5,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.5556,
+          "recall": 1.0,
+          "f1": 0.7143
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "LIKELY_DEFECT": 5
+        },
+        "latency_s": 0.178,
+        "tool_calls": 0,
+        "registration_quality": "good"
+      },
+      "adaptive": {
+        "tp": 5,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.7143,
+        "recall": 1.0,
+        "f1": 0.8333,
+        "detection": {
+          "tp": 5,
+          "fp": 4,
+          "fn": 0,
+          "precision": 0.5556,
+          "recall": 1.0,
+          "f1": 0.7143
+        },
+        "verdicts": {
+          "CONFIRMED_DEFECT": 4,
+          "LIKELY_DEFECT": 3,
+          "NEEDS_REVIEW": 1,
+          "CLEARED": 1
+        },
+        "latency_s": 0.405,
+        "tool_calls": 12,
+        "registration_quality": "good",
+        "stop_reason": "all_regions_decided"
+      }
+    }
+  ]
+}

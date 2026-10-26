@@ -48,7 +48,7 @@ reason — all persisted in the event log and visible in the UI report.
 
 ## Tests
 
-37 pytest cases cover registration (warp recovery, periodicity trap, wrong
+Automated regressions cover registration (warp recovery, periodicity trap, wrong
 board refusal), detection (ground-truth IoU, clean-board restraint), region
 tools, the verification rule table, the planner, the orchestrator end-to-end
 on all six scenarios, the REST API journey, and the MCP tool surface.

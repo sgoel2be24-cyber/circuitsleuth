@@ -1,0 +1,94 @@
+[
+  {
+    "board": 200001,
+    "treatment": "legacy",
+    "ok": true,
+    "metrics": {
+      "detector": "SIFT",
+      "keypoints_reference": 715,
+      "keypoints_test": 709,
+      "attempts": [
+        "SIFT",
+        "ECC-refine"
+      ],
+      "good_matches": 186,
+      "inliers": 107,
+      "inlier_ratio": 0.5753,
+      "mean_residual_px": 0.13,
+      "coverage_score": 0.5,
+      "photometric_score": 0.7567,
+      "quality": "good",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.7421
+    }
+  },
+  {
+    "board": 200001,
+    "treatment": "symmetric_ecc",
+    "ok": true,
+    "metrics": {
+      "detector": "SIFT",
+      "keypoints_reference": 715,
+      "keypoints_test": 709,
+      "attempts": [
+        "SIFT",
+        "ECC-refine"
+      ],
+      "good_matches": 186,
+      "inliers": 107,
+      "inlier_ratio": 0.5753,
+      "mean_residual_px": 0.13,
+      "coverage_score": 0.5,
+      "photometric_score": 0.7567,
+      "quality": "good",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.7421
+    }
+  },
+  {
+    "board": 200002,
+    "treatment": "legacy",
+    "ok": true,
+    "metrics": {
+      "detector": "SIFT",
+      "keypoints_reference": 913,
+      "keypoints_test": 750,
+      "attempts": [
+        "SIFT",
+        "ECC-refine"
+      ],
+      "good_matches": 187,
+      "inliers": 108,
+      "inlier_ratio": 0.5775,
+      "mean_residual_px": 0.102,
+      "coverage_score": 0.375,
+      "photometric_score": 0.5951,
+      "quality": "marginal",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.5817
+    }
+  },
+  {
+    "board": 200002,
+    "treatment": "symmetric_ecc",
+    "ok": true,
+    "metrics": {
+      "detector": "SIFT",
+      "keypoints_reference": 913,
+      "keypoints_test": 750,
+      "attempts": [
+        "SIFT",
+        "ECC-refine"
+      ],
+      "good_matches": 187,
+      "inliers": 108,
+      "inlier_ratio": 0.5775,
+      "mean_residual_px": 0.102,
+      "coverage_score": 0.375,
+      "photometric_score": 0.5954,
+      "quality": "marginal",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.5817
+    }
+  }
+]

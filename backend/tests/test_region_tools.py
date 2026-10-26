@@ -104,7 +104,7 @@ def test_verification_rule_table():
 
     ev_realign_cleared = [{"evidence_kind": "local_realignment", "source_tool": "local_realignment",
                            "supports_defect": False,
-                           "metrics": {"reduction_ratio": 0.9}}]
+                           "metrics": {"reduction_ratio": 0.9, "comparison_reliable": True}}]
     verdict, _, basis, _ = ver.verify_candidate(base, ev_realign_cleared, "good")
     assert verdict == "CLEARED" and "artifact" in basis
 

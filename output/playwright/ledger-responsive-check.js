@@ -1,0 +1,24 @@
+async (page) => {
+  await page.setViewportSize({width:1440,height:1000});
+  await page.reload();
+  await page.getByRole('button',{name:'Show more inspections →',exact:true}).waitFor();
+  const rows = page.locator('.ledger-table tbody tr');
+  if (await rows.count() !== 9) throw new Error('Expected first nine ledger rows');
+  await page.getByRole('button', {name:'Show more inspections →',exact:true}).click();
+  if (await rows.count() !== 12) throw new Error('Older ledger rows are unreachable');
+  const search = page.getByRole('textbox',{name:'Search inspections',exact:true});
+  await search.fill('no-match-verification');
+  await page.getByRole('heading',{name:'No matching inspections',exact:true}).waitFor();
+  await search.fill('');
+  if (await rows.count() !== 9) throw new Error('Search did not reset ledger window');
+  await page.screenshot({path:'/Users/Shikhar/Documents/ChatGPT/OpenCV hackathon/OPENCV HACKATHON/output/playwright/ledger-desktop.png',fullPage:true});
+  await page.setViewportSize({width:390,height:844});
+  await page.screenshot({path:'/Users/Shikhar/Documents/ChatGPT/OpenCV hackathon/OPENCV HACKATHON/output/playwright/ledger-mobile.png',fullPage:true});
+  const ledgerWidth = await page.evaluate(() => ({viewport:innerWidth,content:document.documentElement.scrollWidth}));
+  await page.goto('http://127.0.0.1:8100/inspections/ins_988f3f9cdecf');
+  await page.getByRole('button',{name:'Re-run inspection',exact:true}).waitFor();
+  await page.screenshot({path:'/Users/Shikhar/Documents/ChatGPT/OpenCV hackathon/OPENCV HACKATHON/output/playwright/workspace-mobile.png',fullPage:true});
+  const workspaceWidth = await page.evaluate(() => ({viewport:innerWidth,content:document.documentElement.scrollWidth}));
+  if (ledgerWidth.content > 390 || workspaceWidth.content > 390) throw new Error('Horizontal mobile overflow '+JSON.stringify({ledgerWidth,workspaceWidth}));
+  console.log(JSON.stringify({pagination:'9 to 12 rows',searchReset:'passed',ledgerWidth,workspaceWidth}));
+}

@@ -152,6 +152,14 @@ class ReviewRequest(BaseModel):
     reason: str
     requested_action: str
     created_at: str
+    bbox: list[int] | None = None
+    resolved: Literal["confirmed", "rejected"] | None = None
+
+
+class OperatorReview(BaseModel):
+    region_id: str = Field(min_length=1, max_length=100)
+    decision: Literal["confirmed", "rejected"]
+    note: str = Field(default="", max_length=2000)
 
 
 class ReportVerdict(BaseModel):

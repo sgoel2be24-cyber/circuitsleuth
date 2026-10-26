@@ -1,0 +1,61 @@
+before 48 actual orchestrator inspections completed
+after 48 actual orchestrator inspections completed
+{
+  "summary": {
+    "before": {
+      "reported": {
+        "tp": 87,
+        "fp": 22,
+        "fn": 33,
+        "micro_precision": 0.7981651376146789,
+        "micro_recall": 0.725,
+        "micro_f1": 0.759825327510917
+      },
+      "candidates": {
+        "tp": 109,
+        "fp": 78,
+        "fn": 11,
+        "micro_precision": 0.5828877005347594,
+        "micro_recall": 0.9083333333333333,
+        "micro_f1": 0.7100977198697068
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 70,
+        "LIKELY_DEFECT": 39,
+        "NEEDS_REVIEW": 45,
+        "CLEARED": 31,
+        "NOT_EVALUABLE": 2
+      },
+      "mean_tool_calls": 5.25,
+      "clean_false_positives": 5
+    },
+    "after": {
+      "reported": {
+        "tp": 87,
+        "fp": 22,
+        "fn": 33,
+        "micro_precision": 0.7981651376146789,
+        "micro_recall": 0.725,
+        "micro_f1": 0.759825327510917
+      },
+      "candidates": {
+        "tp": 109,
+        "fp": 78,
+        "fn": 11,
+        "micro_precision": 0.5828877005347594,
+        "micro_recall": 0.9083333333333333,
+        "micro_f1": 0.7100977198697068
+      },
+      "verdicts": {
+        "CONFIRMED_DEFECT": 70,
+        "LIKELY_DEFECT": 39,
+        "NEEDS_REVIEW": 44,
+        "CLEARED": 32,
+        "NOT_EVALUABLE": 2
+      },
+      "mean_tool_calls": 5.270833333333333,
+      "clean_false_positives": 5
+    }
+  },
+  "no_new_wrong_board_accepts": true
+}

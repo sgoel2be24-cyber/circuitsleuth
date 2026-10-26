@@ -51,7 +51,7 @@ class InspectionToolbelt:
         self.state = state
         self.event_sink = event_sink
         self.persist = persist
-        self._seq = 0
+        self._seq = max((e["seq"] for e in state.get("events", [])), default=0)
         self._lock = asyncio.Lock()
         # runtime (non-persisted) caches
         self._ref_gray: np.ndarray | None = None
@@ -102,6 +102,26 @@ class InspectionToolbelt:
     def _save_state(self) -> None:
         if self.persist:
             store.save_state(self.state["id"], self.state)
+            # MCP calls can change a completed inspection without passing
+            # through the REST review route. Keep its index/report consistent.
+            row = store.get_inspection_row(self.state["id"])
+            if row is not None:
+                import json
+
+                summary = json.loads(row["summary"])
+                counts = _verdict_counts(self.state.get("candidates", {}))
+                summary.update({
+                    "status": self.state["status"],
+                    "candidate_count": len(self.state.get("candidates", {})),
+                    "confirmed": counts.get("CONFIRMED_DEFECT", 0),
+                    "likely": counts.get("LIKELY_DEFECT", 0),
+                    "cleared": counts.get("CLEARED", 0),
+                    "needs_review": counts.get("NEEDS_REVIEW", 0),
+                    "not_evaluable": counts.get("NOT_EVALUABLE", 0),
+                    "tool_calls_used": self.state["tool_calls_used"],
+                })
+                store.update_inspection(self.state["id"], status=self.state["status"],
+                                        summary=summary, report=self.state.get("report"))
 
     # ------------------------------------------------------------- images
 
@@ -116,6 +136,15 @@ class InspectionToolbelt:
         self._ref_gray = ref
         self._test_gray = test
         self._ref_det = preprocess(ref, self._params, for_registration=False)
+        # MCP calls bind a new toolbelt per invocation. Rehydrate the exact
+        # persisted transform rather than requiring an in-memory predecessor.
+        metrics = self.state.get("registration") or {}
+        warp = np.asarray(metrics.get("warp_matrix", []), dtype=np.float32)
+        if metrics.get("quality") in ("good", "marginal") and warp.shape == (2, 3):
+            prepared = preprocess(test, self._params, for_registration=True)
+            h, w = ref.shape
+            warped, mask = reg_mod._warp_to_reference(prepared, warp, (w, h))
+            self._reg = reg_mod.RegistrationResult(warp, warped, mask, metrics)
         if imgs.get("view2"):
             self._view2_gray = preprocess(to_grayscale(load_bgr(imgs["view2"])), self._params, for_registration=False)
 
@@ -152,13 +181,21 @@ class InspectionToolbelt:
         params = PreprocessParams(use_clahe_for_registration=True) if recovery else self._params
         self._reg_recovery_tried = self._reg_recovery_tried or recovery
         t0 = _now()
-        reg = reg_mod.register(self._ref_gray, self._test_gray, params)
+        reg = await asyncio.to_thread(reg_mod.register, self._ref_gray, self._test_gray, params)
         metrics = reg.metrics
+        if reg.warp is not None:
+            metrics["warp_matrix"] = reg.warp.tolist()
         duration = round(_now() - t0, 3)
         self.state["registration"] = metrics
         self.state.setdefault("timing", {})["registration_s"] = duration
         if reg.ok:
             self._reg = reg
+            h, w = self._ref_gray.shape
+            aligned = cv2.warpAffine(load_bgr(self.state["images"]["test"]), reg.warp, (w, h))
+            self.state["images"]["aligned_test"] = save_png(
+                aligned, store.run_dir(self.state["id"]) / "aligned_test.png"
+            )
+            self.state["coordinate_space"] = "reference"
             await self._emit(
                 "registration_completed",
                 f"Aligned test to reference with {metrics['detector']} "
@@ -178,11 +215,14 @@ class InspectionToolbelt:
         return {"ok": False, "quality": metrics["quality"], "metrics": metrics}
 
     async def detect_defects(self) -> dict[str, Any]:
+        self._ensure_images()
         if self._reg is None or not self._reg.ok:
             raise ToolError("detect_defects requires successful alignment")
         self._ensure_images()
         t0 = _now()
-        result = det_mod.detect_candidates(self._ref_det, self._reg.warped_test, self._reg.valid_mask)
+        result = await asyncio.to_thread(
+            det_mod.detect_candidates, self._ref_det, self._reg.warped_test, self._reg.valid_mask
+        )
         duration = round(_now() - t0, 3)
 
         heatmap = self._save_artifact("diff_heatmap", det_mod.diff_heatmap(result.diff_map, self._reg.valid_mask))
@@ -257,9 +297,9 @@ class InspectionToolbelt:
         if self.state["tool_calls_used"] >= self.state["config"]["max_tool_calls"]:
             return {"ok": False, "error": "tool budget exhausted"}
 
-        ctx = self._build_context()
+        ctx = await asyncio.to_thread(self._build_context)
         t0 = _now()
-        outcome = rt.TOOL_FUNCTIONS[tool](ctx, region_id, cand["bbox"])
+        outcome = await asyncio.to_thread(rt.TOOL_FUNCTIONS[tool], ctx, region_id, cand["bbox"])
         duration = round(_now() - t0, 3)
         self.state["tool_calls_used"] += 1
 
@@ -327,6 +367,8 @@ class InspectionToolbelt:
         cand = self.state.get("candidates", {}).get(region_id)
         if cand is None:
             raise ToolError(f"unknown region {region_id!r}")
+        if self.state["tool_calls_used"] >= self.state["config"]["max_tool_calls"]:
+            return {"ok": False, "status": "budget_exhausted", "error": "tool budget exhausted"}
         if self.state["images"].get("view2") is None:
             if "request_additional_view" not in cand["tools_used"]:
                 cand["tools_used"].append("request_additional_view")
@@ -341,7 +383,7 @@ class InspectionToolbelt:
             self._save_state()
             return {"ok": True, "status": "additional_capture_required", "secondary_view_available": False}
         result = await self.inspect_region(region_id, "alternate_view")
-        return {"ok": True, "status": "compared", "result": result}
+        return {"ok": result["ok"], "status": "compared" if result["ok"] else "budget_exhausted", "result": result}
 
     async def verify_candidate(self, region_id: str) -> dict[str, Any]:
         """Combine all evidence for a region into a final verdict."""
@@ -350,6 +392,12 @@ class InspectionToolbelt:
             raise ToolError(f"unknown region {region_id!r}")
         reg_quality = (self.state.get("registration") or {}).get("quality", "failed")
         verdict, label, basis, notes = ver_mod.verify_candidate(cand, cand["evidence"], reg_quality)
+        if (verdict == "CONFIRMED_DEFECT"
+                and self.state["config"].get("require_independent_view_for_confirm")
+                and not any(e.get("evidence_kind") == "independent_view"
+                            and e.get("supports_defect") is True for e in cand["evidence"])):
+            verdict = "LIKELY_DEFECT"
+            notes.append("Confirmation requires an independent view under this inspection's configured policy.")
         cand["status"] = verdict
         cand["label"] = label
         cand["label_basis"] = basis
@@ -364,6 +412,8 @@ class InspectionToolbelt:
             evidence={"verdict": verdict, "label": label, "basis": basis, "notes": notes,
                       "evidence_count": len(cand["evidence"])},
         )
+        if verdict == "NEEDS_REVIEW":
+            await self.request_human_review(region_id, "; ".join(notes) or basis)
         self._save_state()
         return {"ok": True, "verdict": verdict, "label": label, "notes": notes}
 
@@ -373,6 +423,10 @@ class InspectionToolbelt:
         cand = self.state.get("candidates", {}).get(region_id)
         if cand is None:
             raise ToolError(f"unknown region {region_id!r}")
+        existing = next((review for review in self.state.get("review_requests", [])
+                         if review.get("region_id") == region_id and not review.get("resolved")), None)
+        if existing is not None:
+            return {"ok": True, "review": existing}
         review = {
             "region_id": region_id,
             "reason": reason,

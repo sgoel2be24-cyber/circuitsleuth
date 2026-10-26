@@ -1,0 +1,169 @@
+{
+  "commit": "08e98c4db5922613fb97176eb3d6497d48260cb1",
+  "selection": "first listed test pair for six named groups; no score-based selection",
+  "data_terms": "Research only per original README; repository code MIT does not override dataset restriction",
+  "files": [
+    {
+      "group": "group00041",
+      "path": "PCBData/group00041/00041/00041200_temp.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group00041/00041/00041200_temp.jpg",
+      "git_blob_sha1": "c01c8f4c2dd892a6cb8f4202bac15cde500b0fa0",
+      "sha256": "897a11fa3e50e1785a291e27648eabbc2ea7efbe2c06ba9b04fe81dc6aa4377b",
+      "bytes": 28504,
+      "local": "data/deeppcb/00041200_temp.jpg"
+    },
+    {
+      "group": "group00041",
+      "path": "PCBData/group00041/00041/00041200_test.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group00041/00041/00041200_test.jpg",
+      "git_blob_sha1": "a3d8f659031dfd0a848bf30323b41ad66117b3fe",
+      "sha256": "252a00450eb408a307fc49142b609e6852d087be5af77f5f77f3b366eb0a588e",
+      "bytes": 18549,
+      "local": "data/deeppcb/00041200_test.jpg"
+    },
+    {
+      "group": "group00041",
+      "path": "PCBData/group00041/00041_not/00041200.txt",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group00041/00041_not/00041200.txt",
+      "git_blob_sha1": "e9ab4c847ca0794f2eb94bfcbf3f761b6c49d061",
+      "sha256": "de04446792c8b4fdf45577a1093709e1e1cde694a31477169b65204a5abcc79b",
+      "bytes": 89,
+      "local": "data/deeppcb/00041200.txt"
+    },
+    {
+      "group": "group13000",
+      "path": "PCBData/group13000/13000/13000198_temp.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group13000/13000/13000198_temp.jpg",
+      "git_blob_sha1": "3914a1cb239694c61106bcc6e4b757f97b5625fe",
+      "sha256": "92d6c89f577c2280b1ea69315ba207b03aa01adfb0e0a7ff77694706715a8722",
+      "bytes": 9854,
+      "local": "data/deeppcb/13000198_temp.jpg"
+    },
+    {
+      "group": "group13000",
+      "path": "PCBData/group13000/13000/13000198_test.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group13000/13000/13000198_test.jpg",
+      "git_blob_sha1": "0993fee67862fe3be1d76a5546d872d1f573547f",
+      "sha256": "e6a2f398e3aa129baa206de3aa1b469358a35b74cd5ba349add854939e7548e1",
+      "bytes": 8975,
+      "local": "data/deeppcb/13000198_test.jpg"
+    },
+    {
+      "group": "group13000",
+      "path": "PCBData/group13000/13000_not/13000198.txt",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group13000/13000_not/13000198.txt",
+      "git_blob_sha1": "627c75e00e716df50c83eca7fcb1af2409a4067f",
+      "sha256": "95f783663c53fb7fea5e63f2577b4dca37d82a9c710e1016f5d2058ac7322f81",
+      "bytes": 69,
+      "local": "data/deeppcb/13000198.txt"
+    },
+    {
+      "group": "group20085",
+      "path": "PCBData/group20085/20085/20085291_temp.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group20085/20085/20085291_temp.jpg",
+      "git_blob_sha1": "cc4d3a0993c6969f80b24c8689cb0c399b15a9f6",
+      "sha256": "0acdddf289242ff9f3dc51f4dbdd01d30adf82213b738ade760c68401ac6695d",
+      "bytes": 76177,
+      "local": "data/deeppcb/20085291_temp.jpg"
+    },
+    {
+      "group": "group20085",
+      "path": "PCBData/group20085/20085/20085291_test.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group20085/20085/20085291_test.jpg",
+      "git_blob_sha1": "f56c18c828d88dcb1851a4509e27a89ba3abe595",
+      "sha256": "df2796eb4fb667978f28912984f93d2889ab71bf9d9e2953cb8e43ae7a5da6a9",
+      "bytes": 48314,
+      "local": "data/deeppcb/20085291_test.jpg"
+    },
+    {
+      "group": "group20085",
+      "path": "PCBData/group20085/20085_not/20085291.txt",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group20085/20085_not/20085291.txt",
+      "git_blob_sha1": "43b989a6904a8601f6bc32cd78732ff03b56ef76",
+      "sha256": "443ccefe7c6dffec6fd0c83e5becfd90f1ae96bb204080b76c42713ad7954d09",
+      "bytes": 158,
+      "local": "data/deeppcb/20085291.txt"
+    },
+    {
+      "group": "group50600",
+      "path": "PCBData/group50600/50600/50600050_temp.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group50600/50600/50600050_temp.jpg",
+      "git_blob_sha1": "1e73fcf38ea000432554d82b3f89a6f37e683ea5",
+      "sha256": "2c5993de3300858b12d3fed08b41f5ebd0c48cf1d8d8d7747d13a0007f202878",
+      "bytes": 60739,
+      "local": "data/deeppcb/50600050_temp.jpg"
+    },
+    {
+      "group": "group50600",
+      "path": "PCBData/group50600/50600/50600050_test.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group50600/50600/50600050_test.jpg",
+      "git_blob_sha1": "7535b4ba4578751473b3c1e3ffe8b6568a36632a",
+      "sha256": "10141bfea4fae4ec42f20a3331e5b1fe5314aa415d176c36f9e31134041846a1",
+      "bytes": 49454,
+      "local": "data/deeppcb/50600050_test.jpg"
+    },
+    {
+      "group": "group50600",
+      "path": "PCBData/group50600/50600_not/50600050.txt",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group50600/50600_not/50600050.txt",
+      "git_blob_sha1": "5a7c398a4cbd7f7c1ac55300236991918ec3c160",
+      "sha256": "05bccabcaa35540444dba77c61877c670bbd1172a8c87d2ecc4d644f80800ced",
+      "bytes": 90,
+      "local": "data/deeppcb/50600050.txt"
+    },
+    {
+      "group": "group77000",
+      "path": "PCBData/group77000/77000/77000100_temp.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group77000/77000/77000100_temp.jpg",
+      "git_blob_sha1": "ee356411b531a4d7f489fc50ebb3ec8bbf6387e8",
+      "sha256": "9c0f5b89e055b3ff5ece068f3f1acf81174da71d11b1b2feea1c2f6434c9e3c5",
+      "bytes": 38373,
+      "local": "data/deeppcb/77000100_temp.jpg"
+    },
+    {
+      "group": "group77000",
+      "path": "PCBData/group77000/77000/77000100_test.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group77000/77000/77000100_test.jpg",
+      "git_blob_sha1": "a4e714fed9005b571460d1cdfebdd62b5a6f0bfc",
+      "sha256": "47c19dd72d383abbf23c1bb700634a856e7d52f234672fef579020abc26297ef",
+      "bytes": 24886,
+      "local": "data/deeppcb/77000100_test.jpg"
+    },
+    {
+      "group": "group77000",
+      "path": "PCBData/group77000/77000_not/77000100.txt",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group77000/77000_not/77000100.txt",
+      "git_blob_sha1": "76ce529dea73914de4f7703ffda4767480b0cfff",
+      "sha256": "4fef5dac90f3dce2c6a63eb5a9f04a36edf9b7b62cd29c6146bb74e9c5273014",
+      "bytes": 69,
+      "local": "data/deeppcb/77000100.txt"
+    },
+    {
+      "group": "group92000",
+      "path": "PCBData/group92000/92000/92000111_temp.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group92000/92000/92000111_temp.jpg",
+      "git_blob_sha1": "514dd1ec424b58424f9897ffaa7512e443a716cf",
+      "sha256": "221955d2f6c41a2214115391650478b23b5b931fa84abb09a6c1ed6a9cfa075d",
+      "bytes": 36564,
+      "local": "data/deeppcb/92000111_temp.jpg"
+    },
+    {
+      "group": "group92000",
+      "path": "PCBData/group92000/92000/92000111_test.jpg",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group92000/92000/92000111_test.jpg",
+      "git_blob_sha1": "30fd183fa36ab6b152cdb1be47d87ec2bf395c20",
+      "sha256": "81b29821cac5c9d3a6ff13d470586efdc327498bbce40475f76457b7a0aae40f",
+      "bytes": 22964,
+      "local": "data/deeppcb/92000111_test.jpg"
+    },
+    {
+      "group": "group92000",
+      "path": "PCBData/group92000/92000_not/92000111.txt",
+      "url": "https://raw.githubusercontent.com/tangsanli5201/DeepPCB/08e98c4db5922613fb97176eb3d6497d48260cb1/PCBData/group92000/92000_not/92000111.txt",
+      "git_blob_sha1": "4abeb36b4f309c5059638398b0745658d3be4f34",
+      "sha256": "cad3f6321864baad30a4261a18fa4ef0eba17426154636ae0a6cc48466e2edd9",
+      "bytes": 54,
+      "local": "data/deeppcb/92000111.txt"
+    }
+  ]
+}

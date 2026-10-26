@@ -1,0 +1,21 @@
+{
+  "changed": [
+    "deploy/README.md",
+    "docs/EVALUATION.md",
+    "frontend/src/components/CandidateCrops.tsx",
+    "frontend/src/components/RegionDetail.tsx",
+    "frontend/src/index.css",
+    "frontend/src/pages/Dashboard.tsx",
+    "frontend/src/pages/Workspace.tsx",
+    "README.md",
+    "scripts/verify_local.ps1",
+    "submission/DEVPOST.md"
+  ],
+  "new_source_files": [
+    "scripts/verify_local.py",
+    "docs/POLISH_REVIEW.md",
+    "docs/TECHNICAL_REPORT.md"
+  ],
+  "preserved_file_count": 635,
+  "backend_data_evaluation_unchanged": true
+}

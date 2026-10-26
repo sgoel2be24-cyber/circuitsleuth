@@ -5,15 +5,16 @@ import { VerdictChip } from '../components/ui'
 import type { Verdict } from '../types'
 
 export function ReportView({ inspectionId, ins }: { inspectionId: string; ins: Inspection }) {
-  const [report, setReport] = useState<Report | null>(ins.report)
-  const [missing, setMissing] = useState(false)
+  const [fetchedReport, setReport] = useState<Report | null>(null)
+  const report = ins.report ?? fetchedReport
 
   useEffect(() => {
-    if (ins.report) { setReport(ins.report); return }
-    api.getReport(inspectionId).then(setReport).catch(() => setMissing(true))
+    let active = true
+    if (!ins.report) api.getReport(inspectionId).then(r => { if (active) setReport(r) }).catch(() => {})
+    return () => { active = false }
   }, [inspectionId, ins.report])
 
-  if (missing || !report) {
+  if (!report) {
     return (
       <p className="p-6 text-center text-xs text-slate-500">
         The report is generated when the inspection completes.
@@ -71,7 +72,7 @@ export function ReportView({ inspectionId, ins }: { inspectionId: string; ins: I
       <h4 className="mt-4 text-xs font-semibold tracking-wide text-slate-300">Verdicts</h4>
       <div className="mt-1.5 space-y-1.5">
         {report.verdicts.length === 0 && (
-          <p className="text-xs text-slate-500">No candidate regions were detected.</p>
+          <p className="text-xs text-slate-400">{report.stop_reason === 'registration_failed' ? 'Not evaluable: image registration failed. No defect assessment was possible.' : 'No candidate regions were detected.'}</p>
         )}
         {report.verdicts.map((v) => (
           <div key={v.region_id} className="rounded-lg ring-1 ring-[#223047] p-2.5">

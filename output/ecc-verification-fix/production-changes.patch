@@ -1,0 +1,533 @@
+--- a/backend/app/cv/registration.py
++++ b/backend/app/cv/registration.py
+@@ -233,11 +233,30 @@
+     return warped, mask
+ 
+ 
++def _invert_ecc_warp(warp: np.ndarray) -> np.ndarray:
++    """Cross the ECC reference->test boundary; public warps map test->reference.
++
++    Reject non-finite, singular and reflected updates rather than passing an
++    unusable transform to downstream pixel/evidence operations.
++    """
++    matrix = np.asarray(warp, dtype=np.float32).reshape(2, 3)
++    if not np.isfinite(matrix).all() or np.linalg.det(matrix[:, :2]) <= 1e-6:
++        raise ValueError("invalid ECC affine transform")
++    return cv2.invertAffineTransform(matrix).astype(np.float32)
++
++
+ def _ecc_attempt(ref: np.ndarray, test: np.ndarray, init: np.ndarray | None) -> RegistrationResult:
+-    """ECC alignment, coarse-to-fine; returns refined transform or failure."""
++    """ECC alignment, coarse-to-fine; accepts/returns a forward test->ref warp."""
+     h, w = ref.shape[:2]
+-    warp = (np.eye(3, dtype=np.float32)[:2] if init is None else np.asarray(init, np.float32).copy()).reshape(2, 3)
+     attempts_info: list[str] = ["ECC"]
++    try:
++        # ECC optimizes the opposite mapping, including its initializer.
++        warp = np.eye(2, 3, dtype=np.float32) if init is None else _invert_ecc_warp(init)
++    except ValueError as exc:
++        return RegistrationResult(None, None, None, {
++            "detector": "ECC", "attempts": attempts_info, "quality": "failed",
++            "failure_reason": str(exc),
++        })
+     scale = 1.0
+     for scale in (0.5, 1.0):  # coarse first for large displacements
+         small_ref = cv2.resize(ref, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+@@ -262,8 +281,15 @@
+             )
+         warp = small_warp.copy()
+         warp[:, 2] /= scale
+-    # warp now maps full-res test -> reference
+-    if cc < 0.65:
++    # Convert the full-resolution ECC result back to the public convention.
++    try:
++        warp = _invert_ecc_warp(warp)
++    except ValueError as exc:
++        return RegistrationResult(None, None, None, {
++            "detector": "ECC", "attempts": attempts_info, "quality": "failed",
++            "failure_reason": str(exc),
++        })
++    if not np.isfinite(cc) or cc < 0.65:
+         # Two different boards can still reach moderate ECC correlation because
+         # of shared layout style; require strong correlation before trusting a
+         # keypoint-less alignment.
+@@ -290,15 +316,15 @@
+         cc, refined = cv2.findTransformECC(
+             ref.astype(np.float32) / 255.0,
+             test.astype(np.float32) / 255.0,
+-            np.ascontiguousarray(warp.astype(np.float32).reshape(2, 3)),
++            np.ascontiguousarray(_invert_ecc_warp(warp)),
+             MOTION_AFFINE,
+             ECC_TERM,
+             None,
+             5,
+         )
+-        if cc > 0.1:
+-            return refined.astype(np.float32), float(cc)
+-    except cv2.error:
++        if np.isfinite(cc) and cc > 0.1:
++            return _invert_ecc_warp(refined), float(cc)
++    except (cv2.error, ValueError):
+         pass
+     return warp.astype(np.float32), 0.0
+ 
+--- a/backend/app/cv/verification.py
++++ b/backend/app/cv/verification.py
+@@ -6,18 +6,20 @@
+   R1  registration poor/failed and never recovered          -> NOT_EVALUABLE
+   R2  candidate touches the warp-invalid border and no
+       independent view resolved it                          -> NOT_EVALUABLE
+-  R3  local realignment removed >70% of the difference      -> CLEARED (alignment artifact)
++  R3  conflicting local/independent evidence               -> NEEDS_REVIEW
+   R4  an independent view was compared:
+         - anomaly persists + strong baseline                -> CONFIRMED_DEFECT
+         - anomaly persists                                  -> LIKELY_DEFECT
+         - anomaly absent, comparison reliable               -> CLEARED (observation artifact)
+         - unreliable comparison                             -> NEEDS_REVIEW
++      otherwise a reliable local realignment may clear;
++      unqualified/inconclusive local evidence              -> NEEDS_REVIEW
+   R5  strong baseline + >=2 reprocessing tools agree        -> CONFIRMED_DEFECT
+   R6  moderate baseline + >=1 tool agrees                   -> LIKELY_DEFECT
+   R7  illumination confound with no structural support      -> CLEARED
+   R8  otherwise                                             -> NEEDS_REVIEW
+ 
+-"Strong baseline" = difference_score >= 0.15 AND structural_mismatch >= 0.40.
++"Strong baseline" = difference_score >= 0.15 AND structural_mismatch >= 0.32.
+ "Moderate" = difference_score >= 0.08 OR structural_mismatch >= 0.30.
+ Classification (label) is separate from verdict and may honestly be
+ "unclassified_surface_anomaly".
+@@ -64,15 +66,20 @@
+     strong = diff >= STRONG_DIFF and mismatch >= STRONG_MISMATCH
+     moderate = diff >= MODERATE_DIFF or mismatch >= MODERATE_MISMATCH
+ 
+-    realign_support = _supports(evidence, {"local_realignment"})
+-    realign_refute = _refutes(evidence, {"local_realignment"})
++    local_evidence = [e for e in evidence if e.get("evidence_kind") == "local_realignment"]
++    # Older persisted evidence has neither consistent units nor a support
++    # quality gate. Retain its audit record, but do not trust it to clear.
++    qualified_local = [e for e in local_evidence
++                       if (e.get("metrics") or {}).get("comparison_reliable") is True]
++    realign_support = _supports(qualified_local, {"local_realignment"})
++    realign_refute = _refutes(qualified_local, {"local_realignment"})
+     view_support = _supports(evidence, {"independent_view"})
+     view_refute = _refutes(evidence, {"independent_view"})
+     reprocess_support = _supports(evidence, {"difference_severity", "edge_topology", "illumination_confound"})
+     reprocess_refute = _refutes(evidence, {"difference_severity", "edge_topology", "illumination_confound"})
+ 
+     # R1 — handled by caller for registration-level failure; still guard here.
+-    if registration_quality in ("poor", "failed") and not view_support and not realign_refute:
++    if registration_quality in ("poor", "failed") and not view_support:
+         return "NOT_EVALUABLE", None, "registration unreliable", [
+             "Registration quality was %s; refusing to report defects without independent confirmation." % registration_quality
+         ]
+@@ -83,12 +90,12 @@
+             "Candidate touches the region where warped test pixels are missing; evidence incomplete."
+         ]
+ 
+-    # R3 — local realignment cleared it
+-    if realign_refute:
+-        m = realign_refute[-1].get("metrics", {})
+-        return "CLEARED", None, "registration artifact", [
+-            "Local ECC realignment removed %s of the local difference; the anomaly was misalignment."
+-            % m.get("reduction_ratio", "?")
++    # R3 — no single source overrides an explicit evidence conflict.
++    if ((view_support and _refutes(local_evidence, {"local_realignment"}))
++            or (view_refute and realign_support) or (view_support and view_refute)
++            or (realign_support and realign_refute)):
++        return "NEEDS_REVIEW", *_classify(cand, evidence), [
++            "Conflicting evidence from local realignment or independent captures; operator review required."
+         ]
+ 
+     # R4 — independent view was actually compared
+@@ -110,6 +117,18 @@
+             "Independent view comparison was unreliable; additional reprocessing cannot resolve this evidence gap."
+         ]
+ 
++    if local_evidence and (len(qualified_local) != len(local_evidence)
++                           or any(e.get("supports_defect") is None for e in local_evidence)):
++        return "NEEDS_REVIEW", *_classify(cand, evidence), [
++            "Local alignment evidence was unreliable or inconclusive; it cannot justify an automatic verdict."
++        ]
++
++    if realign_refute:
++        m = realign_refute[-1].get("metrics", {})
++        return "CLEARED", None, "registration artifact", [
++            "Reliable local ECC removed %s of the local difference on common observed pixels, with no coherent residual."
++            % m.get("reduction_ratio", "?")
++        ]
+     # R5/R6/R7 — reprocessing evidence only
+     if strong and quality >= 0.35 and len(reprocess_support) >= 2 and not reprocess_refute:
+         verdict = "CONFIRMED_DEFECT"
+@@ -124,7 +143,7 @@
+         and (e.get("metrics") or {}).get("illumination_confound_likely")
+         for e in evidence
+     )
+-    if (cand.get("illumination_suspect") or confound_proven) and not reprocess_support:
++    if (cand.get("illumination_suspect") or confound_proven) and not reprocess_support and not realign_support:
+         return "CLEARED", None, "illumination confound", [
+             "Difference is high but structural mismatch is low and adaptive-threshold analysis found no geometry change — consistent with glare/shadow."
+         ]
+--- a/backend/app/cv/region_tools.py
++++ b/backend/app/cv/region_tools.py
+@@ -24,6 +24,8 @@
+ from .detection import local_ncc
+ from .imaging import crop_clamped
+ from .registration import register
++
++ECC_LOCAL_TERM = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 100, 1e-7)
+ 
+ 
+ @dataclass
+@@ -197,38 +199,87 @@
+ 
+ 
+ def tool_local_realignment(ctx: ToolContext, region_id: str, bbox: list[int]) -> ToolOutcome:
+-    """Test the 'local misalignment' hypothesis with ECC inside the region.
+-
+-    If a fine local affine alignment removes most of the difference, the
+-    candidate was a registration artifact, not a defect.
++    """Fit surrounding context, then compare the candidate on common pixels.
++
++    ECC returns reference->test, so resampling uses WARP_INVERSE_MAP. Both
++    residuals are measured in 0..255 units on the SAME valid core pixels.
++    A failed/unobservable fit is inconclusive, never evidence for clearing.
+     """
+     t0 = time.perf_counter()
+     x, y, w, h = _pad_bbox(*bbox, ctx.ref_gray.shape, pad=24)
+-    ref_crop = crop_clamped(ctx.ref_gray, x, y, w, h).astype(np.float32) / 255.0
+-    test_crop = crop_clamped(ctx.test_aligned, x, y, w, h).astype(np.float32) / 255.0
+-    before = float(cv2.absdiff((ref_crop * 255).astype(np.uint8), (test_crop * 255).astype(np.uint8)).mean())
+-    try:
+-        cc, warp = cv2.findTransformECC(
+-            ref_crop, test_crop, np.ascontiguousarray(np.eye(2, 3, dtype=np.float32)),
+-            cv2.MOTION_AFFINE, (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 100, 1e-7), None, 5,
+-        )
+-        realigned = cv2.warpAffine(test_crop, warp, (w, h))
+-        after = float(cv2.absdiff(ref_crop, realigned).mean())
+-        reduction = float(np.clip(1.0 - (after + 1e-6) / (before + 1e-6), -1, 1))
+-    except cv2.error:
+-        cc, after, reduction = 0.0, before, 0.0
++    ref_crop = crop_clamped(ctx.ref_gray, x, y, w, h).astype(np.float32)
++    test_crop = crop_clamped(ctx.test_aligned, x, y, w, h).astype(np.float32)
++    valid = (crop_clamped(ctx.valid_mask, x, y, w, h) > 0
++             if ctx.valid_mask is not None else np.ones((h, w), dtype=bool))
++    core = np.zeros((h, w), np.uint8)
++    bx, by, bw, bh = bbox
++    core[max(0, by-y):min(h, by+bh-y), max(0, bx-x):min(w, bx+bw-x)] = 1
++    # Estimate motion from the surroundings, excluding the suspected change
++    # and a halo for ECC's smoothing kernel. Do not fit a defect away.
++    fit_mask = valid & ~cv2.dilate(core, np.ones((7, 7), np.uint8)).astype(bool)
++    before = after = reduction = cc = 0.0
++    common_fraction = 0.0
++    max_displacement = 0.0
++    residual_component = 0
++    reliable = False
++    reason = "insufficient observed or textured context"
++    enough_context = int(fit_mask.sum()) >= 64
++    if enough_context and min(float(ref_crop[fit_mask].std()), float(test_crop[fit_mask].std())) >= 2:
++        try:
++            cc, warp = cv2.findTransformECC(
++                ref_crop / 255.0, test_crop / 255.0, np.eye(2, 3, dtype=np.float32),
++                cv2.MOTION_AFFINE, ECC_LOCAL_TERM, (fit_mask.astype(np.uint8) * 255), 5,
++            )
++            if not np.isfinite(warp).all() or not np.isfinite(cc):
++                raise ValueError("non-finite local transform")
++            corners = np.float32([[[0, 0], [w-1, 0], [0, h-1], [w-1, h-1]]])
++            max_displacement = float(np.linalg.norm(cv2.transform(corners, warp) - corners, axis=2).max())
++            determinant = float(np.linalg.det(warp[:, :2]))
++            reason = "unreliable or excessive local transform"
++            if (np.isfinite(warp).all() and np.isfinite(cc) and cc >= 0.7
++                    and 0.9 <= determinant <= 1.1 and max_displacement <= 6.0):
++                realigned = cv2.warpAffine(test_crop, warp, (w, h),
++                                          flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP)
++                warped_support = cv2.warpAffine(valid.astype(np.float32), warp, (w, h),
++                                               flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP)
++                common = valid & (warped_support >= 0.999) & core.astype(bool)
++                common_fraction = float(common.sum() / max(int(core.sum()), 1))
++                reason = "insufficient common observed candidate pixels"
++                if common.sum() >= 8 and common_fraction >= 0.9:
++                    before = float(cv2.absdiff(ref_crop, test_crop)[common].mean())
++                    residual = cv2.absdiff(ref_crop, realigned)
++                    after = float(residual[common].mean())
++                    reduction = float(np.clip(1.0 - (after + 1e-6) / (before + 1e-6), -1, 1))
++                    # A large average improvement can still leave a tiny real
++                    # defect. Retain any coherent residual instead of clearing.
++                    remaining = ((residual >= 12) & common).astype(np.uint8)
++                    _, _, stats, _ = cv2.connectedComponentsWithStats(remaining, connectivity=8)
++                    residual_component = int(stats[1:, cv2.CC_STAT_AREA].max()) if len(stats) > 1 else 0
++                    reliable = True
++                    reason = "common observed support and bounded context alignment"
++        except (cv2.error, ValueError):
++            reason = "local ECC did not converge or produced a non-finite transform"
+     metrics = {
+         "mean_diff_before": round(before, 2),
+         "mean_diff_after": round(after, 2),
+         "reduction_ratio": round(reduction, 4),
+-        "ecc_correlation": round(float(cc), 4),
++        "ecc_correlation": round(float(cc), 4) if np.isfinite(cc) else 0.0,
++        "comparison_reliable": reliable,
++        "common_valid_fraction": round(common_fraction, 4),
++        "max_displacement_px": round(max_displacement, 3) if np.isfinite(max_displacement) else 0.0,
++        "residual_component_area_px": residual_component,
++        "measurement_version": "local_ecc_v2",
++        "intensity_scale": "0..255",
++        "comparison_reason": reason,
+     }
+     supports = None
+     summary = ""
+-    if reduction > 0.7:
++    if not reliable:
++        summary = f"Local alignment inconclusive: {reason}; retain review."
++    elif reduction > 0.7 and after <= 4.0 and residual_component < 3:
+         supports = False
+         summary = f"Local ECC alignment removed {reduction:.0%} of the difference — registration artifact."
+-    elif reduction < 0.25:
++    elif reduction < 0.25 and after > 4.0:
+         supports = True
+         summary = f"Local alignment leaves {after:.1f} mean diff ({reduction:.0%} change) — difference is real geometry, not alignment."
+     else:
+--- a/backend/tests/test_region_tools.py
++++ b/backend/tests/test_region_tools.py
+@@ -104,7 +104,7 @@
+ 
+     ev_realign_cleared = [{"evidence_kind": "local_realignment", "source_tool": "local_realignment",
+                            "supports_defect": False,
+-                           "metrics": {"reduction_ratio": 0.9}}]
++                           "metrics": {"reduction_ratio": 0.9, "comparison_reliable": True}}]
+     verdict, _, basis, _ = ver.verify_candidate(base, ev_realign_cleared, "good")
+     assert verdict == "CLEARED" and "artifact" in basis
+ 
+--- /dev/null
++++ b/backend/tests/test_alignment_evidence.py
+@@ -0,0 +1,231 @@
++"""Known-motion and evidence-conflict regressions, independent of PCB templates."""
++
++import cv2
++import numpy as np
++import pytest
++
++from app.cv import registration as reg
++from app.cv import region_tools as rt
++from app.cv.verification import verify_candidate
++
++
++def texture():
++    rng = np.random.default_rng(8)
++    image = cv2.GaussianBlur(rng.integers(15, 240, (240, 320), dtype=np.uint8), (7, 7), 0)
++    cv2.putText(image, 'PCB 26', (35, 125), cv2.FONT_HERSHEY_SIMPLEX, 1.5, 230, 3)
++    return image
++
++
++def context(ref, test, valid=None):
++    return rt.ToolContext(ref, test, test, valid, cv2.absdiff(ref, test), np.zeros_like(ref, dtype=np.float32))
++
++
++def candidate():
++    return dict(difference_score=0.3, structural_mismatch_score=0.7,
++                evidence_quality_score=0.9, area_px=100)
++
++
++def evidence(kind, supports, reliable=True):
++    return dict(evidence_kind=kind, source_tool=kind, supports_defect=supports,
++                metrics=dict(comparison_reliable=reliable, reduction_ratio=0.9))
++
++
++@pytest.mark.parametrize('init', [None, np.float32([[1, 0, -2.5], [0, 1, 1.5]])])
++def test_ecc_pyramid_returns_forward_test_to_reference(init):
++    ref = texture()
++    shifted = cv2.warpAffine(ref, np.float32([[1, 0, 3], [0, 1, -2]]), (320, 240))
++    result = reg._ecc_attempt(ref, shifted, init)
++    assert result.ok
++    np.testing.assert_allclose(result.warp[:, 2], [-3, 2], atol=0.6)
++    interior = np.s_[20:-20, 20:-20]
++    error = np.abs(ref[interior].astype(float) - result.warped_test[interior]).mean()
++    assert error < 3.0
++
++
++def test_ecc_refinement_inverts_initializer_and_result():
++    ref = texture()
++    shifted = cv2.warpAffine(ref, np.float32([[1, 0, 3], [0, 1, -2]]), (320, 240))
++    refined, correlation = reg._ecc_refine(ref, shifted, np.float32([[1, 0, -2.5], [0, 1, 1.5]]))
++    assert correlation > 0.9
++    np.testing.assert_allclose(refined[:, 2], [-3, 2], atol=0.6)
++
++
++@pytest.mark.parametrize('bad_warp', [
++    np.float32([[0, 0, 0], [0, 0, 0]]),
++    np.float32([[-1, 0, 0], [0, 1, 0]]),
++    np.float32([[1, 0, np.nan], [0, 1, 0]]),
++])
++def test_invalid_ecc_output_never_replaces_input(monkeypatch, bad_warp):
++    monkeypatch.setattr(cv2, 'findTransformECC', lambda *a: (0.99, bad_warp.copy()))
++    initial = np.float32([[1, 0, -3], [0, 1, 2]])
++    refined, correlation = reg._ecc_refine(texture(), texture(), initial)
++    np.testing.assert_array_equal(refined, initial)
++    assert correlation == 0
++    assert not reg._ecc_attempt(texture(), texture(), None).ok
++
++
++def test_local_defect_is_not_erased_by_mixed_units():
++    ref = texture()
++    test = ref.copy()
++    cv2.circle(test, (150, 120), 9, 20, -1)
++    outcome = rt.tool_local_realignment(context(ref, test), 'R01', [138, 108, 24, 24])
++    assert outcome.supports_defect is not False
++    assert outcome.metrics['mean_diff_after'] > 1.0 or not outcome.metrics['comparison_reliable']
++    assert outcome.metrics['measurement_version'] == 'local_ecc_v2'
++
++
++def test_local_translation_can_clear_with_common_support():
++    ref = texture()
++    shifted = cv2.warpAffine(ref, np.float32([[1, 0, 2], [0, 1, -1]]), (320, 240))
++    outcome = rt.tool_local_realignment(context(ref, shifted), 'R01', [100, 80, 90, 70])
++    assert outcome.metrics['comparison_reliable'] is True
++    assert outcome.metrics['mean_diff_after'] < 2
++    assert outcome.metrics['reduction_ratio'] > 0.7
++    assert outcome.supports_defect is False
++
++
++def test_local_translation_with_real_defect_must_not_clear():
++    ref = texture()
++    defective = ref.copy()
++    cv2.circle(defective, (150, 120), 6, 10, -1)
++    shifted = cv2.warpAffine(defective, np.float32([[1, 0, 2], [0, 1, -1]]), (320, 240))
++    outcome = rt.tool_local_realignment(context(ref, shifted), 'R01', [100, 80, 90, 70])
++    assert outcome.supports_defect is not False
++
++
++def test_local_ecc_failure_is_inconclusive(monkeypatch):
++    def fail(*args):
++        raise cv2.error('did not converge')
++    monkeypatch.setattr(cv2, 'findTransformECC', fail)
++    ref = texture()
++    outcome = rt.tool_local_realignment(context(ref, ref), 'R01', [100, 80, 40, 40])
++    assert outcome.supports_defect is None
++    assert outcome.metrics['comparison_reliable'] is False
++
++
++@pytest.mark.parametrize('mode', ['blank', 'missing_support'])
++def test_local_unobservable_regions_are_inconclusive(mode):
++    ref = np.full((240, 320), 80, np.uint8) if mode == 'blank' else texture()
++    valid = np.zeros_like(ref) if mode == 'missing_support' else None
++    outcome = rt.tool_local_realignment(context(ref, ref, valid), 'R01', [100, 80, 40, 40])
++    assert outcome.supports_defect is None
++    assert outcome.metrics['comparison_reliable'] is False
++
++
++@pytest.mark.parametrize('local,view', [(False, True), (True, False)])
++def test_conflicting_local_and_independent_evidence_requires_review(local, view):
++    ev = [evidence('local_realignment', local), evidence('independent_view', view)]
++    verdict, _, _, notes = verify_candidate(candidate(), ev, 'good')
++    assert verdict == 'NEEDS_REVIEW'
++    assert any('conflict' in n.lower() for n in notes)
++
++
++def test_inconclusive_view_is_not_overridden_by_local_clearance():
++    ev = [evidence('local_realignment', False), evidence('independent_view', None)]
++    assert verify_candidate(candidate(), ev, 'good')[0] == 'NEEDS_REVIEW'
++
++
++def test_old_unqualified_local_clearance_requires_review():
++    ev = [dict(evidence_kind='local_realignment', source_tool='local_realignment',
++               supports_defect=False, metrics={'reduction_ratio': 0.99})]
++    assert verify_candidate(candidate(), ev, 'good')[0] == 'NEEDS_REVIEW'
++
++
++def test_poor_registration_cannot_be_cleared_by_local_reprocessing():
++    assert verify_candidate(candidate(), [evidence('local_realignment', False)], 'poor')[0] == 'NOT_EVALUABLE'
++
++
++def test_failed_local_analysis_cannot_clear_an_illumination_suspect():
++    ev = [evidence('local_realignment', None, reliable=False)]
++    cand = dict(candidate(), illumination_suspect=True, structural_mismatch_score=0.1)
++    assert verify_candidate(cand, ev, 'good')[0] == 'NEEDS_REVIEW'
++
++
++def test_registration_does_not_expand_orb_after_poor_sift(monkeypatch):
++    tried = []
++    def keypoint(ref, test, detector):
++        tried.append(detector)
++        return reg.RegistrationResult(None, None, None, {'quality': 'poor', 'attempts': [detector]})
++    monkeypatch.setattr(reg, '_keypoint_attempt', keypoint)
++    monkeypatch.setattr(reg, '_ecc_attempt', lambda *a: reg.RegistrationResult(None, None, None, {'quality':'failed'}))
++    assert not reg.register(texture(), texture()).ok
++    assert tried == ['SIFT']
++
++
++@pytest.mark.parametrize('warp,correlation', [
++    (np.float32([[1, 0, 0], [0, 1, 0]]), 0.4),
++    (np.float32([[1, 0, 20], [0, 1, 0]]), 0.99),
++    (np.float32([[-1, 0, 0], [0, 1, 0]]), 0.99),
++    (np.float32([[1, 0, np.nan], [0, 1, 0]]), 0.99),
++    (np.float32([[1, 0, 0], [0, 1, 0]]), float('nan')),
++])
++def test_unreliable_local_transforms_have_no_vote_and_finite_metrics(monkeypatch, warp, correlation):
++    import json
++    monkeypatch.setattr(cv2, 'findTransformECC', lambda *a: (correlation, warp.copy()))
++    outcome = rt.tool_local_realignment(context(texture(), texture()), 'R01', [100, 80, 40, 40])
++    assert outcome.supports_defect is None
++    assert outcome.metrics['comparison_reliable'] is False
++    json.dumps(outcome.metrics, allow_nan=False)
++
++
++def test_missing_candidate_support_is_not_replaced_by_context(monkeypatch):
++    monkeypatch.setattr(cv2, 'findTransformECC', lambda *a: (0.99, np.eye(2, 3, dtype=np.float32)))
++    ref = texture()
++    valid = np.full_like(ref, 255)
++    valid[80:120, 100:140] = 0
++    outcome = rt.tool_local_realignment(context(ref, ref, valid), 'R01', [100, 80, 40, 40])
++    assert outcome.supports_defect is None
++    assert outcome.metrics['comparison_reliable'] is False
++    assert outcome.metrics['common_valid_fraction'] == 0
++
++
++def test_local_fit_excludes_candidate_from_its_input_mask(monkeypatch):
++    def inspect_mask(template, image, warp, motion, criteria, mask, gaussian):
++        # 24px context margin with 3px smoothing halo around the 40px core.
++        assert not mask[21:67, 21:67].any()
++        assert mask.any()
++        return 0.99, warp
++    monkeypatch.setattr(cv2, 'findTransformECC', inspect_mask)
++    ref = texture()
++    outcome = rt.tool_local_realignment(context(ref, ref), 'R01', [100, 80, 40, 40])
++    assert outcome.supports_defect is None  # identical pixels do not prove a change was removed
++
++
++def test_local_evidence_survives_persistence_and_report(tmp_path, monkeypatch):
++    import asyncio
++    import json
++    from app import store
++    from app.config import settings
++    from app.tools.registry import InspectionToolbelt
++
++    monkeypatch.setattr(settings, 'data_dir', tmp_path)
++    ref = texture()
++    shifted = cv2.warpAffine(ref, np.float32([[1, 0, 2], [0, 1, -1]]), (320, 240))
++    cand = dict(candidate(), bbox=[100, 80, 90, 70], status='SUSPECTED',
++                tools_used=[], evidence=[], notes=[], region_id='R01')
++    state = dict(id='ins_ecc_report',status='running',source='upload',config={'max_tool_calls':12},
++                 images={},registration={'quality':'good'},candidates={'R01':cand},
++                 events=[],review_requests=[],tool_calls_used=0,iterations=1)
++    belt = InspectionToolbelt(state, persist=True)
++    monkeypatch.setattr(belt, '_ensure_images', lambda: None)
++    monkeypatch.setattr(belt, '_build_context', lambda: context(ref, shifted))
++
++    async def inspect_and_report():
++        await belt.inspect_region('R01', 'local_realignment')
++        await belt.verify_candidate('R01')
++        return await belt.generate_inspection_report()
++
++    report = asyncio.run(inspect_and_report())
++    stored = store.load_state(state['id'])
++    entry = report['verdicts'][0]
++    assert entry['region_id'] == 'R01' and entry['status'] == 'CLEARED'
++    assert entry['evidence'][0]['metrics']['measurement_version'] == 'local_ecc_v2'
++    assert stored['report'] == report
++    seq = [e['seq'] for e in store.get_events(state['id'])]
++    assert seq == list(range(1, len(seq)+1))
++    json.dumps(report, allow_nan=False)
++
++
++def test_qualified_clearance_does_not_hide_an_inconclusive_local_attempt():
++    ev = [evidence('local_realignment', False), evidence('local_realignment', None, reliable=False)]
++    assert verify_candidate(candidate(), ev, 'good')[0] == 'NEEDS_REVIEW'

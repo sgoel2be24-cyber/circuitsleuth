@@ -1,0 +1,5 @@
+{
+  "non_timing_outputs_identical": true,
+  "baseline": "evaluation/results.json",
+  "rerun": "output/verification/benchmark/results.json"
+}

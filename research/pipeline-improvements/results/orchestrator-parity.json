@@ -1,0 +1,407 @@
+[
+  {
+    "profile": "mild",
+    "expected": [
+      {
+        "bbox": [
+          264,
+          246,
+          15,
+          6
+        ],
+        "status": "CONFIRMED_DEFECT",
+        "tools_used": [
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          316,
+          94,
+          8,
+          53
+        ],
+        "status": "LIKELY_DEFECT",
+        "tools_used": [
+          "adaptive_threshold",
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          601,
+          550,
+          75,
+          24
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "adaptive_threshold",
+          "alternate_view"
+        ]
+      }
+    ],
+    "actual": [
+      {
+        "bbox": [
+          264,
+          246,
+          15,
+          6
+        ],
+        "status": "CONFIRMED_DEFECT",
+        "tools_used": [
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          316,
+          94,
+          8,
+          53
+        ],
+        "status": "LIKELY_DEFECT",
+        "tools_used": [
+          "adaptive_threshold",
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          601,
+          550,
+          75,
+          24
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "adaptive_threshold",
+          "alternate_view"
+        ]
+      }
+    ],
+    "harness_calls": 5,
+    "actual_calls": 5,
+    "equal": true,
+    "stop_reason": "all_regions_decided"
+  },
+  {
+    "profile": "gain",
+    "expected": [
+      {
+        "bbox": [
+          264,
+          247,
+          15,
+          5
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "request_additional_view"
+        ]
+      },
+      {
+        "bbox": [
+          316,
+          94,
+          8,
+          53
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "adaptive_threshold",
+          "request_additional_view"
+        ]
+      },
+      {
+        "bbox": [
+          592,
+          551,
+          91,
+          23
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "adaptive_threshold",
+          "request_additional_view"
+        ]
+      },
+      {
+        "bbox": [
+          337,
+          567,
+          7,
+          6
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      },
+      {
+        "bbox": [
+          123,
+          447,
+          41,
+          7
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      }
+    ],
+    "actual": [
+      {
+        "bbox": [
+          264,
+          247,
+          15,
+          5
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "request_additional_view"
+        ]
+      },
+      {
+        "bbox": [
+          316,
+          94,
+          8,
+          53
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "adaptive_threshold",
+          "request_additional_view"
+        ]
+      },
+      {
+        "bbox": [
+          592,
+          551,
+          91,
+          23
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "adaptive_threshold",
+          "request_additional_view"
+        ]
+      },
+      {
+        "bbox": [
+          337,
+          567,
+          7,
+          6
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      },
+      {
+        "bbox": [
+          123,
+          447,
+          41,
+          7
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      }
+    ],
+    "harness_calls": 7,
+    "actual_calls": 7,
+    "equal": true,
+    "stop_reason": "all_regions_decided"
+  },
+  {
+    "profile": "glare",
+    "expected": [
+      {
+        "bbox": [
+          264,
+          246,
+          48,
+          14
+        ],
+        "status": "CONFIRMED_DEFECT",
+        "tools_used": [
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          333,
+          341,
+          11,
+          10
+        ],
+        "status": "LIKELY_DEFECT",
+        "tools_used": [
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          317,
+          94,
+          6,
+          53
+        ],
+        "status": "LIKELY_DEFECT",
+        "tools_used": [
+          "adaptive_threshold",
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          267,
+          340,
+          46,
+          19
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      },
+      {
+        "bbox": [
+          332,
+          281,
+          29,
+          40
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      },
+      {
+        "bbox": [
+          246,
+          280,
+          68,
+          42
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      },
+      {
+        "bbox": [
+          601,
+          551,
+          75,
+          23
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "adaptive_threshold",
+          "alternate_view"
+        ]
+      }
+    ],
+    "actual": [
+      {
+        "bbox": [
+          264,
+          246,
+          48,
+          14
+        ],
+        "status": "CONFIRMED_DEFECT",
+        "tools_used": [
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          333,
+          341,
+          11,
+          10
+        ],
+        "status": "LIKELY_DEFECT",
+        "tools_used": [
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          317,
+          94,
+          6,
+          53
+        ],
+        "status": "LIKELY_DEFECT",
+        "tools_used": [
+          "adaptive_threshold",
+          "alternate_view"
+        ]
+      },
+      {
+        "bbox": [
+          267,
+          340,
+          46,
+          19
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      },
+      {
+        "bbox": [
+          332,
+          281,
+          29,
+          40
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      },
+      {
+        "bbox": [
+          246,
+          280,
+          68,
+          42
+        ],
+        "status": "CLEARED",
+        "tools_used": [
+          "adaptive_threshold"
+        ]
+      },
+      {
+        "bbox": [
+          601,
+          551,
+          75,
+          23
+        ],
+        "status": "NEEDS_REVIEW",
+        "tools_used": [
+          "adaptive_threshold",
+          "alternate_view"
+        ]
+      }
+    ],
+    "harness_calls": 9,
+    "actual_calls": 9,
+    "equal": true,
+    "stop_reason": "all_regions_decided"
+  }
+]

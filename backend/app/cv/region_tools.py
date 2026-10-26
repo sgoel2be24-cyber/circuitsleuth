@@ -25,6 +25,8 @@ from .detection import local_ncc
 from .imaging import crop_clamped
 from .registration import register
 
+ECC_LOCAL_TERM = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 100, 1e-7)
+
 
 @dataclass
 class ToolOutcome:
@@ -197,38 +199,87 @@ def tool_adaptive_threshold(ctx: ToolContext, region_id: str, bbox: list[int]) -
 
 
 def tool_local_realignment(ctx: ToolContext, region_id: str, bbox: list[int]) -> ToolOutcome:
-    """Test the 'local misalignment' hypothesis with ECC inside the region.
+    """Fit surrounding context, then compare the candidate on common pixels.
 
-    If a fine local affine alignment removes most of the difference, the
-    candidate was a registration artifact, not a defect.
+    ECC returns reference->test, so resampling uses WARP_INVERSE_MAP. Both
+    residuals are measured in 0..255 units on the SAME valid core pixels.
+    A failed/unobservable fit is inconclusive, never evidence for clearing.
     """
     t0 = time.perf_counter()
     x, y, w, h = _pad_bbox(*bbox, ctx.ref_gray.shape, pad=24)
-    ref_crop = crop_clamped(ctx.ref_gray, x, y, w, h).astype(np.float32) / 255.0
-    test_crop = crop_clamped(ctx.test_aligned, x, y, w, h).astype(np.float32) / 255.0
-    before = float(cv2.absdiff((ref_crop * 255).astype(np.uint8), (test_crop * 255).astype(np.uint8)).mean())
-    try:
-        cc, warp = cv2.findTransformECC(
-            ref_crop, test_crop, np.ascontiguousarray(np.eye(2, 3, dtype=np.float32)),
-            cv2.MOTION_AFFINE, (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 100, 1e-7), None, 5,
-        )
-        realigned = cv2.warpAffine(test_crop, warp, (w, h))
-        after = float(cv2.absdiff(ref_crop, realigned).mean())
-        reduction = float(np.clip(1.0 - (after + 1e-6) / (before + 1e-6), -1, 1))
-    except cv2.error:
-        cc, after, reduction = 0.0, before, 0.0
+    ref_crop = crop_clamped(ctx.ref_gray, x, y, w, h).astype(np.float32)
+    test_crop = crop_clamped(ctx.test_aligned, x, y, w, h).astype(np.float32)
+    valid = (crop_clamped(ctx.valid_mask, x, y, w, h) > 0
+             if ctx.valid_mask is not None else np.ones((h, w), dtype=bool))
+    core = np.zeros((h, w), np.uint8)
+    bx, by, bw, bh = bbox
+    core[max(0, by-y):min(h, by+bh-y), max(0, bx-x):min(w, bx+bw-x)] = 1
+    # Estimate motion from the surroundings, excluding the suspected change
+    # and a halo for ECC's smoothing kernel. Do not fit a defect away.
+    fit_mask = valid & ~cv2.dilate(core, np.ones((7, 7), np.uint8)).astype(bool)
+    before = after = reduction = cc = 0.0
+    common_fraction = 0.0
+    max_displacement = 0.0
+    residual_component = 0
+    reliable = False
+    reason = "insufficient observed or textured context"
+    enough_context = int(fit_mask.sum()) >= 64
+    if enough_context and min(float(ref_crop[fit_mask].std()), float(test_crop[fit_mask].std())) >= 2:
+        try:
+            cc, warp = cv2.findTransformECC(
+                ref_crop / 255.0, test_crop / 255.0, np.eye(2, 3, dtype=np.float32),
+                cv2.MOTION_AFFINE, ECC_LOCAL_TERM, (fit_mask.astype(np.uint8) * 255), 5,
+            )
+            if not np.isfinite(warp).all() or not np.isfinite(cc):
+                raise ValueError("non-finite local transform")
+            corners = np.float32([[[0, 0], [w-1, 0], [0, h-1], [w-1, h-1]]])
+            max_displacement = float(np.linalg.norm(cv2.transform(corners, warp) - corners, axis=2).max())
+            determinant = float(np.linalg.det(warp[:, :2]))
+            reason = "unreliable or excessive local transform"
+            if (np.isfinite(warp).all() and np.isfinite(cc) and cc >= 0.7
+                    and 0.9 <= determinant <= 1.1 and max_displacement <= 6.0):
+                realigned = cv2.warpAffine(test_crop, warp, (w, h),
+                                          flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP)
+                warped_support = cv2.warpAffine(valid.astype(np.float32), warp, (w, h),
+                                               flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP)
+                common = valid & (warped_support >= 0.999) & core.astype(bool)
+                common_fraction = float(common.sum() / max(int(core.sum()), 1))
+                reason = "insufficient common observed candidate pixels"
+                if common.sum() >= 8 and common_fraction >= 0.9:
+                    before = float(cv2.absdiff(ref_crop, test_crop)[common].mean())
+                    residual = cv2.absdiff(ref_crop, realigned)
+                    after = float(residual[common].mean())
+                    reduction = float(np.clip(1.0 - (after + 1e-6) / (before + 1e-6), -1, 1))
+                    # A large average improvement can still leave a tiny real
+                    # defect. Retain any coherent residual instead of clearing.
+                    remaining = ((residual >= 12) & common).astype(np.uint8)
+                    _, _, stats, _ = cv2.connectedComponentsWithStats(remaining, connectivity=8)
+                    residual_component = int(stats[1:, cv2.CC_STAT_AREA].max()) if len(stats) > 1 else 0
+                    reliable = True
+                    reason = "common observed support and bounded context alignment"
+        except (cv2.error, ValueError):
+            reason = "local ECC did not converge or produced a non-finite transform"
     metrics = {
         "mean_diff_before": round(before, 2),
         "mean_diff_after": round(after, 2),
         "reduction_ratio": round(reduction, 4),
-        "ecc_correlation": round(float(cc), 4),
+        "ecc_correlation": round(float(cc), 4) if np.isfinite(cc) else 0.0,
+        "comparison_reliable": reliable,
+        "common_valid_fraction": round(common_fraction, 4),
+        "max_displacement_px": round(max_displacement, 3) if np.isfinite(max_displacement) else 0.0,
+        "residual_component_area_px": residual_component,
+        "measurement_version": "local_ecc_v2",
+        "intensity_scale": "0..255",
+        "comparison_reason": reason,
     }
     supports = None
     summary = ""
-    if reduction > 0.7:
+    if not reliable:
+        summary = f"Local alignment inconclusive: {reason}; retain review."
+    elif reduction > 0.7 and after <= 4.0 and residual_component < 3:
         supports = False
         summary = f"Local ECC alignment removed {reduction:.0%} of the difference — registration artifact."
-    elif reduction < 0.25:
+    elif reduction < 0.25 and after > 4.0:
         supports = True
         summary = f"Local alignment leaves {after:.1f} mean diff ({reduction:.0%} change) — difference is real geometry, not alignment."
     else:
