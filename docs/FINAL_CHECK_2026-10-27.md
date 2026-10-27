@@ -1,5 +1,7 @@
 # Final check — 27 October 2026
 
+> **Submitted and verified live — 27 October 2026, 11:06 a.m. IST.** Entry **1260290**, Agentic Vision Award. [Public project](https://devpost.com/software/circuitsleuth-team-update). [Receipt](../submission/SUBMISSION_RECEIPT_2026-10-27.json). The checkpoint and preparation text below predates this verified result.
+
 Team **Update**: Shikhar Goel and Ishpreet Singh.
 
 **Application checks passed. Competition submission still requires final human

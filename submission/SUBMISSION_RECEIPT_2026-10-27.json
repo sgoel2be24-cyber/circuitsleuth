@@ -1,0 +1,49 @@
+{
+  "submission_id": 1260290,
+  "status": "Submitted",
+  "hackathon_subdomain": "opencv26",
+  "project_slug": "circuitsleuth-team-update",
+  "submitted_at": "2026-10-27T01:36:14.416-04:00",
+  "url": "https://devpost.com/software/circuitsleuth-team-update",
+  "verified_live": true,
+  "verification_method": "Separate get_project read confirmed matching submitted_at for opencv26",
+  "team": {
+    "name": "Update",
+    "members": [
+      "Shikhar Goel",
+      "Ishpreet Singh"
+    ],
+    "devpost_profiles": [
+      "sgoel2be24-cyber",
+      "ISHPREET0101"
+    ]
+  },
+  "award": "Agentic Vision Award",
+  "opt_in_prize_ids": [
+    104731
+  ],
+  "application_source_commit": "f08f35a6ad3a9e4b7c888753308b72e20be7b773",
+  "portal_source_zip": {
+    "filename": "CircuitSleuth-Team-Update-portal.zip",
+    "bytes": 16878057,
+    "sha256": "6863be484c245035154ced2a51a9f3bc89927032b8ccabf903630be9662fba76",
+    "saved_on_portal": true
+  },
+  "video_url": "https://youtu.be/ucM4NiEHInE",
+  "public_demo_url": "https://decided-attributes-southwest-africa.trycloudflare.com",
+  "thumbnail": {
+    "file": "docs/screenshots/workspace.png",
+    "upload_http_status": 200,
+    "visible_on_portal": true,
+    "url": "https://d112y698adiu2z.cloudfront.net/photos/production/software_thumbnail_photos/005/717/903/datas/medium.png"
+  },
+  "user_confirmation": "User explicitly approved the prepared metadata/source/thumbnail and confirmed eligibility, rights, Official Rules, Devpost Terms and yes-submit in this chat.",
+  "portal_steps_complete": "5/5",
+  "limits": [
+    "Public demo is temporary and depends on the team Mac/server/tunnel remaining online.",
+    "Versioned AWS execution receipt covers 6281c2b; final fixes were validated locally and in Docker CI.",
+    "The team explicitly selected the video retaining guide text/camera placeholders as final after disclosure."
+  ],
+  "cash_spend_this_final_pass": 0,
+  "submitted_at_ist": "2026-10-27T11:06:14.416000+05:30"
+}

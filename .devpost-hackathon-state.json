@@ -1,0 +1,22 @@
+{
+  "hackathon": {
+    "subdomain": "opencv26",
+    "name": "OpenCV AI Competition 2026, powered by AWS",
+    "url": "https://opencv26.devpost.com/"
+  },
+  "rules_acknowledged": true,
+  "current_stage": "submit-project",
+  "next_command": "hackathon-map",
+  "completed_stages": [
+    "submit-project"
+  ],
+  "submission": {
+    "status": "submitted",
+    "project_slug": "circuitsleuth-team-update",
+    "submission_id": 1260290,
+    "url": "https://devpost.com/software/circuitsleuth-team-update",
+    "submitted_at": "2026-10-27T01:36:14.416-04:00",
+    "verified_live": true,
+    "receipt": "submission/SUBMISSION_RECEIPT_2026-10-27.json"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "status": "prepared values only; no submission performed",
+  "status": "Submitted to Devpost and verified live",
   "project_url": "https://devpost.com/software/circuitsleuth-team-update",
   "fields": {
     "28208": [
@@ -12,14 +12,22 @@
   "working_endpoint": "https://decided-attributes-southwest-africa.trycloudflare.com",
   "video_url": "https://youtu.be/ucM4NiEHInE",
   "source_zip": "CircuitSleuth-Team-Update-portal.zip",
-  "before_submission": [
-    "Attach the <=35 MB portal source ZIP and verify the saved fields.",
-    "Confirm team eligibility, third-party rights and agreement to official rules.",
-    "Obtain explicit final yes-submit authorization, then verify the Devpost submitted receipt."
-  ],
   "aws_execution": {
     "verified_commit": "6281c2be7d3832b26b3522202a5f5fea59af1825",
     "region": "eu-north-1",
     "later_final_fixes_cloud_rechecked": false
-  }
+  },
+  "completed_finalization_steps": [
+    "Attach the <=35 MB portal source ZIP and verify the saved fields.",
+    "Confirm team eligibility, third-party rights and agreement to official rules.",
+    "Obtain explicit final yes-submit authorization, then verify the Devpost submitted receipt."
+  ],
+  "submission_receipt": {
+    "id": 1260290,
+    "submitted_at": "2026-10-27T01:36:14.416-04:00",
+    "verified_live": true,
+    "url": "https://devpost.com/software/circuitsleuth-team-update",
+    "file": "submission/SUBMISSION_RECEIPT_2026-10-27.json"
+  },
+  "application_source_commit": "f08f35a6ad3a9e4b7c888753308b72e20be7b773"
 }
