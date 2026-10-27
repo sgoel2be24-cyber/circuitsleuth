@@ -1,0 +1,174 @@
+{
+  "inspection_id": "ins_e5a4b8987d5c",
+  "generated_at": "2026-10-27T10:00:26",
+  "registration": {
+    "detector": "SIFT",
+    "keypoints_reference": 791,
+    "keypoints_test": 792,
+    "good_matches": 191,
+    "inliers": 150,
+    "inlier_ratio": 0.7853,
+    "mean_residual_px": 0.138,
+    "coverage_score": 0.688,
+    "warp_matrix": [
+      [
+        0.9999912977218628,
+        1.5648503904230893e-05,
+        -0.011729995720088482
+      ],
+      [
+        1.3361810488277115e-05,
+        0.9999747276306152,
+        -0.008393066935241222
+      ]
+    ],
+    "attempts": [
+      "SIFT",
+      "ECC-refine"
+    ],
+    "quality": "good",
+    "failure_reason": null
+  },
+  "verdicts": [
+    {
+      "region_id": "R01",
+      "bbox": {
+        "x": 139,
+        "y": 264,
+        "w": 22,
+        "h": 12
+      },
+      "status": "CONFIRMED_DEFECT",
+      "label": "unclassified_surface_anomaly",
+      "label_basis": "strong difference but polarity analysis inconclusive",
+      "difference_score": 0.3592,
+      "structural_mismatch_score": 0.6624,
+      "evidence": [
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view shows the anomaly (mean_diff=43.15, mismatch=0.6909).",
+          "metrics": {
+            "mean_diff": 43.15,
+            "max_diff": 100.0,
+            "mean_mismatch": 0.6909,
+            "changed_frac": 0.4519,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": true,
+          "artifact": "r01_independent_view_ref_test_diff",
+          "timestamp": 1793075426.641396,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "alternate_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R02",
+      "bbox": {
+        "x": 520,
+        "y": 154,
+        "w": 8,
+        "h": 53
+      },
+      "status": "CONFIRMED_DEFECT",
+      "label": "short_or_spurious_copper_suspected",
+      "label_basis": "added copper per detection: new edges present in test",
+      "difference_score": 0.3581,
+      "structural_mismatch_score": 0.5753,
+      "evidence": [
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view shows the anomaly (mean_diff=43.88, mismatch=0.6643).",
+          "metrics": {
+            "mean_diff": 43.88,
+            "max_diff": 84.0,
+            "mean_mismatch": 0.6643,
+            "changed_frac": 0.6988,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": true,
+          "artifact": "r02_independent_view_ref_test_diff",
+          "timestamp": 1793075426.647645,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "alternate_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R03",
+      "bbox": {
+        "x": 731,
+        "y": 526,
+        "w": 11,
+        "h": 7
+      },
+      "status": "CONFIRMED_DEFECT",
+      "label": "spur_or_spurious_copper_suspected",
+      "label_basis": "small added copper per detection: added copper on featureless background",
+      "difference_score": 0.3446,
+      "structural_mismatch_score": 0.3639,
+      "evidence": [
+        {
+          "evidence_kind": "illumination_confound",
+          "source_tool": "adaptive_threshold",
+          "summary": "Adaptive-threshold changed-pixel fraction=43.0%, local mismatch=0.81.",
+          "metrics": {
+            "changed_frac": 0.4303,
+            "mean_mismatch": 0.8062,
+            "illumination_confound_likely": false
+          },
+          "supports_defect": true,
+          "artifact": "r03_adaptive_binary_ref_test",
+          "timestamp": 1793075426.63571,
+          "duration_s": 0.0,
+          "honesty": "reprocess"
+        },
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view shows the anomaly (mean_diff=40.9, mismatch=0.6059).",
+          "metrics": {
+            "mean_diff": 40.9,
+            "max_diff": 109.0,
+            "mean_mismatch": 0.6059,
+            "changed_frac": 0.4182,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": true,
+          "artifact": "r03_independent_view_ref_test_diff",
+          "timestamp": 1793075426.653887,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "adaptive_threshold",
+        "alternate_view"
+      ],
+      "notes": []
+    }
+  ],
+  "review_requests": [],
+  "tool_calls_used": 4,
+  "iterations": 8,
+  "stop_reason": "all_regions_decided",
+  "limitations": [
+    "Synthetic demo data: benchmark numbers describe the generated dataset, not production PCBs.",
+    "Anomaly detection is reference-based; classification labels are heuristic and hedged.",
+    "Heuristic scores are quality measures, not calibrated probabilities.",
+    "A crop-based secondary tool reprocesses existing pixels; only an alternate view adds new optical evidence."
+  ]
+}

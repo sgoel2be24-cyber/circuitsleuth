@@ -1,0 +1,488 @@
+[
+  {
+    "seq": 1,
+    "ts": 1793075825.2980359,
+    "phase": "OBSERVE",
+    "type": "inspection_started",
+    "message": "Observation acquired: reference and test images loaded, no secondary view available.",
+    "evidence": {
+      "has_secondary_view": false,
+      "scenario_id": "scenario_05_no_second_view"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 2,
+    "ts": 1793075825.4140291,
+    "phase": "ALIGN",
+    "type": "registration_completed",
+    "message": "Aligned test to reference with SIFT (174 inliers, residual 0.192px, quality good).",
+    "evidence": {
+      "detector": "SIFT",
+      "keypoints_reference": 812,
+      "keypoints_test": 802,
+      "attempts": [
+        "SIFT",
+        "ECC-refine"
+      ],
+      "good_matches": 221,
+      "inliers": 174,
+      "inlier_ratio": 0.7873,
+      "mean_residual_px": 0.192,
+      "coverage_score": 0.812,
+      "photometric_score": 0.8861,
+      "quality": "good",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.8736,
+      "warp_matrix": [
+        [
+          1.0000662803649902,
+          9.44636485655792e-05,
+          -0.06602729111909866
+        ],
+        [
+          -1.0294443200109527e-05,
+          1.0000174045562744,
+          0.002197127090767026
+        ]
+      ]
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 3,
+    "ts": 1793075825.505143,
+    "phase": "DETECT",
+    "type": "detection_completed",
+    "message": "Detected 4 suspicious region(s).",
+    "evidence": {
+      "candidate_count": 4,
+      "params": {
+        "min_mean_diff": 10.0,
+        "min_structural_mismatch": 0.25,
+        "diff_percentile": 97.0,
+        "morph_open_ksize": 3,
+        "morph_close_ksize": 5,
+        "morph_bridge_ksize": 17,
+        "ncc_window": 15,
+        "diff_threshold": 39.81,
+        "otsu_threshold": 18.0
+      }
+    },
+    "region_id": null,
+    "artifacts": [
+      "diff_heatmap",
+      "candidate_overlay"
+    ]
+  },
+  {
+    "seq": 4,
+    "ts": 1793075825.505249,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R01 at (588, 50, 6, 12): difference 0.42, mismatch 0.73",
+    "evidence": {
+      "bbox": [
+        588,
+        50,
+        6,
+        12
+      ],
+      "difference_score": 0.4208,
+      "structural_mismatch_score": 0.7251,
+      "illumination_suspect": false
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 5,
+    "ts": 1793075825.5053298,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R02 at (347, 401, 14, 53): difference 0.22, mismatch 0.76",
+    "evidence": {
+      "bbox": [
+        347,
+        401,
+        14,
+        53
+      ],
+      "difference_score": 0.2166,
+      "structural_mismatch_score": 0.758,
+      "illumination_suspect": false
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 6,
+    "ts": 1793075825.5053902,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R03 at (280, 401, 46, 70): difference 0.24, mismatch 0.35",
+    "evidence": {
+      "bbox": [
+        280,
+        401,
+        46,
+        70
+      ],
+      "difference_score": 0.2405,
+      "structural_mismatch_score": 0.3501,
+      "illumination_suspect": false
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 7,
+    "ts": 1793075825.505445,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R04 at (134, 31, 27, 9): difference 0.18, mismatch 0.01, illumination-suspect",
+    "evidence": {
+      "bbox": [
+        134,
+        31,
+        27,
+        9
+      ],
+      "difference_score": 0.1773,
+      "structural_mismatch_score": 0.0062,
+      "illumination_suspect": true
+    },
+    "region_id": "R04",
+    "artifacts": []
+  },
+  {
+    "seq": 8,
+    "ts": 1793075825.5059881,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned adaptive_threshold for R04 (priority 5.03; 4 open region(s), budget 0/12 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 5.033,
+      "score_breakdown": {
+        "uncertainty": 1.5,
+        "severity": 0.355,
+        "evidence_quality": 0.399,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 4
+    },
+    "region_id": "R04",
+    "artifacts": []
+  },
+  {
+    "seq": 9,
+    "ts": 1793075825.510169,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "adaptive_threshold on R04: Adaptive-threshold changed-pixel fraction=1.7%, local mismatch=0.11 \u2014 consistent with pure illumination confound.",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "supports_defect": false,
+      "honesty": "reprocess",
+      "metrics": {
+        "changed_frac": 0.0174,
+        "mean_mismatch": 0.1085,
+        "illumination_confound_likely": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R04",
+    "artifacts": [
+      "r04_adaptive_binary_ref_test"
+    ]
+  },
+  {
+    "seq": 10,
+    "ts": 1793075825.51072,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R04 (priority 5.35; 4 open region(s), budget 1/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 5.353,
+      "score_breakdown": {
+        "uncertainty": 1.5,
+        "severity": 0.355,
+        "evidence_quality": 0.399,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 4
+    },
+    "region_id": "R04",
+    "artifacts": []
+  },
+  {
+    "seq": 11,
+    "ts": 1793075825.510792,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R04 -> CLEARED; basis: illumination confound",
+    "evidence": {
+      "verdict": "CLEARED",
+      "label": null,
+      "basis": "illumination confound",
+      "notes": [
+        "Difference is high but structural mismatch is low and adaptive-threshold analysis found no geometry change \u2014 consistent with glare/shadow."
+      ],
+      "evidence_count": 1
+    },
+    "region_id": "R04",
+    "artifacts": []
+  },
+  {
+    "seq": 12,
+    "ts": 1793075825.511264,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned adaptive_threshold for R03 (priority 4.49; 3 open region(s), budget 1/12 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 4.485,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.481,
+        "evidence_quality": 0.07,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 3
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 13,
+    "ts": 1793075825.5154822,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "adaptive_threshold on R03: Adaptive-threshold changed-pixel fraction=0.0%, local mismatch=0.69 \u2014 consistent with pure illumination confound.",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "supports_defect": false,
+      "honesty": "reprocess",
+      "metrics": {
+        "changed_frac": 0.0,
+        "mean_mismatch": 0.6894,
+        "illumination_confound_likely": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R03",
+    "artifacts": [
+      "r03_adaptive_binary_ref_test"
+    ]
+  },
+  {
+    "seq": 14,
+    "ts": 1793075825.516005,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R03 (priority 4.81; 3 open region(s), budget 2/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.805,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.481,
+        "evidence_quality": 0.07,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 3
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 15,
+    "ts": 1793075825.516054,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R03 -> CLEARED; basis: illumination confound",
+    "evidence": {
+      "verdict": "CLEARED",
+      "label": null,
+      "basis": "illumination confound",
+      "notes": [
+        "Difference is high but structural mismatch is low and adaptive-threshold analysis found no geometry change \u2014 consistent with glare/shadow."
+      ],
+      "evidence_count": 1
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 16,
+    "ts": 1793075825.516541,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned request_additional_view for R01 (priority 4.40; 2 open region(s), budget 2/12 tool calls).",
+    "evidence": {
+      "tool": "request_additional_view",
+      "priority_score": 4.397,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.842,
+        "evidence_quality": 0.707,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 2
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 17,
+    "ts": 1793075825.5165892,
+    "phase": "ACT",
+    "type": "additional_capture_required",
+    "message": "No secondary view exists for R01; a new capture is required.",
+    "evidence": {
+      "secondary_view_available": false
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 18,
+    "ts": 1793075825.5171041,
+    "phase": "DECIDE",
+    "type": "human_review_requested",
+    "message": "Human review requested for R01: Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+    "evidence": {
+      "region_id": "R01",
+      "reason": "Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+      "requested_action": "capture a new image of this region or confirm/reject manually",
+      "created_at": "2026-10-27T10:07:05",
+      "bbox": [
+        588,
+        50,
+        6,
+        12
+      ]
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 19,
+    "ts": 1793075825.51778,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned request_additional_view for R02 (priority 4.33; 1 open region(s), budget 3/12 tool calls).",
+    "evidence": {
+      "tool": "request_additional_view",
+      "priority_score": 4.33,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.433,
+        "evidence_quality": 0.025,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 1
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 20,
+    "ts": 1793075825.5178392,
+    "phase": "ACT",
+    "type": "additional_capture_required",
+    "message": "No secondary view exists for R02; a new capture is required.",
+    "evidence": {
+      "secondary_view_available": false
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 21,
+    "ts": 1793075825.518399,
+    "phase": "DECIDE",
+    "type": "human_review_requested",
+    "message": "Human review requested for R02: Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+    "evidence": {
+      "region_id": "R02",
+      "reason": "Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+      "requested_action": "capture a new image of this region or confirm/reject manually",
+      "created_at": "2026-10-27T10:07:05",
+      "bbox": [
+        347,
+        401,
+        14,
+        53
+      ]
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 22,
+    "ts": 1793075825.519001,
+    "phase": "DECIDE",
+    "type": "inspection_completed",
+    "message": "Inspection finished (all_regions_decided): cleared=2, needs review=2",
+    "evidence": {
+      "stop_reason": "all_regions_decided",
+      "verdicts": {
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 2
+      }
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 23,
+    "ts": 1793075825.5191119,
+    "phase": "DECIDE",
+    "type": "report_generated",
+    "message": "Inspection report generated: 4 regions assessed.",
+    "evidence": {
+      "verdict_counts": {
+        "NEEDS_REVIEW": 2,
+        "CLEARED": 2
+      }
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 24,
+    "ts": 1793075825.51982,
+    "phase": "DECIDE",
+    "type": "report_ready",
+    "message": "Report ready in 0.222s using 4 tool call(s).",
+    "evidence": {
+      "duration_s": 0.222,
+      "tool_calls": 4
+    },
+    "region_id": null,
+    "artifacts": []
+  }
+]

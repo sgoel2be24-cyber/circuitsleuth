@@ -1,0 +1,279 @@
+{
+  "inspection_id": "ins_09da1819adc8",
+  "generated_at": "2026-10-27T10:07:12",
+  "registration": {
+    "detector": "SIFT",
+    "keypoints_reference": 762,
+    "keypoints_test": 791,
+    "good_matches": 222,
+    "inliers": 174,
+    "inlier_ratio": 0.7838,
+    "mean_residual_px": 0.165,
+    "coverage_score": 0.75,
+    "warp_matrix": [
+      [
+        1.0000776052474976,
+        -9.565056825522333e-05,
+        -0.018488483503460884
+      ],
+      [
+        -1.0019874935096595e-05,
+        1.0000077486038208,
+        0.00646169250831008
+      ]
+    ],
+    "attempts": [
+      "SIFT",
+      "ECC-refine"
+    ],
+    "quality": "good",
+    "failure_reason": null
+  },
+  "verdicts": [
+    {
+      "region_id": "R01",
+      "bbox": {
+        "x": 124,
+        "y": 517,
+        "w": 13,
+        "h": 18
+      },
+      "status": "CONFIRMED_DEFECT",
+      "label": "pinhole_or_mousebite_suspected",
+      "label_basis": "small removal per detection: reference edges missing in test",
+      "difference_score": 0.3797,
+      "structural_mismatch_score": 0.638,
+      "evidence": [
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view shows the anomaly (mean_diff=55.57, mismatch=0.6866).",
+          "metrics": {
+            "mean_diff": 55.57,
+            "max_diff": 128.0,
+            "mean_mismatch": 0.6866,
+            "changed_frac": 0.5107,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": true,
+          "artifact": "r01_independent_view_ref_test_diff",
+          "timestamp": 1793075832.468101,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "alternate_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R02",
+      "bbox": {
+        "x": 727,
+        "y": 100,
+        "w": 14,
+        "h": 11
+      },
+      "status": "CONFIRMED_DEFECT",
+      "label": "pinhole_or_mousebite_suspected",
+      "label_basis": "small removal per detection: reference edges missing in test",
+      "difference_score": 0.4038,
+      "structural_mismatch_score": 0.5126,
+      "evidence": [
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view shows the anomaly (mean_diff=46.33, mismatch=0.5384).",
+          "metrics": {
+            "mean_diff": 46.33,
+            "max_diff": 121.0,
+            "mean_mismatch": 0.5384,
+            "changed_frac": 0.4519,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": true,
+          "artifact": "r02_independent_view_ref_test_diff",
+          "timestamp": 1793075832.474719,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "alternate_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R03",
+      "bbox": {
+        "x": 722,
+        "y": 208,
+        "w": 7,
+        "h": 7
+      },
+      "status": "CONFIRMED_DEFECT",
+      "label": "spur_or_spurious_copper_suspected",
+      "label_basis": "small added copper per detection: new edges present in test",
+      "difference_score": 0.3168,
+      "structural_mismatch_score": 0.3476,
+      "evidence": [
+        {
+          "evidence_kind": "illumination_confound",
+          "source_tool": "adaptive_threshold",
+          "summary": "Adaptive-threshold changed-pixel fraction=35.5%, local mismatch=0.83.",
+          "metrics": {
+            "changed_frac": 0.3554,
+            "mean_mismatch": 0.8279,
+            "illumination_confound_likely": false
+          },
+          "supports_defect": true,
+          "artifact": "r03_adaptive_binary_ref_test",
+          "timestamp": 1793075832.444072,
+          "duration_s": 0.0,
+          "honesty": "reprocess"
+        },
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view shows the anomaly (mean_diff=41.92, mismatch=0.8198).",
+          "metrics": {
+            "mean_diff": 41.92,
+            "max_diff": 83.0,
+            "mean_mismatch": 0.8198,
+            "changed_frac": 0.8017,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": true,
+          "artifact": "r03_independent_view_ref_test_diff",
+          "timestamp": 1793075832.46122,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "adaptive_threshold",
+        "alternate_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R04",
+      "bbox": {
+        "x": 267,
+        "y": 378,
+        "w": 8,
+        "h": 9
+      },
+      "status": "CONFIRMED_DEFECT",
+      "label": "unclassified_surface_anomaly",
+      "label_basis": "strong difference but polarity analysis inconclusive",
+      "difference_score": 0.3196,
+      "structural_mismatch_score": 0.3413,
+      "evidence": [
+        {
+          "evidence_kind": "illumination_confound",
+          "source_tool": "adaptive_threshold",
+          "summary": "Adaptive-threshold changed-pixel fraction=34.6%, local mismatch=0.56.",
+          "metrics": {
+            "changed_frac": 0.3462,
+            "mean_mismatch": 0.5624,
+            "illumination_confound_likely": false
+          },
+          "supports_defect": true,
+          "artifact": "r04_adaptive_binary_ref_test",
+          "timestamp": 1793075832.4386098,
+          "duration_s": 0.0,
+          "honesty": "reprocess"
+        },
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view shows the anomaly (mean_diff=31.44, mismatch=0.5537).",
+          "metrics": {
+            "mean_diff": 31.44,
+            "max_diff": 87.0,
+            "mean_mismatch": 0.5537,
+            "changed_frac": 0.3782,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": true,
+          "artifact": "r04_independent_view_ref_test_diff",
+          "timestamp": 1793075832.4547431,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "adaptive_threshold",
+        "alternate_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R05",
+      "bbox": {
+        "x": 551,
+        "y": 172,
+        "w": 18,
+        "h": 16
+      },
+      "status": "NEEDS_REVIEW",
+      "label": null,
+      "label_basis": null,
+      "difference_score": 0.3421,
+      "structural_mismatch_score": 0.0,
+      "evidence": [
+        {
+          "evidence_kind": "illumination_confound",
+          "source_tool": "adaptive_threshold",
+          "summary": "Adaptive-threshold changed-pixel fraction=34.1%, local mismatch=0.91.",
+          "metrics": {
+            "changed_frac": 0.3409,
+            "mean_mismatch": 0.9081,
+            "illumination_confound_likely": false
+          },
+          "supports_defect": true,
+          "artifact": "r05_adaptive_binary_ref_test",
+          "timestamp": 1793075832.449423,
+          "duration_s": 0.0,
+          "honesty": "reprocess"
+        }
+      ],
+      "tools_used": [
+        "adaptive_threshold"
+      ],
+      "notes": [
+        "Inspection budget exhausted before verification completed."
+      ]
+    }
+  ],
+  "review_requests": [
+    {
+      "region_id": "R05",
+      "reason": "Inspection budget exhausted before verification completed.",
+      "requested_action": "review the evidence or rerun with a larger inspection budget",
+      "created_at": "2026-10-27T10:07:12",
+      "bbox": [
+        551,
+        172,
+        18,
+        16
+      ],
+      "resolved": null
+    }
+  ],
+  "tool_calls_used": 7,
+  "iterations": 12,
+  "stop_reason": "tool_budget_exhausted",
+  "limitations": [
+    "Synthetic demo data: benchmark numbers describe the generated dataset, not production PCBs.",
+    "Anomaly detection is reference-based; classification labels are heuristic and hedged.",
+    "Heuristic scores are quality measures, not calibrated probabilities.",
+    "A crop-based secondary tool reprocesses existing pixels; only an alternate view adds new optical evidence."
+  ]
+}

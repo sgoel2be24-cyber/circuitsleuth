@@ -1,0 +1,118 @@
+[
+  {
+    "seq": 1,
+    "ts": 1793075823.658875,
+    "phase": "OBSERVE",
+    "type": "inspection_started",
+    "message": "Observation acquired: reference and test images loaded, no secondary view available.",
+    "evidence": {
+      "has_secondary_view": false,
+      "scenario_id": "scenario_04_registration_failure"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 2,
+    "ts": 1793075823.993655,
+    "phase": "ALIGN",
+    "type": "registration_failed",
+    "message": "Registration poor: quality gates failed (inliers=54 ratio=0.66 residual=0.25 coverage=0.19)",
+    "evidence": {
+      "detector": "SIFT",
+      "keypoints_reference": 801,
+      "keypoints_test": 677,
+      "attempts": [
+        "SIFT",
+        "ECC",
+        "ECC"
+      ],
+      "good_matches": 82,
+      "inliers": 54,
+      "inlier_ratio": 0.6585,
+      "mean_residual_px": 0.249,
+      "coverage_score": 0.188,
+      "photometric_score": 0.6882,
+      "quality": "poor",
+      "failure_reason": "quality gates failed (inliers=54 ratio=0.66 residual=0.25 coverage=0.19)"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 3,
+    "ts": 1793075823.994484,
+    "phase": "ALIGN",
+    "type": "recovery_started",
+    "message": "Registration unreliable \u2014 attempting recovery with CLAHE-enhanced preprocessing.",
+    "evidence": {
+      "attempt": "clahe_repreprocess"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 4,
+    "ts": 1793075824.327554,
+    "phase": "ALIGN",
+    "type": "registration_failed",
+    "message": "Registration poor: quality gates failed (inliers=54 ratio=0.66 residual=0.25 coverage=0.19)",
+    "evidence": {
+      "detector": "SIFT",
+      "keypoints_reference": 801,
+      "keypoints_test": 677,
+      "attempts": [
+        "SIFT",
+        "ECC",
+        "ECC"
+      ],
+      "good_matches": 82,
+      "inliers": 54,
+      "inlier_ratio": 0.6585,
+      "mean_residual_px": 0.249,
+      "coverage_score": 0.188,
+      "photometric_score": 0.6882,
+      "quality": "poor",
+      "failure_reason": "quality gates failed (inliers=54 ratio=0.66 residual=0.25 coverage=0.19)"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 5,
+    "ts": 1793075824.3283992,
+    "phase": "DECIDE",
+    "type": "inspection_aborted",
+    "message": "Registration failed after recovery. Inspection marked NOT_EVALUABLE \u2014 no defects reported.",
+    "evidence": {
+      "registration_quality": "poor"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 6,
+    "ts": 1793075824.328523,
+    "phase": "DECIDE",
+    "type": "report_generated",
+    "message": "Inspection report generated: 0 regions assessed.",
+    "evidence": {
+      "verdict_counts": {}
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 7,
+    "ts": 1793075824.329035,
+    "phase": "DECIDE",
+    "type": "report_ready",
+    "message": "Report ready in 0.67s using 0 tool call(s).",
+    "evidence": {
+      "duration_s": 0.67,
+      "tool_calls": 0
+    },
+    "region_id": null,
+    "artifacts": []
+  }
+]

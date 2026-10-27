@@ -1,0 +1,488 @@
+[
+  {
+    "seq": 1,
+    "ts": 1793075807.386784,
+    "phase": "OBSERVE",
+    "type": "inspection_started",
+    "message": "Observation acquired: reference and test images loaded, one secondary view available.",
+    "evidence": {
+      "has_secondary_view": true,
+      "scenario_id": "scenario_01_clear_defects"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 2,
+    "ts": 1793075807.523796,
+    "phase": "ALIGN",
+    "type": "registration_completed",
+    "message": "Aligned test to reference with SIFT (150 inliers, residual 0.138px, quality good).",
+    "evidence": {
+      "detector": "SIFT",
+      "keypoints_reference": 791,
+      "keypoints_test": 792,
+      "attempts": [
+        "SIFT",
+        "ECC-refine"
+      ],
+      "good_matches": 191,
+      "inliers": 150,
+      "inlier_ratio": 0.7853,
+      "mean_residual_px": 0.138,
+      "coverage_score": 0.688,
+      "photometric_score": 0.9244,
+      "quality": "good",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.9163,
+      "warp_matrix": [
+        [
+          0.9999912977218628,
+          1.5648503904230893e-05,
+          -0.011729995720088482
+        ],
+        [
+          1.3361810488277115e-05,
+          0.9999747276306152,
+          -0.008393066935241222
+        ]
+      ]
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 3,
+    "ts": 1793075807.6191082,
+    "phase": "DETECT",
+    "type": "detection_completed",
+    "message": "Detected 3 suspicious region(s).",
+    "evidence": {
+      "candidate_count": 3,
+      "params": {
+        "min_mean_diff": 10.0,
+        "min_structural_mismatch": 0.25,
+        "diff_percentile": 97.0,
+        "morph_open_ksize": 3,
+        "morph_close_ksize": 5,
+        "morph_bridge_ksize": 17,
+        "ncc_window": 15,
+        "diff_threshold": 27.95,
+        "otsu_threshold": 15.0
+      }
+    },
+    "region_id": null,
+    "artifacts": [
+      "diff_heatmap",
+      "candidate_overlay"
+    ]
+  },
+  {
+    "seq": 4,
+    "ts": 1793075807.619232,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R01 at (139, 264, 22, 12): difference 0.36, mismatch 0.66",
+    "evidence": {
+      "bbox": [
+        139,
+        264,
+        22,
+        12
+      ],
+      "difference_score": 0.3592,
+      "structural_mismatch_score": 0.6624,
+      "illumination_suspect": false
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 5,
+    "ts": 1793075807.619306,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R02 at (520, 154, 8, 53): difference 0.36, mismatch 0.58",
+    "evidence": {
+      "bbox": [
+        520,
+        154,
+        8,
+        53
+      ],
+      "difference_score": 0.3581,
+      "structural_mismatch_score": 0.5753,
+      "illumination_suspect": false
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 6,
+    "ts": 1793075807.619364,
+    "phase": "DETECT",
+    "type": "candidate_found",
+    "message": "Region R03 at (731, 526, 11, 7): difference 0.34, mismatch 0.36",
+    "evidence": {
+      "bbox": [
+        731,
+        526,
+        11,
+        7
+      ],
+      "difference_score": 0.3446,
+      "structural_mismatch_score": 0.3639,
+      "illumination_suspect": false
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 7,
+    "ts": 1793075807.619902,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned adaptive_threshold for R03 (priority 4.23; 3 open region(s), budget 0/12 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 4.232,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.689,
+        "evidence_quality": 0.777,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 3
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 8,
+    "ts": 1793075807.6881669,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "adaptive_threshold on R03: Adaptive-threshold changed-pixel fraction=43.0%, local mismatch=0.81.",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "supports_defect": true,
+      "honesty": "reprocess",
+      "metrics": {
+        "changed_frac": 0.4303,
+        "mean_mismatch": 0.8062,
+        "illumination_confound_likely": false
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R03",
+    "artifacts": [
+      "r03_adaptive_binary_ref_test"
+    ]
+  },
+  {
+    "seq": 9,
+    "ts": 1793075807.6888509,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned alternate_view for R01 (priority 4.18; 3 open region(s), budget 1/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.183,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.718,
+        "evidence_quality": 0.743,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 3
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 10,
+    "ts": 1793075807.693571,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "alternate_view on R01: Independent view shows the anomaly (mean_diff=43.15, mismatch=0.6909).",
+    "evidence": {
+      "tool": "alternate_view",
+      "supports_defect": true,
+      "honesty": "alternate_view",
+      "metrics": {
+        "mean_diff": 43.15,
+        "max_diff": 100.0,
+        "mean_mismatch": 0.6909,
+        "changed_frac": 0.4519,
+        "secondary_view_available": true,
+        "comparison_reliable": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R01",
+    "artifacts": [
+      "r01_independent_view_ref_test_diff"
+    ]
+  },
+  {
+    "seq": 11,
+    "ts": 1793075807.6941838,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R01 (priority 4.62; 3 open region(s), budget 2/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.623,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.718,
+        "evidence_quality": 0.743,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 3
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 12,
+    "ts": 1793075807.694258,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R01 -> CONFIRMED_DEFECT (unclassified_surface_anomaly); basis: strong difference but polarity analysis inconclusive",
+    "evidence": {
+      "verdict": "CONFIRMED_DEFECT",
+      "label": "unclassified_surface_anomaly",
+      "basis": "strong difference but polarity analysis inconclusive",
+      "notes": [],
+      "evidence_count": 1
+    },
+    "region_id": "R01",
+    "artifacts": []
+  },
+  {
+    "seq": 13,
+    "ts": 1793075807.694785,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned alternate_view for R02 (priority 4.11; 2 open region(s), budget 2/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.112,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.716,
+        "evidence_quality": 0.827,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 2
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 14,
+    "ts": 1793075807.699471,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "alternate_view on R02: Independent view shows the anomaly (mean_diff=43.88, mismatch=0.6643).",
+    "evidence": {
+      "tool": "alternate_view",
+      "supports_defect": true,
+      "honesty": "alternate_view",
+      "metrics": {
+        "mean_diff": 43.88,
+        "max_diff": 84.0,
+        "mean_mismatch": 0.6643,
+        "changed_frac": 0.6988,
+        "secondary_view_available": true,
+        "comparison_reliable": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R02",
+    "artifacts": [
+      "r02_independent_view_ref_test_diff"
+    ]
+  },
+  {
+    "seq": 15,
+    "ts": 1793075807.700238,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R02 (priority 4.55; 2 open region(s), budget 3/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.552,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.716,
+        "evidence_quality": 0.827,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 2
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 16,
+    "ts": 1793075807.7002938,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R02 -> CONFIRMED_DEFECT (short_or_spurious_copper_suspected); basis: added copper per detection: new edges present in test",
+    "evidence": {
+      "verdict": "CONFIRMED_DEFECT",
+      "label": "short_or_spurious_copper_suspected",
+      "basis": "added copper per detection: new edges present in test",
+      "notes": [],
+      "evidence_count": 1
+    },
+    "region_id": "R02",
+    "artifacts": []
+  },
+  {
+    "seq": 17,
+    "ts": 1793075807.700903,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned alternate_view for R03 (priority 3.31; 1 open region(s), budget 3/12 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 3.312,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.689,
+        "evidence_quality": 0.777,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 1
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 18,
+    "ts": 1793075807.705517,
+    "phase": "ACT",
+    "type": "tool_executed",
+    "message": "alternate_view on R03: Independent view shows the anomaly (mean_diff=40.9, mismatch=0.6059).",
+    "evidence": {
+      "tool": "alternate_view",
+      "supports_defect": true,
+      "honesty": "alternate_view",
+      "metrics": {
+        "mean_diff": 40.9,
+        "max_diff": 109.0,
+        "mean_mismatch": 0.6059,
+        "changed_frac": 0.4182,
+        "secondary_view_available": true,
+        "comparison_reliable": true
+      },
+      "duration_s": 0.0
+    },
+    "region_id": "R03",
+    "artifacts": [
+      "r03_independent_view_ref_test_diff"
+    ]
+  },
+  {
+    "seq": 19,
+    "ts": 1793075807.70627,
+    "phase": "PLAN",
+    "type": "plan_selected",
+    "message": "Planned verify for R03 (priority 3.75; 1 open region(s), budget 4/12 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 3.752,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.689,
+        "evidence_quality": 0.777,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 1.6,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 1
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 20,
+    "ts": 1793075807.706329,
+    "phase": "VERIFY",
+    "type": "candidate_verified",
+    "message": "R03 -> CONFIRMED_DEFECT (spur_or_spurious_copper_suspected); basis: small added copper per detection: added copper on featureless background",
+    "evidence": {
+      "verdict": "CONFIRMED_DEFECT",
+      "label": "spur_or_spurious_copper_suspected",
+      "basis": "small added copper per detection: added copper on featureless background",
+      "notes": [],
+      "evidence_count": 2
+    },
+    "region_id": "R03",
+    "artifacts": []
+  },
+  {
+    "seq": 21,
+    "ts": 1793075807.706955,
+    "phase": "DECIDE",
+    "type": "inspection_completed",
+    "message": "Inspection finished (all_regions_decided): confirmed defect=3",
+    "evidence": {
+      "stop_reason": "all_regions_decided",
+      "verdicts": {
+        "CONFIRMED_DEFECT": 3
+      }
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 22,
+    "ts": 1793075807.7070808,
+    "phase": "DECIDE",
+    "type": "report_generated",
+    "message": "Inspection report generated: 3 regions assessed.",
+    "evidence": {
+      "verdict_counts": {
+        "CONFIRMED_DEFECT": 3
+      }
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 23,
+    "ts": 1793075807.7079282,
+    "phase": "DECIDE",
+    "type": "report_ready",
+    "message": "Report ready in 0.321s using 4 tool call(s).",
+    "evidence": {
+      "duration_s": 0.321,
+      "tool_calls": 4
+    },
+    "region_id": null,
+    "artifacts": []
+  }
+]

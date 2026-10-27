@@ -181,20 +181,21 @@ async def run_inspection(
 
 async def _finalize(tb: InspectionToolbelt, state: dict[str, Any], t0: float) -> dict[str, Any]:
     report = await tb.generate_inspection_report()
-    state["status"] = "completed"
     state["duration_s"] = round(time.perf_counter() - t0, 3)
-    _sync_summary(state)
-    store.save_state(state["id"], state)
-    store.update_inspection(
-        state["id"], status="completed", summary=_public_summary(state), report=report
-    )
     await tb._emit(
         "report_ready",
         f"Report ready in {state['duration_s']}s using {state['tool_calls_used']} tool call(s).",
         phase="DECIDE",
         evidence={"duration_s": state["duration_s"], "tool_calls": state["tool_calls_used"]},
     )
+    # Publish terminal status only after the last awaited write. Other clients
+    # cannot begin a completed-run review while an older state is still saving.
+    state["status"] = "completed"
+    _sync_summary(state)
     store.save_state(state["id"], state)
+    store.update_inspection(
+        state["id"], status="completed", summary=_public_summary(state), report=report
+    )
     return state
 
 

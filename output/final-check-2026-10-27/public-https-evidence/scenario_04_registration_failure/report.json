@@ -1,0 +1,33 @@
+{
+  "inspection_id": "ins_82a33d271214",
+  "generated_at": "2026-10-27T10:07:04",
+  "registration": {
+    "detector": "SIFT",
+    "keypoints_reference": 801,
+    "keypoints_test": 677,
+    "good_matches": 82,
+    "inliers": 54,
+    "inlier_ratio": 0.6585,
+    "mean_residual_px": 0.249,
+    "coverage_score": 0.188,
+    "warp_matrix": [],
+    "attempts": [
+      "SIFT",
+      "ECC",
+      "ECC"
+    ],
+    "quality": "poor",
+    "failure_reason": "quality gates failed (inliers=54 ratio=0.66 residual=0.25 coverage=0.19)"
+  },
+  "verdicts": [],
+  "review_requests": [],
+  "tool_calls_used": 0,
+  "iterations": 0,
+  "stop_reason": "registration_failed",
+  "limitations": [
+    "Synthetic demo data: benchmark numbers describe the generated dataset, not production PCBs.",
+    "Anomaly detection is reference-based; classification labels are heuristic and hedged.",
+    "Heuristic scores are quality measures, not calibrated probabilities.",
+    "A crop-based secondary tool reprocesses existing pixels; only an alternate view adds new optical evidence."
+  ]
+}

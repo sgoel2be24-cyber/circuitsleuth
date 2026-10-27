@@ -23,12 +23,53 @@ import tempfile
 import threading
 import time
 import uuid
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
 from .config import settings
 
 _local = threading.local()
+
+
+class InspectionBusyError(RuntimeError):
+    pass
+
+
+@contextmanager
+def mutation_lock(ins_id: str):
+    """Serialize REST/MCP read-modify-write operations across processes.
+
+    Nonblocking advisory locks reject overlapping writers instead of letting a
+    stale state overwrite a newer result. The OS releases them on process exit.
+    """
+    path = run_dir(ins_id) / ".mutation.lock"
+    with path.open("a+b") as handle:
+        if os.name == "nt":
+            import msvcrt
+            if path.stat().st_size == 0:
+                handle.write(b"\0")
+                handle.flush()
+            handle.seek(0)
+            try:
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            except OSError as exc:
+                raise InspectionBusyError("inspection has another active writer; retry later") from exc
+            try:
+                yield
+            finally:
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+            try:
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as exc:
+                raise InspectionBusyError("inspection has another active writer; retry later") from exc
+            try:
+                yield
+            finally:
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
 
 
 def _db() -> sqlite3.Connection:

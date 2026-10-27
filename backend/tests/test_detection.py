@@ -76,3 +76,12 @@ def test_candidate_schema_complete(scenario_paths):
         assert key in c
     assert 0 <= c["difference_score"] <= 1.5
     assert 0 <= c["structural_mismatch_score"] <= 1.0
+
+
+def test_clipped_glare_does_not_become_a_structural_candidate():
+    import numpy as np
+    checker = (np.indices((256, 256)).sum(axis=0) // 8 % 2 * 80 + 80).astype(np.uint8)
+    clipped = checker.copy()
+    clipped[100:120, 100:120] = 255
+    result = detect_candidates(checker, clipped, np.full_like(checker, 255))
+    assert not any(_iou([100, 100, 20, 20], c["bbox"]) > .15 for c in result.candidates)

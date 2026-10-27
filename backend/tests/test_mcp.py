@@ -71,12 +71,20 @@ def test_mcp_tools_operate_on_real_state(tmp_path, monkeypatch):
 
     # state was persisted; an external MCP client in another process sees it
     persisted = store.load_state("ins_mcptest")
-    assert persisted["status"] == "created"  # orchestrator never started; tools did
+    assert persisted["status"] == "completed"
+    assert persisted["execution_mode"] == "mcp"
+    assert persisted["stop_reason"] == "mcp_session_finalized"
+    assert all(c["status"] != "SUSPECTED" for c in persisted["candidates"].values())
     assert persisted["candidates"]
     assert persisted["report"] is not None
     events = store.get_events("ins_mcptest")
     assert len(events) == len(persisted["events"])
     assert [e["seq"] for e in events] == list(range(1, len(events) + 1))
+    before = (store.run_dir("ins_mcptest") / "state.json").read_bytes()
+    from app.tools.registry import ToolError
+    with pytest.raises(ToolError, match="terminal"):
+        asyncio.run(mcp_server.detect_defects("ins_mcptest"))
+    assert (store.run_dir("ins_mcptest") / "state.json").read_bytes() == before
 
 
 def test_unknown_inspection_raises():

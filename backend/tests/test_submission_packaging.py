@@ -24,3 +24,12 @@ def test_cloud_build_context_is_minimal():
     assert include_path("backend/requirements.lock.txt", runtime=True)
     assert not include_path("research/pipeline-improvements/REPORT.md", runtime=True)
     assert not include_path("output/inspection/report.json", runtime=True)
+
+
+def test_portal_bundle_keeps_runnable_demo_and_research_provenance():
+    assert include_path("data/demo/scenario_01_clear_defects/reference.png", portal=True)
+    assert include_path("research/pipeline-improvements/data/test/sample/annotations.json", portal=True)
+    assert include_path("research/pipeline-improvements/results/test-rows.json", portal=True)
+    assert include_path("research/pipeline-improvements/generate_captures.py", portal=True)
+    assert not include_path("research/pipeline-improvements/data/test/sample/test.png", portal=True)
+    assert not include_path("submission/CircuitSleuth-Demo.mp4", portal=True)

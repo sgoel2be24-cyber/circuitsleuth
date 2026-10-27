@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import json
 import shutil
+from functools import wraps
 from pathlib import Path
 
 import cv2
@@ -86,6 +88,18 @@ def _http(ins_id: str) -> None:
         raise HTTPException(404, f"unknown inspection {ins_id!r}")
 
 
+def _serialized_mutation(handler):
+    @wraps(handler)
+    async def guarded(ins_id: str, *args, **kwargs):
+        _http(ins_id)
+        try:
+            with store.mutation_lock(ins_id):
+                return await handler(ins_id, *args, **kwargs)
+        except store.InspectionBusyError as exc:
+            raise HTTPException(409, str(exc)) from exc
+    return guarded
+
+
 async def _broadcast(ins_id: str, event: dict) -> None:
     for q in list(_subscribers.get(ins_id, ())):
         try:
@@ -146,7 +160,8 @@ async def demo_scenario_image(scenario_id: str, which: str):
 
 
 @app.post("/api/inspections/{ins_id}/rerun")
-async def rerun_inspection(ins_id: str) -> dict:
+@_serialized_mutation
+async def rerun_inspection(ins_id: str, view2: UploadFile | None = File(None)) -> dict:
     """Clone an inspection's images (reference/test/view2) into a NEW inspection
     and start it immediately. Used after an operator supplies a missing
     secondary view, so the agent can re-inspect with the added evidence."""
@@ -155,6 +170,13 @@ async def rerun_inspection(ins_id: str) -> dict:
     if old_state is None:
         raise HTTPException(404, "state missing")
     _require_idle(ins_id, old_state)
+    capture = None
+    if view2 is not None:
+        from ..cv.imaging import decode_bgr
+        try:
+            capture = decode_bgr(await _read_upload(view2), view2.filename or "view2")
+        except ValueError as exc:
+            raise HTTPException(400, str(exc)) from exc
     src_dir = settings.runs_dir / ins_id
     new_state = {
         "id": store.new_id(),
@@ -162,6 +184,7 @@ async def rerun_inspection(ins_id: str) -> dict:
         "status": "created",
         "source": old_state["source"],
         "scenario_id": old_state.get("scenario_id"),
+        "parent_inspection_id": ins_id,
         "config": old_state["config"],
         "images": {},
         "candidates": {},
@@ -177,6 +200,14 @@ async def rerun_inspection(ins_id: str) -> dict:
             shutil.copyfile(src, rdir / f"{role}.png")
             new_state["images"][role] = str(rdir / f"{role}.png")
     new_state["images"].setdefault("view2", None)
+    if capture is not None:
+        from ..cv.imaging import save_png
+        save_png(capture, rdir / "view2.png")
+        new_state["images"]["view2"] = str(rdir / "view2.png")
+    new_state["input_hashes"] = {
+        role: hashlib.sha256(Path(path).read_bytes()).hexdigest()
+        for role, path in new_state["images"].items() if path
+    }
     summary = {
         "id": new_state["id"], "created_at": new_state["created_at"], "status": "created",
         "source": new_state["source"], "scenario_id": new_state.get("scenario_id"),
@@ -187,6 +218,12 @@ async def rerun_inspection(ins_id: str) -> dict:
     store.create_inspection(new_state["id"], source=new_state["source"],
                             scenario_id=new_state.get("scenario_id"),
                             config=new_state["config"], summary=summary)
+    store.save_state(new_state["id"], new_state)
+    await InspectionToolbelt(new_state, persist=True)._emit(
+        "capture_attached" if capture is not None else "inspection_cloned",
+        f"Created a fresh inspection from {ins_id}" + (" with a new secondary capture." if capture is not None else "."),
+        phase="OBSERVE", evidence={"parent_inspection_id": ins_id, "input_hashes": new_state["input_hashes"]},
+    )
     store.save_state(new_state["id"], new_state)
     await start_inspection(new_state["id"])
     return {"ok": True, "inspection_id": new_state["id"]}
@@ -276,6 +313,7 @@ async def create_inspection(
 
 
 @app.post("/api/inspections/{ins_id}/start")
+@_serialized_mutation
 async def start_inspection(ins_id: str) -> dict:
     _http(ins_id)
     if ins_id in _running_tasks and not _running_tasks[ins_id].done():
@@ -285,6 +323,8 @@ async def start_inspection(ins_id: str) -> dict:
         raise HTTPException(404, "inspection state missing")
     if state.get("status") != "created":
         raise HTTPException(409, "inspection already started; use rerun to create a fresh audit trail")
+    if state.get("execution_mode") == "mcp":
+        raise HTTPException(409, "inspection belongs to an MCP session; finish there or create a fresh rerun")
     state["status"] = "running"
     store.save_state(ins_id, state)
     store.update_inspection(ins_id, status="running")
@@ -314,6 +354,9 @@ async def get_inspection(ins_id: str) -> dict:
     return {
         "summary": summary,
         "status": state.get("status"),
+        "execution_mode": state.get("execution_mode"),
+        "parent_inspection_id": state.get("parent_inspection_id"),
+        "input_hashes": state.get("input_hashes", {}),
         "config": state.get("config"),
         "registration": state.get("registration"),
         "detection": state.get("detection"),
@@ -469,26 +512,12 @@ async def get_image(ins_id: str, which: str) -> FileResponse:
 
 @app.post("/api/inspections/{ins_id}/views")
 async def add_view(ins_id: str, view2: UploadFile = File(...)) -> dict:
-    """Operator supplies a genuinely new capture for the inspection."""
-    _http(ins_id)
-    state = store.load_state(ins_id)
-    if state is None:
-        raise HTTPException(404, "state missing")
-    _require_idle(ins_id, state)
-    data = await _read_upload(view2)
-    from ..cv.imaging import decode_bgr, save_png
-
-    try:
-        img = decode_bgr(data, view2.filename or "view2")
-    except ValueError as exc:
-        raise HTTPException(400, str(exc))
-    save_png(img, store.run_dir(ins_id) / "view2.png")
-    state["images"]["view2"] = str(store.run_dir(ins_id) / "view2.png")
-    store.save_state(ins_id, state)
-    return {"ok": True}
+    """Attach a capture to a new child and return its id; preserve the parent."""
+    return await rerun_inspection(ins_id, view2)
 
 
 @app.post("/api/inspections/{ins_id}/review")
+@_serialized_mutation
 async def submit_review(ins_id: str, payload: OperatorReview) -> dict:
     """Operator review decision for a region: {region_id, decision: confirmed|rejected, note?}."""
     _http(ins_id)
@@ -506,6 +535,8 @@ async def submit_review(ins_id: str, payload: OperatorReview) -> dict:
         raise HTTPException(400, "decision must be 'confirmed' or 'rejected'")
     cand = state["candidates"][rid]
     cand["status"] = "CONFIRMED_DEFECT" if decision == "confirmed" else "CLEARED"
+    if decision == "rejected":
+        cand["label"] = None
     cand["label_basis"] = f"operator review ({decision})"
     note = payload.note
     if note:

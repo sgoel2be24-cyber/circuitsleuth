@@ -88,6 +88,9 @@ export interface Summary {
 }
 
 export interface Inspection {
+  execution_mode?: 'mcp' | null
+  parent_inspection_id?: string | null
+  input_hashes?: Record<string, string>
   summary: Summary | null
   status: string
   config: { max_tool_calls: number; max_iterations: number }

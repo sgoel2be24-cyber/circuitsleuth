@@ -1,0 +1,205 @@
+{
+  "inspection_id": "ins_c1ad71fa3abe",
+  "generated_at": "2026-10-27T09:44:31",
+  "registration": {
+    "detector": "SIFT",
+    "keypoints_reference": 753,
+    "keypoints_test": 755,
+    "good_matches": 198,
+    "inliers": 144,
+    "inlier_ratio": 0.7273,
+    "mean_residual_px": 0.19,
+    "coverage_score": 0.75,
+    "warp_matrix": [
+      [
+        0.99996417760849,
+        -3.942925468436442e-05,
+        0.031039854511618614
+      ],
+      [
+        -8.063140739977825e-06,
+        1.0000323057174683,
+        -0.006292781792581081
+      ]
+    ],
+    "attempts": [
+      "SIFT",
+      "ECC-refine"
+    ],
+    "quality": "good",
+    "failure_reason": null
+  },
+  "verdicts": [
+    {
+      "region_id": "R01",
+      "bbox": {
+        "x": 732,
+        "y": 72,
+        "w": 15,
+        "h": 8
+      },
+      "status": "NEEDS_REVIEW",
+      "label": null,
+      "label_basis": null,
+      "difference_score": 0.3774,
+      "structural_mismatch_score": 0.6512,
+      "evidence": [],
+      "tools_used": [
+        "request_additional_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R02",
+      "bbox": {
+        "x": 173,
+        "y": 461,
+        "w": 76,
+        "h": 5
+      },
+      "status": "NEEDS_REVIEW",
+      "label": null,
+      "label_basis": null,
+      "difference_score": 0.2352,
+      "structural_mismatch_score": 1.0,
+      "evidence": [],
+      "tools_used": [
+        "request_additional_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R03",
+      "bbox": {
+        "x": 168,
+        "y": 418,
+        "w": 82,
+        "h": 22
+      },
+      "status": "NEEDS_REVIEW",
+      "label": null,
+      "label_basis": null,
+      "difference_score": 0.2263,
+      "structural_mismatch_score": 0.9709,
+      "evidence": [],
+      "tools_used": [
+        "request_additional_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R04",
+      "bbox": {
+        "x": 184,
+        "y": 374,
+        "w": 43,
+        "h": 5
+      },
+      "status": "NEEDS_REVIEW",
+      "label": null,
+      "label_basis": null,
+      "difference_score": 0.1801,
+      "structural_mismatch_score": 0.982,
+      "evidence": [],
+      "tools_used": [
+        "request_additional_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R05",
+      "bbox": {
+        "x": 181,
+        "y": 401,
+        "w": 62,
+        "h": 6
+      },
+      "status": "NEEDS_REVIEW",
+      "label": null,
+      "label_basis": null,
+      "difference_score": 0.1942,
+      "structural_mismatch_score": 0.8294,
+      "evidence": [],
+      "tools_used": [
+        "request_additional_view"
+      ],
+      "notes": []
+    }
+  ],
+  "review_requests": [
+    {
+      "region_id": "R02",
+      "reason": "Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+      "requested_action": "capture a new image of this region or confirm/reject manually",
+      "created_at": "2026-10-27T09:44:31",
+      "bbox": [
+        173,
+        461,
+        76,
+        5
+      ],
+      "resolved": null
+    },
+    {
+      "region_id": "R01",
+      "reason": "Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+      "requested_action": "capture a new image of this region or confirm/reject manually",
+      "created_at": "2026-10-27T09:44:31",
+      "bbox": [
+        732,
+        72,
+        15,
+        8
+      ],
+      "resolved": null
+    },
+    {
+      "region_id": "R03",
+      "reason": "Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+      "requested_action": "capture a new image of this region or confirm/reject manually",
+      "created_at": "2026-10-27T09:44:31",
+      "bbox": [
+        168,
+        418,
+        82,
+        22
+      ],
+      "resolved": null
+    },
+    {
+      "region_id": "R05",
+      "reason": "Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+      "requested_action": "capture a new image of this region or confirm/reject manually",
+      "created_at": "2026-10-27T09:44:31",
+      "bbox": [
+        181,
+        401,
+        62,
+        6
+      ],
+      "resolved": null
+    },
+    {
+      "region_id": "R04",
+      "reason": "Evidence inconclusive and no secondary view exists to disambiguate; new capture required.",
+      "requested_action": "capture a new image of this region or confirm/reject manually",
+      "created_at": "2026-10-27T09:44:31",
+      "bbox": [
+        184,
+        374,
+        43,
+        5
+      ],
+      "resolved": null
+    }
+  ],
+  "tool_calls_used": 5,
+  "iterations": 6,
+  "stop_reason": "all_regions_decided",
+  "limitations": [
+    "Synthetic demo data: benchmark numbers describe the generated dataset, not production PCBs.",
+    "Anomaly detection is reference-based; classification labels are heuristic and hedged.",
+    "Heuristic scores are quality measures, not calibrated probabilities.",
+    "A crop-based secondary tool reprocesses existing pixels; only an alternate view adds new optical evidence."
+  ]
+}

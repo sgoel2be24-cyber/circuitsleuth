@@ -1,6 +1,6 @@
 # CircuitSleuth technical report
 
-26 October 2026 · Team **Update** · **Shikhar Goel and Ishpreet Singh**
+27 October 2026 · Team **Update** · **Shikhar Goel and Ishpreet Singh**
 
 ## Problem and users
 
@@ -53,41 +53,50 @@ require reliable local evidence before clearing a candidate. Conflicting local
 and second-view evidence is escalated. Controlled probes expose the previous
 false-clear failure. Details and remaining risks: [alignment fixes](ALIGNMENT_FIXES.md).
 
-## AWS architecture — prepared, execution pending
+## AWS architecture — executed in Stockholm
 
 ```mermaid
 flowchart LR
-    Source[Private S3 source ZIP plus SHA256] -. download and build .-> Host[Planned EC2 t3.small in Mumbai]
-    Operator[Authenticated operator] -. SSM tunnel, no inbound ports .-> Host
-    Host -. Docker .-> Runtime[FastAPI, React and OpenCV 5]
-    Runtime -. host mount .-> EBS[Encrypted EBS: SQLite, JSON and PNG]
-    Runtime -. application logs .-> CW[CloudWatch, 7-day retention]
-    Host -. export inspection reports and traces .-> Proof[Private S3 evidence prefix]
-    Operator -. arranged screen-share pending .-> Judges[Judges]
+    Source[Private S3 source ZIP plus SHA256] --> Host[EC2 t3.small in eu-north-1]
+    Operator[Authenticated operator] -->|SSM tunnel, no inbound ports| Host
+    Host -->|Docker| Runtime[FastAPI, React and OpenCV 5]
+    Runtime --> EBS[Encrypted EBS: SQLite, JSON and PNG]
+    Runtime --> CW[CloudWatch logs]
+    Host --> Proof[Private S3 evidence archive]
+    Operator -. public endpoint or screen-share still needed .-> Judges[Judges]
 ```
 
-All dashed links are a proposed deployment, not proof of executed AWS work.
-`deploy/aws-ec2-demo.template.json` uses the existing Dockerfile and locks,
-checks the source ZIP SHA256, builds on the host, runs an HTTP inspection,
-binds the application to loopback and schedules a stop six hours after first
-boot. Standard T3 credits avoid surplus CPU charges. EBS persists through
-container restarts and instance stop/start but is deleted with the instance.
-The deployment is single-instance, without backups or shared runtime storage.
-The six-hour stop does not cap all ongoing AWS charges.
+The AWS run at application commit `6281c2be7d3832b26b3522202a5f5fea59af1825`
+passed a real HTTP inspection, all six demo behavior checks and verification of
+72 evidence hashes. OpenCV 5.0.0 executed the vision workload on EC2; the receipt
+records the container image and source-archive digest. See [dated AWS execution
+record](AWS_EXECUTION_2026-10-27.md) and [sanitized receipt](../submission/evidence/aws-verification-redacted.json).
+The complete hosting evidence is retained privately by the team.
 
-The IAM role permits the source object read, a stack-specific evidence-prefix
-write, its log group and standard SSM managed-node operations. The security
-group has no inbound rules. There is no public unauthenticated application
-endpoint. An authenticated SSM route supports a supervised screen-share once
-arranged. AWS account access and the free-plan credit balance were checked locally;
-service/network/quota checks and the cloud run remain pending. App Runner is closed to new customers; its older example is
-retained for existing customers only. No COOL/Graviton workload is claimed.
+The final lifecycle/capture/glare/review/UI fixes were validated locally after
+that AWS run. The existing AWS receipt does not attest to these later changes;
+any deployment of the final release should record its new manifest commit.
+
+`deploy/aws-ec2-demo.template.json` checks the source ZIP SHA256, builds on the
+host, binds the application to loopback and schedules a stop six hours after
+first boot. Standard T3 CPU credits avoid surplus CPU charges. Encrypted EBS
+persists through container restarts and instance stop/start; stopping does not
+remove storage/log charges. The approved run used Free Plan credits only, with
+a USD 1 credit budget and no paid upgrade. Actual final billing is not established.
+
+The IAM role scopes source reads, evidence writes, logs and SSM operations.
+The security group has no inbound rules. Private SSM access is not a public
+judge endpoint. A public endpoint or explicitly arranged live screen-share is
+still required. The scheduled stop is not proof of current instance state.
+This is a single-instance demo without backups or shared storage.
+No COOL/Graviton execution or performance comparison is claimed.
 
 ## Reproduction and verification
 
 Use Python 3.13 and Node 24, install the backend lock and frontend `npm ci`.
 Run `scripts/verify_local.py --include-mcp` using the virtual-environment Python.
-Current local results: **101 tests passed; two Windows-specific tests skipped**,
+The final local suite and targeted packaging check passed; exact counts and commands are
+recorded in [final check](FINAL_CHECK_2026-10-27.md). Two Windows-specific tests are skipped on macOS;
 frontend lint/build and all eight MCP tools passed. The earlier published
 Linux CI also verified a real Docker build and HTTP inspection. The current
 commit's Actions result is authoritative for its container checks.
@@ -123,7 +132,7 @@ empty/refusal-case conventions. They are not binary accuracy percentages.
 | Candidate review rate | 0% | 27.27% |
 
 The 80% reported-FP reduction has lower recall and added review workload. The
-current results live in `output/ecc-verification-fix/benchmark/results.json`;
+current results live in `output/final-check-2026-10-27/benchmark.json`;
 the original `evaluation/results.json` remains preserved (52 original baseline
 FP). Timing is machine-specific; no cloud latency or cost measurement exists.
 
@@ -145,12 +154,37 @@ mishandle board identity or require more review under new imaging conditions.
 Confidence is uncalibrated. Uploaded-image support is not production validation.
 
 Keep deployment supervised. The API has no application authentication, which
-is why the prepared AWS route uses SSM without inbound web access. Do not use
+is why the executed AWS route uses SSM without inbound web access. Do not use
 this demo to autonomously accept/reject safety-critical hardware. Human review
 must retain the original images and evidence. Real production data, acquisition
 protocols, identity gating, access control, concurrency, backups and independent
 evaluation are needed before broader use.
 
 Final competition gaps are tracked in [readiness](../submission/READINESS.md):
-AWS execution, judge access/demo arrangement, required video (currently deferred
-by the team), final rights/eligibility checks and actual Devpost submission.
+the public demo URL, YouTube/Vimeo video embedding, Devpost teammate membership,
+final rights/eligibility checks and actual Devpost submission.
+
+## Final audit integrity changes
+
+REST and MCP writers share a nonblocking OS file lock per inspection. MCP
+mutators accept only created runs; generating the report finalizes the session,
+with unfinished candidates sent to human review. The UI observes MCP sessions
+without starting a second REST run. Terminal publication follows the final
+awaited write, preventing stale completion writes from overwriting a review.
+
+Supplying a secondary capture through `/views` or `/rerun` creates and starts a
+new child. Both return the child inspection ID. Parent images, events and report
+are retained, including if child startup fails. The child records its parent,
+SHA256 input hashes and a capture event. Clients of `/views` must follow the
+returned ID; that route no longer edits an old run in place.
+
+Rejected operator reviews clear the final defect label in API/state/report.
+Failed UI starts show Retry Start, and created state is distinct from a running
+task. A conservative one-pixel clipped-pixel halo removes the demonstrated
+glare artifact. A 15-pixel halo was rejected because it fragmented regions and
+increased the fixed baseline's false positives from 50 to 53. The accepted
+correction preserved all 30 cases' measured non-timing outputs.
+
+Codex assisted development, research, fixes, tests and submission preparation.
+It is not the runtime planner; the application uses the deterministic evidence
+policy described above. Human authors remain responsible for the entry.

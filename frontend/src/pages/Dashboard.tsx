@@ -80,7 +80,7 @@ export function Dashboard() {
           <section className="panel telemetry-panel"><div className="section-heading"><h2>Agent activity</h2><span className="mono text-[9px] text-slate-500">LAST RUN</span></div>{events.length ? <ol>{events.map(ev => <li key={ev.seq}><span className="event-node"/><div><span className="mono event-phase">{ev.phase}</span><p>{ev.message}</p></div></li>)}</ol> : <p className="p-5 text-xs text-slate-400">Actual tool activity appears after your first inspection.</p>}</section>
         </aside>
       </div>
-      <footer className="runtime-footer"><span className="flex items-center gap-2"><Icon name="chip" size={15}/> RUNTIME <b>OpenCV {String(sys?.opencv_version ?? '—')}</b><span className="runtime-python">Python {String(sys?.python_version ?? '—')}</span></span><span>Local processing <span className="mx-2 text-slate-600">/</span> AWS execution: <b>{sys?.aws_execution_verified ? 'verified' : 'unverified'}</b></span></footer>
+      <footer className="runtime-footer"><span className="flex items-center gap-2"><Icon name="chip" size={15}/> RUNTIME <b>OpenCV {String(sys?.opencv_version ?? '—')}</b><span className="runtime-python">Python {String(sys?.python_version ?? '—')}</span></span><span>OpenCV processing in this runtime <span className="mx-2 text-slate-600">/</span><a className="underline" href="https://github.com/sgoel2be24-cyber/circuitsleuth/blob/main/docs/AWS_EXECUTION_2026-10-27.md" target="_blank" rel="noreferrer">Versioned AWS execution receipt ↗</a></span></footer>
     </div>
   )
 }

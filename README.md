@@ -1,6 +1,6 @@
 <p align="center">
 
-> **27 October 2026 update — Shikhar:** start with the [current submission handoff](submission/SHIKHAR_HANDOFF.md). AWS execution is verified; five code findings and final judge/video/portal delivery remain open. Older AWS-pending or private-repository statements below are historical and superseded by that handoff.
+> **27 October 2026 update — Shikhar:** start with the [current submission handoff](submission/SHIKHAR_HANDOFF.md). AWS execution is verified; the five code findings are fixed and locally tested. Final judge/video/portal delivery remains open. See [final check](docs/FINAL_CHECK_2026-10-27.md). Older AWS-pending or private-repository statements below are historical and superseded by that handoff.
 
   <img src="frontend/public/favicon.svg" width="56" alt="CircuitSleuth" />
 </p>
@@ -178,7 +178,7 @@ submission/               Team Update pitch, Devpost draft and readiness checkli
 |---|---|
 | Local execution (OpenCV 5.0.0, this machine) | ✅ verified — tests, benchmark, UI journeys |
 | Container (`deploy/Dockerfile`) | ✅ Linux CI build and real HTTP inspection verified |
-| AWS EC2 / SSM / CloudWatch | ⚠️ template prepared; execution pending service checks and launch |
+| AWS EC2 / SSM / CloudWatch | ✅ executed at `6281c2b` in Stockholm; [versioned receipt](docs/AWS_EXECUTION_2026-10-27.md) |
 
 [Deployment instructions](deploy/README.md) include an authenticated private demo route.
 [Pitch](submission/PITCH.md) and [competition readiness](submission/READINESS.md)

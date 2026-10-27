@@ -1,0 +1,57 @@
+{
+  "base_commit": "2dcbe590563b11f1e8a19fa87c11b579e08e96c9",
+  "source_commit": "see containing Git commit and packaged SOURCE_MANIFEST.json",
+  "tests": {
+    "backend_passed": 116,
+    "windows_specific_skipped_on_macos": 2,
+    "frontend_lint": "passed",
+    "frontend_build": "passed",
+    "eight_tools_real_mcp_stdio": "passed",
+    "six_local_http_scenarios": "passed",
+    "six_guarded_public_gateway_scenarios": "passed",
+    "public_https_smoke": "passed",
+    "six_public_https_scenarios": "passed",
+    "completed_trace_without_sse": "passed: direct browser reload recovered 23 events",
+    "frontend_followup_lint_build": "passed after public copy and persisted-trace fixes"
+  },
+  "benchmark": {
+    "n": 30,
+    "non_timing_outputs_identical_to_previous": true,
+    "macro_f1_fixed": 0.5751,
+    "macro_f1_adaptive": 0.7155,
+    "fixed_fp": 50,
+    "adaptive_fp": 10,
+    "fixed_fn": 6,
+    "adaptive_fn": 8
+  },
+  "retry_browser": {
+    "one_injected_503": "observed",
+    "retry_start_clicked": true,
+    "same_inspection_start_requests": 2,
+    "final_status": "completed",
+    "inspection_id": "ins_ee700de30370"
+  },
+  "video": {
+    "url": "https://youtu.be/ucM4NiEHInE",
+    "visibility": "unlisted",
+    "oembed_without_auth": "passed",
+    "team_selected_file": "submission/CircuitSleuth-Demo.mp4",
+    "measured_seconds": 123.1333,
+    "presentation_limitation": "Recording-guide text and camera placeholders remain; user explicitly selected this file as final."
+  },
+  "aws_verified_commit": "6281c2be7d3832b26b3522202a5f5fea59af1825",
+  "final_fixes_rerun_on_aws": false,
+  "temporary_public_demo": {
+    "url": "https://decided-attributes-southwest-africa.trycloudflare.com",
+    "host": "isolated synthetic store on team Mac via Cloudflare Quick Tunnel",
+    "cash_spend": 0,
+    "requires_host_and_tunnel_online": true,
+    "not_an_aws_endpoint": true,
+    "browser_inspection_id": "ins_51f205d538a8"
+  },
+  "devpost_team": [
+    "sgoel2be24-cyber",
+    "ISHPREET0101"
+  ],
+  "competition_submitted": false
+}

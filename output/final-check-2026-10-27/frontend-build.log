@@ -1,0 +1,35 @@
+
+> frontend@0.0.0 build
+> tsc -b && vite build
+
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 35 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                                    0.50 kB │ gzip:  0.33 kB
+dist/assets/jetbrains-mono-greek-400-normal-C190GLew.woff2         4.22 kB
+dist/assets/jetbrains-mono-greek-600-normal-H7WoG9Et.woff2         4.30 kB
+dist/assets/jetbrains-mono-cyrillic-400-normal-BEIGL1Tu.woff2      5.32 kB
+dist/assets/jetbrains-mono-vietnamese-400-normal-CqNFfHCs.woff     5.37 kB
+dist/assets/jetbrains-mono-cyrillic-600-normal-EVf6-Yzo.woff2      5.38 kB
+dist/assets/jetbrains-mono-vietnamese-600-normal-OWROknRo.woff     5.47 kB
+dist/assets/jetbrains-mono-greek-400-normal-B9oWc5Lo.woff          5.66 kB
+dist/assets/jetbrains-mono-greek-600-normal-mc2nkWzM.woff          5.70 kB
+dist/assets/space-grotesk-vietnamese-wght-normal-D0rl6rjA.woff2    6.71 kB
+dist/assets/jetbrains-mono-cyrillic-400-normal-ugxPyKxw.woff       6.97 kB
+dist/assets/jetbrains-mono-cyrillic-600-normal-8K4wrrwR.woff       7.02 kB
+dist/assets/jetbrains-mono-latin-ext-400-normal-Bc8Ftmh3.woff2     7.33 kB
+dist/assets/jetbrains-mono-latin-ext-600-normal-BfB_LPfz.woff2     7.51 kB
+dist/assets/jetbrains-mono-latin-ext-400-normal-fXTG6kC5.woff     10.12 kB
+dist/assets/jetbrains-mono-latin-ext-600-normal-DObL3zCW.woff     10.31 kB
+dist/assets/space-grotesk-latin-ext-wght-normal-D9tNdqV9.woff2    18.94 kB
+dist/assets/jetbrains-mono-latin-400-normal-V6pRDFza.woff2        21.16 kB
+dist/assets/jetbrains-mono-latin-600-normal-C8RAYTDA.woff2        21.86 kB
+dist/assets/space-grotesk-latin-wght-normal-BhU9QXUp.woff2        22.28 kB
+dist/assets/jetbrains-mono-latin-400-normal-6-qcROiO.woff         27.49 kB
+dist/assets/jetbrains-mono-latin-600-normal-BfsvjouI.woff         28.18 kB
+dist/assets/index-BhXw9I07.css                                    78.18 kB │ gzip: 26.42 kB
+dist/assets/index-CW4IYEy7.js                                    322.85 kB │ gzip: 99.86 kB
+
+✓ built in 127ms

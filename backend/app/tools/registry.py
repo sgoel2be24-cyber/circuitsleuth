@@ -102,8 +102,7 @@ class InspectionToolbelt:
     def _save_state(self) -> None:
         if self.persist:
             store.save_state(self.state["id"], self.state)
-            # MCP calls can change a completed inspection without passing
-            # through the REST review route. Keep its index/report consistent.
+            # Keep the persisted index and report consistent with tool progress.
             row = store.get_inspection_row(self.state["id"])
             if row is not None:
                 import json
@@ -119,6 +118,8 @@ class InspectionToolbelt:
                     "needs_review": counts.get("NEEDS_REVIEW", 0),
                     "not_evaluable": counts.get("NOT_EVALUABLE", 0),
                     "tool_calls_used": self.state["tool_calls_used"],
+                    "duration_s": self.state.get("duration_s"),
+                    "stop_reason": self.state.get("stop_reason"),
                 })
                 store.update_inspection(self.state["id"], status=self.state["status"],
                                         summary=summary, report=self.state.get("report"))

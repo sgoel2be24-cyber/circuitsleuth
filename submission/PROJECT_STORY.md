@@ -36,10 +36,11 @@ flags and accumulated evidence change subsequent tool calls; a result with
 decisive evidence can move directly to verification. This is an active
 perception workflow with human control, without an LLM dependency.
 
-The Docker container builds and runs in Linux CI. We prepared an EC2 deployment
-with encrypted EBS, CloudWatch logs and an authenticated Systems Manager tunnel.
-**Actual AWS execution remains pending:** the account currently redirects EC2
-to its account-setup page. We do not claim local or CI execution as AWS proof.
+The same Docker/OpenCV workload executed on AWS EC2 t3.small in Stockholm
+(`eu-north-1`), using encrypted EBS, CloudWatch and authenticated SSM access.
+The AWS receipt identifies commit `6281c2b`, an actual HTTP inspection, all six
+scenario behavior checks and 72 verified evidence hashes. The final audit fixes
+were checked locally afterward; the older AWS receipt is versioned separately.
 No COOL or AWS Graviton implementation is claimed.
 
 ## Challenges we addressed
@@ -86,8 +87,22 @@ controls. The current system is a supervised demonstration; real manufacturing
 validation, stronger board identity, tiny-defect sensitivity and an integrated
 capture rig remain future work.
 
-Before final submission we still need the actual AWS run, judge-accessible
-source/demo arrangements and the required team demonstration video. Video
-production is deferred by our team for now. The pitch, technical report,
-architecture, dependency locks, testing instructions and source package are
-prepared.
+The source repository is public. The team-selected final video is
+[available unlisted](https://youtu.be/ucM4NiEHInE). A [temporary public synthetic demonstration](https://decided-attributes-southwest-africa.trycloudflare.com)
+runs real OpenCV inspections on the team Mac, with uploads disabled and bounded
+execution. It depends on that computer and tunnel remaining online; AWS
+execution is documented separately. The technical report, architecture,
+dependency locks and source package support local reproduction.
+
+## Team and development tools
+
+Team Update: Shikhar Goel and Ishpreet Singh. Codex assisted research,
+development, testing and preparation. The running application has no LLM
+service dependency; visual evidence drives its deterministic policy.
+
+## Code, report and reproducibility
+
+- [Public source](https://github.com/sgoel2be24-cyber/circuitsleuth)
+- [Technical report](https://github.com/sgoel2be24-cyber/circuitsleuth/blob/main/docs/TECHNICAL_REPORT.md)
+- [AWS execution receipt](https://github.com/sgoel2be24-cyber/circuitsleuth/blob/main/docs/AWS_EXECUTION_2026-10-27.md)
+- [Final audit](https://github.com/sgoel2be24-cyber/circuitsleuth/blob/main/docs/FINAL_CHECK_2026-10-27.md)

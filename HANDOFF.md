@@ -1,6 +1,6 @@
 # CircuitSleuth handoff for Ishpreet
 
-> **27 October 2026 update — Shikhar:** start with the [current submission handoff](submission/SHIKHAR_HANDOFF.md). AWS execution is verified; five code findings and final judge/video/portal delivery remain open. Older AWS-pending or private-repository statements below are historical and superseded by that handoff.
+> **27 October 2026 update — Shikhar:** start with the [current submission handoff](submission/SHIKHAR_HANDOFF.md). AWS execution is verified; the five code findings are fixed and locally tested. Final judge/video/portal delivery remains open. See [final check](docs/FINAL_CHECK_2026-10-27.md). Older AWS-pending or private-repository statements below are historical and superseded by that handoff.
 
 Updated 26 October 2026. Team **Update**: **Shikhar Goel and Ishpreet Singh**.
 

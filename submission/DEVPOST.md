@@ -57,14 +57,14 @@ These metrics describe seeded synthetic images at IoU 0.15, not production
 accuracy. The limited external research check showed a substantial domain gap;
 wrong-board identity checks and small-defect sensitivity remain open work.
 
-## AWS status — replace only after an actual evidenced run
+## AWS execution
 
-The EC2/SSM/CloudWatch deployment template is prepared. It runs the same Docker
-container with encrypted local EBS storage, no inbound application access and
-an authenticated Session Manager demonstration. AWS execution is **pending**
-service checks and the actual deployment. Container
-CI is not AWS proof. The older App Runner template is for existing customers
-only; App Runner is closed to new customers.
+OpenCV 5.0.0 executed real inspections on EC2 t3.small in Stockholm, with
+encrypted EBS, CloudWatch and private SSM access. The dated receipt identifies
+commit `6281c2b`, Docker/source hashes, a passed HTTP smoke, six passed scenario
+checks and 72 verified evidence hashes. See `docs/AWS_EXECUTION_2026-10-27.md`.
+The final audit fixes postdate that AWS run and were validated separately.
+No COOL or Graviton claim is made. A public judge endpoint remains to be provided.
 
 ## Intended award consideration
 
@@ -83,8 +83,7 @@ multi-instance storage.
 
 ## Repository and testing instructions
 
-Repository: https://github.com/sgoel2be24-cyber/circuitsleuth (private; judge
-access must be arranged, or provide the source ZIP).
+Repository: https://github.com/sgoel2be24-cyber/circuitsleuth (public).
 
 Python 3.13, Node 24; install `backend/requirements.lock.txt` and run frontend
 `npm ci`. Follow `README.md`; run `scripts/verify_local.py --include-mcp` with
@@ -94,7 +93,15 @@ glare, alignment failure, missing views and a constrained tool budget.
 
 ## Submission status
 
-Pitch prepared in `submission/PITCH.md`. Video production deferred by the team;
-a judge-accessible video of at most five minutes remains required. AWS proof,
-judge access/live demonstration arrangement, final eligibility/rights review
-and actual Devpost submission remain pending. This file is a draft.
+Pitch: `submission/PITCH.md`. Final team-selected video: https://youtu.be/ucM4NiEHInE.
+It is unlisted and anonymously embeddable. The selected 2m03s file retains
+recording-guide instructions and camera placeholders; the team explicitly
+approved it as final after disclosure. Public synthetic app: https://decided-attributes-southwest-africa.trycloudflare.com.
+It depends on the team Mac remaining online; this public route is separate
+from the private AWS execution. Both Devpost team profiles are present.
+
+Source upload command (portal limit 35 MB):
+`python tools/package_submission.py --portal --out CircuitSleuth-Team-Update-portal.zip`.
+This bundle retains runnable demos, source, tests and research results/provenance;
+bulky research captures and video remain in the public repository. Final
+rules/eligibility/rights confirmation and actual competition submission remain.

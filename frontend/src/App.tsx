@@ -9,6 +9,7 @@ import { api } from './api'
 export default function App() {
   const [cv, setCv] = useState<string | null>(null)
   const [backendOk, setBackendOk] = useState<boolean | null>(null)
+  const [publicDemo, setPublicDemo] = useState(false)
   const [clock, setClock] = useState('')
   const { pathname } = useLocation()
   const workspace = pathname.startsWith('/inspections/')
@@ -19,7 +20,7 @@ export default function App() {
   }, [])
   useEffect(() => {
     let active = true
-    const check = () => api.health().then(h => { if (active) { setCv(h.opencv_version); setBackendOk(true) } }).catch(() => { if (active) setBackendOk(false) })
+    const check = () => api.health().then(h => { if (active) { setCv(h.opencv_version); setBackendOk(true); setPublicDemo(h.public_demo === true) } }).catch(() => { if (active) setBackendOk(false) })
     void check(); const t = setInterval(check, 15000)
     return () => { active = false; clearInterval(t) }
   }, [])
@@ -45,7 +46,8 @@ export default function App() {
           <div className="topbar-status"><span className="mono time-display">{clock} <span>LOCAL</span></span><span className={`engine-badge ${backendOk === false ? 'offline' : ''}`}><span className="status-light"/>{backendOk ? `OpenCV ${cv}` : backendOk === false ? 'Engine offline' : 'Connecting…'}</span><span className="operator-avatar" title="Local operator">CS</span></div>
         </header>
         <main id="main-content" className="main-content">
-          <Routes><Route path="/" element={<Dashboard/>}/><Route path="/new" element={<NewInspection/>}/><Route path="/inspections/:id" element={<Workspace key={pathname}/>}/><Route path="*" element={<div className="page-container"><h1>Page not found</h1><Link className="primary-button mt-5" to="/">Back to overview</Link></div>}/></Routes>
+          {publicDemo && <p role="status" className="panel mx-4 mt-3 px-4 py-2 text-xs text-amber-100">Temporary public demo · synthetic boards only · personal uploads disabled. Runs are shared and may reset. Available while the team’s demo computer is online.</p>}
+          <Routes><Route path="/" element={<Dashboard/>}/><Route path="/new" element={<NewInspection publicDemo={publicDemo}/>}/><Route path="/inspections/:id" element={<Workspace key={pathname} publicDemo={publicDemo}/>}/><Route path="*" element={<div className="page-container"><h1>Page not found</h1><Link className="primary-button mt-5" to="/">Back to overview</Link></div>}/></Routes>
         </main>
       </div>
     </div>

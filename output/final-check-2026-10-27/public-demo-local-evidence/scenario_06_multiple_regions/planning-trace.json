@@ -1,0 +1,392 @@
+[
+  {
+    "event_index": 8,
+    "region_id": "R04",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "message": "Planned adaptive_threshold for R04 (priority 5.27; 5 open region(s), budget 0/7 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 5.268,
+      "score_breakdown": {
+        "uncertainty": 1.5,
+        "severity": 0.639,
+        "evidence_quality": 0.638,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 5
+    }
+  },
+  {
+    "event_index": 10,
+    "region_id": "R03",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9
+    ],
+    "message": "Planned adaptive_threshold for R03 (priority 5.25; 5 open region(s), budget 1/7 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 5.254,
+      "score_breakdown": {
+        "uncertainty": 1.5,
+        "severity": 0.634,
+        "evidence_quality": 0.645,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 5
+    }
+  },
+  {
+    "event_index": 12,
+    "region_id": "R05",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11
+    ],
+    "message": "Planned adaptive_threshold for R05 (priority 4.83; 5 open region(s), budget 2/7 tool calls).",
+    "evidence": {
+      "tool": "adaptive_threshold",
+      "priority_score": 4.829,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.684,
+        "evidence_quality": 0.022,
+        "info_gain": 1.0,
+        "cost": 0.3,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 5
+    }
+  },
+  {
+    "event_index": 14,
+    "region_id": "R04",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13
+    ],
+    "message": "Planned alternate_view for R04 (priority 4.35; 5 open region(s), budget 3/7 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.348,
+      "score_breakdown": {
+        "uncertainty": 1.5,
+        "severity": 0.639,
+        "evidence_quality": 0.638,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 5
+    }
+  },
+  {
+    "event_index": 16,
+    "region_id": "R04",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "message": "Planned verify for R04 (priority 4.79; 5 open region(s), budget 4/7 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.788,
+      "score_breakdown": {
+        "uncertainty": 1.5,
+        "severity": 0.639,
+        "evidence_quality": 0.638,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 1.6,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 5
+    }
+  },
+  {
+    "event_index": 18,
+    "region_id": "R03",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17
+    ],
+    "message": "Planned alternate_view for R03 (priority 4.33; 4 open region(s), budget 4/7 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.334,
+      "score_breakdown": {
+        "uncertainty": 1.5,
+        "severity": 0.634,
+        "evidence_quality": 0.645,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 4
+    }
+  },
+  {
+    "event_index": 20,
+    "region_id": "R03",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
+    "message": "Planned verify for R03 (priority 4.77; 4 open region(s), budget 5/7 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.774,
+      "score_breakdown": {
+        "uncertainty": 1.5,
+        "severity": 0.634,
+        "evidence_quality": 0.645,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 1.6,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 4
+    }
+  },
+  {
+    "event_index": 22,
+    "region_id": "R01",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21
+    ],
+    "message": "Planned alternate_view for R01 (priority 4.14; 3 open region(s), budget 5/7 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.141,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.759,
+        "evidence_quality": 0.873,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 3
+    }
+  },
+  {
+    "event_index": 24,
+    "region_id": "R01",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "message": "Planned verify for R01 (priority 4.58; 3 open region(s), budget 6/7 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.581,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.759,
+        "evidence_quality": 0.873,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 3
+    }
+  },
+  {
+    "event_index": 26,
+    "region_id": "R02",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25
+    ],
+    "message": "Planned alternate_view for R02 (priority 4.11; 2 open region(s), budget 6/7 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 4.111,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.808,
+        "evidence_quality": 1.0,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.0,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 2
+    }
+  },
+  {
+    "event_index": 28,
+    "region_id": "R02",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27
+    ],
+    "message": "Planned verify for R02 (priority 4.55; 2 open region(s), budget 7/7 tool calls).",
+    "evidence": {
+      "tool": "verify",
+      "priority_score": 4.551,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.808,
+        "evidence_quality": 1.0,
+        "info_gain": 1.0,
+        "cost": 0.1,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 1.0
+      },
+      "open_regions": 2
+    }
+  },
+  {
+    "event_index": 30,
+    "region_id": "R05",
+    "observation_event_indices": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29
+    ],
+    "message": "Planned alternate_view for R05 (priority 3.91; 1 open region(s), budget 7/7 tool calls).",
+    "evidence": {
+      "tool": "alternate_view",
+      "priority_score": 3.909,
+      "score_breakdown": {
+        "uncertainty": 1.0,
+        "severity": 0.684,
+        "evidence_quality": 0.022,
+        "info_gain": 1.0,
+        "cost": 0.5,
+        "repeat_penalty": 0.8,
+        "closeout_bonus": 0.0
+      },
+      "open_regions": 1
+    }
+  }
+]

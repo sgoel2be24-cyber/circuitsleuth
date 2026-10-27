@@ -17,7 +17,7 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   health: () =>
-    req<{ status: string; opencv_version: string; version: string }>('/api/health'),
+    req<{ status: string; opencv_version: string; version: string; public_demo?: boolean }>('/api/health'),
   systemInfo: () =>
     req<Record<string, unknown>>('/api/system/info'),
   scenarios: () => req<Scenario[]>('/api/demo/scenarios'),
@@ -44,10 +44,13 @@ export const api = {
   addView: (id: string, file: File) => {
     const fd = new FormData()
     fd.set('view2', file)
-    return req<{ ok: boolean }>(`/api/inspections/${id}/views`, { method: 'POST', body: fd })
+    return req<{ ok: boolean; inspection_id: string }>(`/api/inspections/${id}/views`, { method: 'POST', body: fd })
   },
-  rerun: (id: string) =>
-    req<{ ok: boolean; inspection_id: string }>(`/api/inspections/${id}/rerun`, { method: 'POST' }),
+  rerun: (id: string, file?: File) => {
+    const fd = new FormData()
+    if (file) fd.set('view2', file)
+    return req<{ ok: boolean; inspection_id: string }>(`/api/inspections/${id}/rerun`, { method: 'POST', body: fd })
+  },
   scenarioImage: (scenarioId: string, which: string = 'test') =>
     `/api/demo/scenarios/${scenarioId}/images/${which}`,
   submitReview: (id: string, regionId: string, decision: 'confirmed' | 'rejected', note: string) =>

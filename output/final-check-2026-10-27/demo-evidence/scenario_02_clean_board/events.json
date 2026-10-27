@@ -1,0 +1,117 @@
+[
+  {
+    "seq": 1,
+    "ts": 1793074465.5571258,
+    "phase": "OBSERVE",
+    "type": "inspection_started",
+    "message": "Observation acquired: reference and test images loaded, one secondary view available.",
+    "evidence": {
+      "has_secondary_view": true,
+      "scenario_id": "scenario_02_clean_board"
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 2,
+    "ts": 1793074465.742448,
+    "phase": "ALIGN",
+    "type": "registration_completed",
+    "message": "Aligned test to reference with SIFT (147 inliers, residual 0.195px, quality good).",
+    "evidence": {
+      "detector": "SIFT",
+      "keypoints_reference": 699,
+      "keypoints_test": 748,
+      "attempts": [
+        "SIFT",
+        "ECC-refine"
+      ],
+      "good_matches": 200,
+      "inliers": 147,
+      "inlier_ratio": 0.735,
+      "mean_residual_px": 0.195,
+      "coverage_score": 0.688,
+      "photometric_score": 0.8945,
+      "quality": "good",
+      "failure_reason": null,
+      "ecc_refine_correlation": 0.8822,
+      "warp_matrix": [
+        [
+          1.0000081062316895,
+          -4.497094778344035e-05,
+          0.0029752070549875498
+        ],
+        [
+          6.083159860281739e-06,
+          0.9999833106994629,
+          0.0003631456638686359
+        ]
+      ]
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 3,
+    "ts": 1793074465.906879,
+    "phase": "DETECT",
+    "type": "detection_completed",
+    "message": "Detected 0 suspicious region(s).",
+    "evidence": {
+      "candidate_count": 0,
+      "params": {
+        "min_mean_diff": 10.0,
+        "min_structural_mismatch": 0.25,
+        "diff_percentile": 97.0,
+        "morph_open_ksize": 3,
+        "morph_close_ksize": 5,
+        "morph_bridge_ksize": 17,
+        "ncc_window": 15,
+        "diff_threshold": 29.99,
+        "otsu_threshold": 15.0
+      }
+    },
+    "region_id": null,
+    "artifacts": [
+      "diff_heatmap",
+      "candidate_overlay"
+    ]
+  },
+  {
+    "seq": 4,
+    "ts": 1793074465.907788,
+    "phase": "DECIDE",
+    "type": "inspection_completed",
+    "message": "No suspicious regions detected \u2014 board appears clean under current observation quality.",
+    "evidence": {
+      "candidate_count": 0
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 5,
+    "ts": 1793074465.9079978,
+    "phase": "DECIDE",
+    "type": "report_generated",
+    "message": "Inspection report generated: 0 regions assessed.",
+    "evidence": {
+      "verdict_counts": {}
+    },
+    "region_id": null,
+    "artifacts": []
+  },
+  {
+    "seq": 6,
+    "ts": 1793074465.908726,
+    "phase": "DECIDE",
+    "type": "report_ready",
+    "message": "Report ready in 0.352s using 0 tool call(s).",
+    "evidence": {
+      "duration_s": 0.352,
+      "tool_calls": 0
+    },
+    "region_id": null,
+    "artifacts": []
+  }
+]

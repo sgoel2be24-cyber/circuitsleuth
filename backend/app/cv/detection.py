@@ -104,9 +104,10 @@ def detect_candidates(
 
     # Observation validity: pixels at the rails are saturated/clipped (glare,
     # shadow) — the clip knee is a nonlinear edge that no smooth illumination
-    # model removes, so exclude them and a wide halo from detection entirely.
+    # model removes, so exclude them and a one-pixel halo from detection.
+    # A wider halo fragmented real regions in the seeded regression benchmark.
     obs_valid = ((aligned_test_gray < 250) & (aligned_test_gray > 5)).astype(np.uint8) * 255
-    obs_valid = cv2.dilate(obs_valid, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (31, 31)))
+    obs_valid = cv2.erode(obs_valid, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)))
 
     # illumination-robust structural mismatch; windows with essentially no
     # reference structure carry no evidence, so their mismatch is zeroed.

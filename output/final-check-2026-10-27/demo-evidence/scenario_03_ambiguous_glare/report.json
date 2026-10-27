@@ -1,0 +1,242 @@
+{
+  "inspection_id": "ins_a120f379d8c6",
+  "generated_at": "2026-10-27T09:44:26",
+  "registration": {
+    "detector": "SIFT",
+    "keypoints_reference": 708,
+    "keypoints_test": 701,
+    "good_matches": 251,
+    "inliers": 209,
+    "inlier_ratio": 0.8327,
+    "mean_residual_px": 0.15,
+    "coverage_score": 0.75,
+    "warp_matrix": [
+      [
+        1.0000063180923462,
+        -8.49315692903474e-05,
+        -1.699076710792724e-05
+      ],
+      [
+        -1.2458972378226463e-05,
+        0.9999968409538269,
+        0.0016547952545806766
+      ]
+    ],
+    "attempts": [
+      "SIFT",
+      "ECC-refine"
+    ],
+    "quality": "good",
+    "failure_reason": null
+  },
+  "verdicts": [
+    {
+      "region_id": "R01",
+      "bbox": {
+        "x": 331,
+        "y": 326,
+        "w": 8,
+        "h": 8
+      },
+      "status": "CONFIRMED_DEFECT",
+      "label": "spur_or_spurious_copper_suspected",
+      "label_basis": "small added copper per detection: new edges present in test",
+      "difference_score": 0.4472,
+      "structural_mismatch_score": 0.4222,
+      "evidence": [
+        {
+          "evidence_kind": "illumination_confound",
+          "source_tool": "adaptive_threshold",
+          "summary": "Adaptive-threshold changed-pixel fraction=40.3%, local mismatch=0.81.",
+          "metrics": {
+            "changed_frac": 0.4028,
+            "mean_mismatch": 0.8082,
+            "illumination_confound_likely": false
+          },
+          "supports_defect": true,
+          "artifact": "r01_adaptive_binary_ref_test",
+          "timestamp": 1793074466.561806,
+          "duration_s": 0.0,
+          "honesty": "reprocess"
+        },
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view shows the anomaly (mean_diff=43.93, mismatch=0.8197).",
+          "metrics": {
+            "mean_diff": 43.93,
+            "max_diff": 100.0,
+            "mean_mismatch": 0.8197,
+            "changed_frac": 0.5833,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": true,
+          "artifact": "r01_independent_view_ref_test_diff",
+          "timestamp": 1793074466.595907,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "adaptive_threshold",
+        "alternate_view"
+      ],
+      "notes": []
+    },
+    {
+      "region_id": "R02",
+      "bbox": {
+        "x": 165,
+        "y": 340,
+        "w": 85,
+        "h": 12
+      },
+      "status": "NEEDS_REVIEW",
+      "label": "short_or_spurious_copper_suspected",
+      "label_basis": "added copper per detection: added copper on featureless background",
+      "difference_score": 0.239,
+      "structural_mismatch_score": 0.5614,
+      "evidence": [
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view does not show the anomaly (mean_diff=8.85, mismatch=1.3056).",
+          "metrics": {
+            "mean_diff": 8.85,
+            "max_diff": 21.0,
+            "mean_mismatch": 1.3056,
+            "changed_frac": 0.0042,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": false,
+          "artifact": "r02_independent_view_ref_test_diff",
+          "timestamp": 1793074466.571462,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "alternate_view"
+      ],
+      "notes": [
+        "Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view."
+      ]
+    },
+    {
+      "region_id": "R03",
+      "bbox": {
+        "x": 171,
+        "y": 247,
+        "w": 72,
+        "h": 13
+      },
+      "status": "NEEDS_REVIEW",
+      "label": "short_or_spurious_copper_suspected",
+      "label_basis": "added copper per detection: added copper on featureless background",
+      "difference_score": 0.1983,
+      "structural_mismatch_score": 0.6368,
+      "evidence": [
+        {
+          "evidence_kind": "independent_view",
+          "source_tool": "alternate_view",
+          "summary": "Independent view does not show the anomaly (mean_diff=1.8, mismatch=0.6878).",
+          "metrics": {
+            "mean_diff": 1.8,
+            "max_diff": 7.0,
+            "mean_mismatch": 0.6878,
+            "changed_frac": 0.0,
+            "secondary_view_available": true,
+            "comparison_reliable": true
+          },
+          "supports_defect": false,
+          "artifact": "r03_independent_view_ref_test_diff",
+          "timestamp": 1793074466.583346,
+          "duration_s": 0.0,
+          "honesty": "alternate_view"
+        }
+      ],
+      "tools_used": [
+        "alternate_view"
+      ],
+      "notes": [
+        "Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view."
+      ]
+    },
+    {
+      "region_id": "R04",
+      "bbox": {
+        "x": 147,
+        "y": 280,
+        "w": 117,
+        "h": 42
+      },
+      "status": "CLEARED",
+      "label": null,
+      "label_basis": "illumination confound",
+      "difference_score": 0.3027,
+      "structural_mismatch_score": 0.258,
+      "evidence": [
+        {
+          "evidence_kind": "illumination_confound",
+          "source_tool": "adaptive_threshold",
+          "summary": "Adaptive-threshold changed-pixel fraction=0.0%, local mismatch=0.96 \u2014 consistent with pure illumination confound.",
+          "metrics": {
+            "changed_frac": 0.0,
+            "mean_mismatch": 0.957,
+            "illumination_confound_likely": true
+          },
+          "supports_defect": false,
+          "artifact": "r04_adaptive_binary_ref_test",
+          "timestamp": 1793074466.550669,
+          "duration_s": 0.001,
+          "honesty": "reprocess"
+        }
+      ],
+      "tools_used": [
+        "adaptive_threshold"
+      ],
+      "notes": [
+        "Difference is high but structural mismatch is low and adaptive-threshold analysis found no geometry change \u2014 consistent with glare/shadow."
+      ]
+    }
+  ],
+  "review_requests": [
+    {
+      "region_id": "R02",
+      "reason": "Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view.",
+      "requested_action": "operator confirmation",
+      "created_at": "2026-10-27T09:44:26",
+      "bbox": [
+        165,
+        340,
+        85,
+        12
+      ],
+      "resolved": null
+    },
+    {
+      "region_id": "R03",
+      "reason": "Conflicting evidence: baseline difference is present but the anomaly did not reproduce in the independent view.",
+      "requested_action": "operator confirmation",
+      "created_at": "2026-10-27T09:44:26",
+      "bbox": [
+        171,
+        247,
+        72,
+        13
+      ],
+      "resolved": null
+    }
+  ],
+  "tool_calls_used": 5,
+  "iterations": 10,
+  "stop_reason": "all_regions_decided",
+  "limitations": [
+    "Synthetic demo data: benchmark numbers describe the generated dataset, not production PCBs.",
+    "Anomaly detection is reference-based; classification labels are heuristic and hedged.",
+    "Heuristic scores are quality measures, not calibrated probabilities.",
+    "A crop-based secondary tool reprocesses existing pixels; only an alternate view adds new optical evidence."
+  ]
+}

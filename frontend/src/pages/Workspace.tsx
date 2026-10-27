@@ -10,7 +10,7 @@ import { ReportView } from './Report'
 import { Link } from 'react-router-dom'
 import { Icon } from '../components/Icon'
 
-export function Workspace() {
+export function Workspace({ publicDemo = false }: { publicDemo?: boolean }) {
   const { id = '' } = useParams()
   const nav = useNavigate()
   const [ins, setIns] = useState<Inspection | null>(null)
@@ -20,22 +20,56 @@ export function Workspace() {
   const [error, setError] = useState<string | null>(null)
   const [rerunning, setRerunning] = useState(false)
   const [stopping, setStopping] = useState(false)
-  const startedRef = useRef(false)
+  const [starting, setStarting] = useState(false)
+  const [startError, setStartError] = useState<string | null>(null)
+  const startedRef = useRef<string | null>(null)
   const runStatus = ins?.status
+
+  useEffect(() => {
+    let active = true
+    // Completed runs may open after the last SSE event, or through a proxy
+    // without SSE. Load persisted history on entry and status transitions.
+    api.getEvents(id).then(next => {
+      if (!active) return
+      setEvents(prev => {
+        const merged = new Map(prev.map(ev => [ev.seq, ev]))
+        next.forEach(ev => merged.set(ev.seq, ev))
+        return [...merged.values()].sort((a, b) => a.seq - b.seq)
+      })
+    })
+    return () => { active = false }
+  }, [id, runStatus])
 
   const refresh = useCallback(() => {
     api.getInspection(id).then((d) => { setIns(d); setError(null) }).catch((e) => setError(e.message))
   }, [id])
 
+  const startInspection = useCallback(async () => {
+    if (startedRef.current === id) return
+    startedRef.current = id
+    setStarting(true)
+    setStartError(null)
+    try {
+      await api.start(id)
+      refresh()
+    } catch (e) {
+      startedRef.current = null
+      setStartError(e instanceof Error ? e.message : String(e))
+      // A lost response may still have started the server-side task.
+      refresh()
+    } finally {
+      setStarting(false)
+    }
+  }, [id, refresh])
+
   useEffect(() => {
     api.getInspection(id).then((d) => {
       setIns(d)
-      if (d.status === 'created' && !startedRef.current) {
-        startedRef.current = true
-        api.start(id).catch((e) => setError(e.message))
+      if (d.status === 'created' && d.execution_mode !== 'mcp') {
+        void startInspection()
       }
     }).catch((e) => setError(e.message))
-  }, [id])
+  }, [id, startInspection])
 
   useEffect(() => {
     const es = streamEvents(
@@ -81,7 +115,7 @@ export function Workspace() {
     )
   }
 
-  const running = ins.status === 'running' || ins.status === 'created'
+  const running = ins.status === 'running'
   const selectedCandidate = selected ? ins.candidates[selected] : null
   const heatUrl = ins.detection?.artifacts?.diff_heatmap
     ? api.artifactUrl(id, ins.detection.artifacts.diff_heatmap)
@@ -102,8 +136,7 @@ export function Workspace() {
     setRerunning(true)
     setError(null)
     try {
-      if (file) await api.addView(id, file)
-      const r = await api.rerun(id)
+      const r = await api.rerun(id, file)
       nav(`/inspections/${r.inspection_id}`)
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e))
@@ -118,6 +151,8 @@ export function Workspace() {
         <div className="flex items-center gap-3"><span className="mono text-[10px] text-slate-400">{['synthetic_demo', 'demo'].includes(ins.summary?.source ?? '') ? 'SYNTHETIC DEMONSTRATION' : ins.summary?.source?.toUpperCase()}</span>{running && <button disabled={stopping} onClick={async () => { setStopping(true); try { await api.abort(id); refresh() } catch (e) { setError(e instanceof Error ? e.message : String(e)) } finally { setStopping(false) } }} className="rounded border border-red-300/30 bg-red-400/5 px-3 py-2 text-[11px] text-red-200">{stopping ? 'Stopping…' : 'Stop inspection'}</button>}{!running && <button disabled={rerunning} onClick={() => void rerunInspection()} className="viewer-button disabled:opacity-50">{rerunning ? 'Re-running…' : 'Re-run inspection'}</button>}<button onClick={() => setTab('report')} className="viewer-button flex items-center gap-2"><Icon name="download" size={14}/>Report</button></div>
       </div>
       {error && <div role="alert" className="error-banner"><span>{error}</span><button onClick={refresh}>Retry</button></div>}
+      {ins.status === 'created' && ins.execution_mode !== 'mcp' && <div role={startError ? 'alert' : 'status'} className="error-banner"><span>{starting ? 'Starting inspection…' : startError ?? 'Inspection has not started.'}</span><button disabled={starting} onClick={() => void startInspection()}>{starting ? 'Starting…' : 'Retry Start'}</button></div>}
+      {ins.status === 'created' && ins.execution_mode === 'mcp' && <div role="status" className="panel mb-3 p-3 text-sm text-slate-300">This inspection is being driven by an external MCP client. Continue that session or create a fresh re-run.</div>}
       {/* ------------------------------------------------------- header strip */}
       <div className="ticked panel mb-3 flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-2.5">
         <div className="flex items-center gap-2.5">
@@ -170,7 +205,7 @@ export function Workspace() {
       </div>
 
       {/* missing-view operator loop */}
-      {!ins.images.view2 && ins.status === 'completed' && ins.review_requests.some(r => !r.resolved) && (
+      {!publicDemo && !ins.images.view2 && ins.status === 'completed' && ins.review_requests.some(r => !r.resolved) && (
         <div className="ticked panel mb-3 flex flex-wrap items-center gap-3 border-violet-400/25 px-4 py-2.5">
           <span className="label-eyebrow text-violet-300/90">operator loop open</span>
           <span className="text-[12px] text-slate-400">

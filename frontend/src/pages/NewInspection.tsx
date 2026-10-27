@@ -4,7 +4,7 @@ import { api } from '../api'
 import type { Scenario } from '../types'
 import { Icon } from '../components/Icon'
 
-export function NewInspection() {
+export function NewInspection({ publicDemo = false }: { publicDemo?: boolean }) {
   const [scenarios, setScenarios] = useState<Scenario[]>([])
   const [selected, setSelected] = useState<string | null>(null)
   const [budget, setBudget] = useState(12)
@@ -35,7 +35,7 @@ export function NewInspection() {
     }
   }
 
-  const canStart = selected || (files.reference && files.test)
+  const canStart = selected || (!publicDemo && files.reference && files.test)
 
   return (
     <div className="page-container">
@@ -45,7 +45,7 @@ export function NewInspection() {
           Give uncertainty a closer look.
         </h1>
         <p className="mt-1 max-w-2xl text-[13px] text-slate-400">
-          Pick a seeded scenario, or upload your own reference/test pair. The agent never sees
+          {publicDemo ? 'Pick a seeded scenario. ' : 'Pick a seeded scenario, or upload your own reference/test pair. '}The agent never sees
           ground truth — it only gets the images, its OpenCV pipeline, and a tool budget.
         </p></div><span className="hidden rounded-lg border border-[#2b443f] bg-[#152622] p-3 text-emerald-200 md:block"><Icon name="scan" size={25}/></span>
       </div>
@@ -109,7 +109,7 @@ export function NewInspection() {
             })}
           </div>
 
-          <div className="label-eyebrow rise rise-2 mt-7">or bring your own board</div>
+          {!publicDemo && <><div className="label-eyebrow rise rise-2 mt-7">or bring your own board</div>
           <div className="ticked panel rise rise-2 mt-3 grid gap-4 p-4 md:grid-cols-3">
             <DropSlot
               label="reference image"
@@ -131,7 +131,7 @@ export function NewInspection() {
               file={files.view2}
               onFile={(f) => { setFiles((p) => ({ ...p, view2: f })); setSelected(null) }}
             />
-          </div>
+          </div></>}
         </div>
 
         {/* config rail */}
@@ -139,7 +139,7 @@ export function NewInspection() {
           <div className="ticked panel rise rise-2 p-4">
             <div className="label-eyebrow">MISSION CONFIGURATION</div>
             <h2 className="mt-3 text-lg font-medium text-slate-100">{selected ? scenarios.find(s => s.id === selected)?.title : files.reference || files.test ? 'Custom board inspection' : 'Choose your evidence'}</h2>
-            <p className="mt-2 text-[11px] leading-relaxed text-slate-400">{selected ? 'Synthetic demonstration. The agent receives images, not annotations or expected outcomes.' : 'Select a scenario, or supply a defect-free reference and a board to inspect.'}</p>
+            <p className="mt-2 text-[11px] leading-relaxed text-slate-400">{selected ? 'Synthetic demonstration. The agent receives images, not annotations or expected outcomes.' : publicDemo ? 'Select a synthetic scenario to inspect.' : 'Select a scenario, or supply a defect-free reference and a board to inspect.'}</p>
             <div className="hud-divider my-4"/>
             <div className="mt-4 flex items-baseline justify-between">
               <span className="text-xs text-slate-400">tool-call budget</span>
@@ -149,7 +149,7 @@ export function NewInspection() {
               type="range"
               aria-label="Tool-call budget"
               min={3}
-              max={30}
+              max={publicDemo ? 12 : 30}
               value={budget}
               onChange={(e) => setBudget(Number(e.target.value))}
               className="mt-2 w-full accent-cyan-400"

@@ -48,5 +48,10 @@ or any MCP client.
 # speaks MCP over stdio; create an inspection first via the REST API
 ```
 
-Note: run MCP sessions against inspections that are not currently executing in
-the API process (the server refuses `running` inspections to protect state).
+Create an inspection through REST, then use MCP mutators before starting it
+through REST. The first mutating MCP tool claims the run as an MCP session;
+REST `/start` then rejects it. `generate_inspection_report` finalizes the MCP
+session as completed and escalates unfinished regions. Running, completed and
+failed runs reject MCP mutation; context remains readable. Create a new rerun
+for further processing. Per-inspection OS locks reject overlapping REST/MCP
+writers, including writers in different processes.
